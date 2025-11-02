@@ -39,6 +39,8 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,8 +91,6 @@ import com.helger.phase2.util.http.IAS2HttpResponseHandler;
 import com.helger.phase2.util.http.IAS2IncomingMDNCallback;
 
 import jakarta.activation.DataSource;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -111,7 +111,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    * @param aModule
    *        The receiver module for attributes, session etc. May not be <code>null</code>.
    */
-  public AS2MDNReceiverHandler (@Nonnull final AS2MDNReceiverModule aModule)
+  public AS2MDNReceiverHandler (@NonNull final AS2MDNReceiverModule aModule)
   {
     m_aReceiverModule = ValueEnforcer.notNull (aModule, "Module");
   }
@@ -119,7 +119,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
   /**
    * @return The receiver module passed in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final AS2MDNReceiverModule getModule ()
   {
     return m_aReceiverModule;
@@ -129,7 +129,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    * @return The current MIC matching handler. Never <code>null</code>.
    * @since 4.4.0
    */
-  @Nonnull
+  @NonNull
   public final IMICMatchingHandler getMICMatchingHandler ()
   {
     return m_aMICMatchingHandler;
@@ -142,7 +142,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    *        The new handler. May not be <code>null</code>.
    * @since 4.4.0
    */
-  public final void setMICMatchingHandler (@Nonnull final IMICMatchingHandler aMICMatchingHandler)
+  public final void setMICMatchingHandler (@NonNull final IMICMatchingHandler aMICMatchingHandler)
   {
     ValueEnforcer.notNull (aMICMatchingHandler, "MICMatchingHandler");
     m_aMICMatchingHandler = aMICMatchingHandler;
@@ -181,7 +181,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    * @since 4.10.2
    */
   @Nullable
-  protected File getPendingInfoFile (@Nonnull final AS2Message aMsg) throws AS2Exception
+  protected File getPendingInfoFile (@NonNull final AS2Message aMsg) throws AS2Exception
   {
     // use original message id. to open the pending information file
     // from pendinginfo folder.
@@ -213,7 +213,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    */
   @Nullable
   @OverrideOnDemand
-  protected InputStream openPendingInfoStreamForReading (@Nonnull final AS2Message aMsg) throws AS2Exception
+  protected InputStream openPendingInfoStreamForReading (@NonNull final AS2Message aMsg) throws AS2Exception
   {
     final File aPendingInfoFile = getPendingInfoFile (aMsg);
     if (aPendingInfoFile == null)
@@ -245,7 +245,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    * @since 4.10.2
    */
   @OverrideOnDemand
-  protected ESuccess deletePendingInfoStream (@Nonnull final AS2Message aMsg) throws AS2Exception
+  protected ESuccess deletePendingInfoStream (@NonNull final AS2Message aMsg) throws AS2Exception
   {
     final File aPendingInfoFile = getPendingInfoFile (aMsg);
 
@@ -272,7 +272,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    * @since 4.10.2
    */
   @OverrideOnDemand
-  protected ESuccess deletePendingFile (@Nonnull final AS2Message aMsg, @Nonnull final String sPendingFilename)
+  protected ESuccess deletePendingFile (@NonNull final AS2Message aMsg, @NonNull final String sPendingFilename)
                                                                                                                 throws AS2Exception
   {
     final File aPendingFile = new File (sPendingFilename);
@@ -295,7 +295,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    * @throws AS2Exception
    *         In case of error; e.g. MIC mismatch
    */
-  public boolean checkAsyncMDN (@Nonnull final AS2Message aMsg) throws AS2Exception
+  public boolean checkAsyncMDN (@NonNull final AS2Message aMsg) throws AS2Exception
   {
     try
     {
@@ -376,10 +376,10 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    * @throws IOException
    *         In case of IO error
    */
-  protected final void receiveMDN (@Nonnull final AS2Message aMsg,
+  protected final void receiveMDN (@NonNull final AS2Message aMsg,
                                    final byte [] aData,
-                                   @Nonnull final IAS2HttpResponseHandler aResponseHandler,
-                                   @Nonnull final AS2ResourceHelper aResHelper) throws AS2Exception, IOException
+                                   @NonNull final IAS2HttpResponseHandler aResponseHandler,
+                                   @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception, IOException
   {
     try
     {
@@ -470,8 +470,8 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
     }
   }
 
-  public void reparse (@Nonnull final AS2Message aMsg,
-                       @Nonnull final AS2HttpClient aHttpClient,
+  public void reparse (@NonNull final AS2Message aMsg,
+                       @NonNull final AS2HttpClient aHttpClient,
                        @Nullable final IHTTPIncomingDumper aIncomingDumper) throws AS2Exception
   {
     // Create a MessageMDN and copy HTTP headers
@@ -525,10 +525,10 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
     aMDN.partnership ().setReceiverAS2ID (aMDN.getHeader (CHttpHeader.AS2_TO));
   }
 
-  public void handleIncomingMessage (@Nonnull @Nonempty final String sClientInfo,
-                                     @Nonnull final DataSource aMsgData,
-                                     @Nonnull final AS2Message aMsg,
-                                     @Nonnull final IAS2HttpResponseHandler aResponseHandler)
+  public void handleIncomingMessage (@NonNull @Nonempty final String sClientInfo,
+                                     @NonNull final DataSource aMsgData,
+                                     @NonNull final AS2Message aMsg,
+                                     @NonNull final IAS2HttpResponseHandler aResponseHandler)
   {
     // Read in the message request, headers, and data
     try (final AS2ResourceHelper aResHelper = new AS2ResourceHelper ())
@@ -560,7 +560,7 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
     }
   }
 
-  public void handle (@Nonnull final AbstractActiveNetModule aOwner, @Nonnull final Socket aSocket)
+  public void handle (@NonNull final AbstractActiveNetModule aOwner, @NonNull final Socket aSocket)
   {
     final String sClientInfo = getClientInfo (aSocket);
     LOGGER.info ("incoming connection for receiving AsyncMDN [" + sClientInfo + "]");

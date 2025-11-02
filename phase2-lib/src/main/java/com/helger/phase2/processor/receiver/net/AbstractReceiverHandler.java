@@ -36,12 +36,12 @@ import java.net.Socket;
 import java.security.cert.X509Certificate;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.phase2.util.dump.IHTTPIncomingDumper;
 import com.helger.phase2.util.http.HTTPHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for Message and MDN receive handlers.
@@ -72,7 +72,7 @@ public abstract class AbstractReceiverHandler implements INetModuleHandler
    * @return this for chaining
    * @since 4.4.1
    */
-  @Nonnull
+  @NonNull
   public final AbstractReceiverHandler setVerificationCertificateConsumer (@Nullable final Consumer <X509Certificate> aVerificationCertificateConsumer)
   {
     m_aVerificationCertificateConsumer = aVerificationCertificateConsumer;
@@ -122,9 +122,9 @@ public abstract class AbstractReceiverHandler implements INetModuleHandler
     m_aHttpIncomingDumper = aHttpIncomingDumper;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getClientInfo (@Nonnull final Socket aSocket)
+  public String getClientInfo (@NonNull final Socket aSocket)
   {
     return aSocket.getInetAddress ().getHostAddress () + ":" + aSocket.getPort ();
   }

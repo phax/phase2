@@ -152,7 +152,7 @@
               com.helger.phase2.util.http,
               com.helger.phase2.util.javamail
             </Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
             <Include-Resource>{maven-resources},phase2-version.properties=target/classes/phase2-version.properties</Include-Resource>
           </instructions>
         </configuration>

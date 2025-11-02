@@ -35,10 +35,10 @@ package com.helger.phase2.server.util;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.cache.regex.RegExHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * @author joseph mcverry
@@ -48,8 +48,8 @@ public final class ByteCoder
   private ByteCoder ()
   {}
 
-  @Nonnull
-  public static String encode (@Nonnull final String inStr)
+  @NonNull
+  public static String encode (@NonNull final String inStr)
   {
     final StringBuilder aSB = new StringBuilder (inStr.length () * 3);
     for (final byte element : inStr.getBytes (StandardCharsets.ISO_8859_1))
@@ -60,8 +60,8 @@ public final class ByteCoder
     return aSB.toString ();
   }
 
-  @Nonnull
-  public static String decode (@Nonnull final String inStr)
+  @NonNull
+  public static String decode (@NonNull final String inStr)
   {
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (inStr.length () / 3))
     {

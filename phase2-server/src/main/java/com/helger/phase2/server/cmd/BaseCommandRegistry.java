@@ -32,6 +32,7 @@
  */
 package com.helger.phase2.server.cmd;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,14 +42,12 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.phase2.AbstractDynamicComponent;
 
-import jakarta.annotation.Nonnull;
-
 public class BaseCommandRegistry extends AbstractDynamicComponent implements ICommandRegistry
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (BaseCommandRegistry.class);
   private final ICommonsOrderedMap <String, ICommand> m_aCommands = new CommonsLinkedHashMap <> ();
 
-  public void addCommand (@Nonnull final ICommand aCommand)
+  public void addCommand (@NonNull final ICommand aCommand)
   {
     ValueEnforcer.notNull (aCommand, "Command");
     final String sCommandName = aCommand.getName ();
@@ -62,7 +61,7 @@ public class BaseCommandRegistry extends AbstractDynamicComponent implements ICo
     m_aCommands.clear ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, ICommand> getAllCommands ()
   {

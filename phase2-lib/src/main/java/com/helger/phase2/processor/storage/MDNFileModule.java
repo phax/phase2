@@ -37,6 +37,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,9 +52,6 @@ import com.helger.phase2.params.AS2InvalidParameterException;
 import com.helger.phase2.params.CompositeParameters;
 import com.helger.phase2.params.DateParameters;
 import com.helger.phase2.params.MessageMDNParameters;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Store an MDN to a file
@@ -68,8 +67,8 @@ public class MDNFileModule extends AbstractStorageModule
     super (DO_STOREMDN);
   }
 
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     // store mdn data
@@ -90,7 +89,7 @@ public class MDNFileModule extends AbstractStorageModule
   }
 
   @Override
-  protected String getFilename (@Nonnull final IMessage aMsg, @Nullable final String sFileParam)
+  protected String getFilename (@NonNull final IMessage aMsg, @Nullable final String sFileParam)
                                                                                                  throws AS2InvalidParameterException
   {
     final IMessageMDN aMDN = aMsg.getMDN ();
@@ -100,8 +99,8 @@ public class MDNFileModule extends AbstractStorageModule
     return aCompParams.format (sFileParam);
   }
 
-  @Nonnull
-  protected InputStream getMDNStream (@Nonnull final IMessageMDN aMdn)
+  @NonNull
+  protected InputStream getMDNStream (@NonNull final IMessageMDN aMdn)
   {
     final String sNewLine = ENewLineMode.DEFAULT.getText ();
 

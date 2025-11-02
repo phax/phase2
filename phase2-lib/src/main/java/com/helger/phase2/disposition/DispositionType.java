@@ -36,6 +36,9 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -43,9 +46,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains the disposition type for creating the MDN. That one determines if a message processed
@@ -68,9 +68,9 @@ public class DispositionType
   private final String m_sStatusDescription;
   private final String m_sStatusModifier;
 
-  public DispositionType (@Nonnull final String sAction,
-                          @Nonnull final String sMDNAction,
-                          @Nonnull final String sStatus,
+  public DispositionType (@NonNull final String sAction,
+                          @NonNull final String sMDNAction,
+                          @NonNull final String sStatus,
                           @Nullable final String sStatusModifier,
                           @Nullable final String sStatusDescription)
   {
@@ -85,19 +85,19 @@ public class DispositionType
     m_sStatusDescription = sStatusDescription;
   }
 
-  @Nonnull
+  @NonNull
   public final String getAction ()
   {
     return m_sAction;
   }
 
-  @Nonnull
+  @NonNull
   public final String getMDNAction ()
   {
     return m_sMDNAction;
   }
 
-  @Nonnull
+  @NonNull
   public final String getStatus ()
   {
     return m_sStatus;
@@ -145,7 +145,7 @@ public class DispositionType
    *         The checked exception.
    * @since 4.10.0 this method has parameters
    */
-  public void validate (@Nonnull final IMessage aSrcMsg, @Nonnull final String sText) throws AS2DispositionException
+  public void validate (@NonNull final IMessage aSrcMsg, @NonNull final String sText) throws AS2DispositionException
   {
     if (isWarning ())
     {
@@ -163,7 +163,7 @@ public class DispositionType
     }
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     final StringBuilder aSB = new StringBuilder ();
@@ -188,7 +188,7 @@ public class DispositionType
                                        .getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static DispositionType createFromString (@Nullable final String sDisposition) throws AS2Exception
   {
     if (StringHelper.isEmpty (sDisposition))
@@ -220,7 +220,7 @@ public class DispositionType
   /**
    * @return A success disposition without additional information. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static DispositionType createSuccess ()
   {
     return new DispositionType (ACTION_AUTOMATIC_ACTION,
@@ -236,8 +236,8 @@ public class DispositionType
    * @return An error disposition with the modifier {@link #STATUS_MODIFIER_ERROR} and the provided
    *         status description.
    */
-  @Nonnull
-  public static DispositionType createError (@Nonnull final String sStatusDescription)
+  @NonNull
+  public static DispositionType createError (@NonNull final String sStatusDescription)
   {
     return new DispositionType (ACTION_AUTOMATIC_ACTION,
                                 MDNACTION_MDN_SENT_AUTOMATICALLY,

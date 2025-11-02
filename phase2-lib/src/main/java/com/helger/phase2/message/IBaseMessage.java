@@ -34,15 +34,15 @@ package com.helger.phase2.message;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.http.CHttpHeader;
 import com.helger.http.header.HttpHeaderMap;
 import com.helger.phase2.partner.Partnership;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for {@link IMessage} and {@link IMessageMDN}. Must be Serializable, so that
@@ -55,31 +55,31 @@ public interface IBaseMessage extends Serializable
   /**
    * @return Mutable custom attribute map. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   IStringMap attrs ();
 
   /**
    * @return Mutable HTTP header map. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   HttpHeaderMap headers ();
 
   @Nullable
-  default String getHeader (@Nonnull final String sName)
+  default String getHeader (@NonNull final String sName)
   {
     return getHeaderCombined (sName, ", ");
   }
 
   @Nullable
-  default String getHeaderCombined (@Nonnull final String sName, @Nonnull final String sDelimiter)
+  default String getHeaderCombined (@NonNull final String sName, @NonNull final String sDelimiter)
   {
     return headers ().getHeaderCombined (sName, sDelimiter);
   }
 
   @Nullable
-  default String getHeaderOrDefault (@Nonnull final String sName, @Nullable final String sDefault)
+  default String getHeaderOrDefault (@NonNull final String sName, @Nullable final String sDefault)
   {
     final String ret = getHeader (sName);
     return ret != null ? ret : sDefault;
@@ -110,7 +110,7 @@ public interface IBaseMessage extends Serializable
     headers ().setHeader (CHttpHeader.MESSAGE_ID, sMessageID);
   }
 
-  @Nonnull
+  @NonNull
   String generateMessageID ();
 
   /**
@@ -121,17 +121,17 @@ public interface IBaseMessage extends Serializable
     setMessageID (generateMessageID ());
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   Partnership partnership ();
 
-  void setPartnership (@Nonnull Partnership aPartnership);
+  void setPartnership (@NonNull Partnership aPartnership);
 
-  @Nonnull
+  @NonNull
   @Nonempty
   String getLoggingText ();
 
-  @Nonnull
+  @NonNull
   @Nonempty
   String getAsString ();
 }

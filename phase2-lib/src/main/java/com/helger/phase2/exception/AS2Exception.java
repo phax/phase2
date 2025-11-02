@@ -34,15 +34,14 @@ package com.helger.phase2.exception;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.phase2.CPhase2Info;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for all AS2 related exceptions used in this project.
@@ -76,7 +75,7 @@ public class AS2Exception extends Exception
     return m_aSrcMsg;
   }
 
-  @Nonnull
+  @NonNull
   public final AS2Exception setSourceMsg (@Nullable final IMessage aSrcMsg)
   {
     m_aSrcMsg = aSrcMsg;
@@ -120,7 +119,7 @@ public class AS2Exception extends Exception
    *
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final AS2Exception terminate ()
   {
     log (true, null, m_aSrcMsg);

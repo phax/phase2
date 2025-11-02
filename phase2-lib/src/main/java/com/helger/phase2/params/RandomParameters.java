@@ -34,8 +34,8 @@ package com.helger.phase2.params;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public class RandomParameters extends AbstractParameterParser
 {
@@ -44,15 +44,15 @@ public class RandomParameters extends AbstractParameterParser
    */
   @Override
   @Deprecated (forRemoval = false)
-  public void setParameter (@Nonnull final String sKey, @Nullable final String sValue)
+  public void setParameter (@NonNull final String sKey, @Nullable final String sValue)
                                                                                        throws AS2InvalidParameterException
   {
     throw new AS2InvalidParameterException ("Set not supported", this, sKey, sValue);
   }
 
   @Override
-  @Nonnull
-  public String getParameter (@Nonnull final String sKey) throws AS2InvalidParameterException
+  @NonNull
+  public String getParameter (@NonNull final String sKey) throws AS2InvalidParameterException
   {
     if (sKey == null)
       throw new AS2InvalidParameterException ("Invalid key", this, sKey, null);

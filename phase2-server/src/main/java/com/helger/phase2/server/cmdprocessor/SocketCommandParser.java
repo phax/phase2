@@ -34,15 +34,14 @@ package com.helger.phase2.server.cmdprocessor;
 
 import java.io.CharArrayWriter;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.helger.xml.serialize.read.SAXReader;
 import com.helger.xml.serialize.read.SAXReaderSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * used to parse commands from the socket command processor message format
@@ -112,7 +111,7 @@ public class SocketCommandParser extends DefaultHandler
   }
 
   @Override
-  public void endElement (final String sURI, final String sLocalName, @Nonnull final String sQName) throws SAXException
+  public void endElement (final String sURI, final String sLocalName, @NonNull final String sQName) throws SAXException
   {
     if (sQName.equals ("command"))
     {

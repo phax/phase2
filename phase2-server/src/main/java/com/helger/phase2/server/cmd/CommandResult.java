@@ -34,6 +34,8 @@ package com.helger.phase2.server.cmd;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -43,20 +45,18 @@ import com.helger.xml.microdom.IMicroContainer;
 import com.helger.xml.microdom.MicroContainer;
 import com.helger.xml.microdom.serialize.MicroWriter;
 
-import jakarta.annotation.Nonnull;
-
 @NotThreadSafe
 public final class CommandResult
 {
   private final ECommandResultType m_eType;
   private final ICommonsList <Serializable> m_aResults = new CommonsArrayList <> ();
 
-  public CommandResult (@Nonnull final ECommandResultType eType)
+  public CommandResult (@NonNull final ECommandResultType eType)
   {
     m_eType = ValueEnforcer.notNull (eType, "Type");
   }
 
-  public CommandResult (@Nonnull final ECommandResultType eType, @Nonnull final String msg)
+  public CommandResult (@NonNull final ECommandResultType eType, @NonNull final String msg)
   {
     this (eType);
     addResult (msg);
@@ -68,13 +68,13 @@ public final class CommandResult
     addResult (e);
   }
 
-  @Nonnull
+  @NonNull
   public ECommandResultType getType ()
   {
     return m_eType;
   }
 
-  public void addResult (@Nonnull final Serializable aResult)
+  public void addResult (@NonNull final Serializable aResult)
   {
     ValueEnforcer.notNull (aResult, "Result");
     m_aResults.add (aResult);
@@ -85,14 +85,14 @@ public final class CommandResult
     return m_aResults.isEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Serializable> getAllResults ()
   {
     return m_aResults.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public String getResultAsString ()
   {
     final StringBuilder results = new StringBuilder ();
@@ -101,7 +101,7 @@ public final class CommandResult
     return results.toString ();
   }
 
-  @Nonnull
+  @NonNull
   public String getAsXMLString ()
   {
     final IMicroContainer aCont = new MicroContainer ();

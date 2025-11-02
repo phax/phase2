@@ -32,14 +32,15 @@
  */
 package com.helger.phase2.params;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringReplace;
 import com.helger.phase2.message.IMessage;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.internet.ContentDisposition;
 
 public class MessageParameters extends AbstractParameterParser
@@ -54,13 +55,13 @@ public class MessageParameters extends AbstractParameterParser
 
   private final IMessage m_aTarget;
 
-  public MessageParameters (@Nonnull final IMessage aTarget)
+  public MessageParameters (@NonNull final IMessage aTarget)
   {
     m_aTarget = ValueEnforcer.notNull (aTarget, "Target");
   }
 
   @Override
-  public void setParameter (@Nonnull final String sKey, @Nullable final String sValue)
+  public void setParameter (@NonNull final String sKey, @Nullable final String sValue)
                                                                                        throws AS2InvalidParameterException
   {
     final String [] aKeyParts = StringHelper.getExplodedArray ('.', sKey, 2);
@@ -85,7 +86,7 @@ public class MessageParameters extends AbstractParameterParser
             throw new AS2InvalidParameterException ("Invalid area in key", this, sKey, null);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   private String _getContentDispositionFilename ()
   {
@@ -108,7 +109,7 @@ public class MessageParameters extends AbstractParameterParser
 
   @Override
   @Nullable
-  public String getParameter (@Nonnull final String sKey) throws AS2InvalidParameterException
+  public String getParameter (@NonNull final String sKey) throws AS2InvalidParameterException
   {
     final String [] aKeyParts = StringHelper.getExplodedArray ('.', sKey);
     if (aKeyParts.length != 2)

@@ -43,6 +43,8 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.io.nonblocking.NonBlockingBufferedInputStream;
 import com.helger.phase2.cert.IAliasedCertificateFactory;
 import com.helger.phase2.exception.AS2Exception;
@@ -52,8 +54,6 @@ import com.helger.phase2.server.cmd.ECommandResultType;
 import com.helger.phase2.util.AS2Helper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.IKeyStoreType;
-
-import jakarta.annotation.Nonnull;
 
 public class ImportCertCommand extends AbstractAliasedCertCommand
 {
@@ -111,7 +111,7 @@ public class ImportCertCommand extends AbstractAliasedCertCommand
     }
   }
 
-  @Nonnull
+  @NonNull
   protected CommandResult importCert (final IAliasedCertificateFactory certFx,
                                       final String sAlias,
                                       final String sFilename) throws IOException, CertificateException, AS2Exception
@@ -138,7 +138,7 @@ public class ImportCertCommand extends AbstractAliasedCertCommand
     }
   }
 
-  protected CommandResult importPrivateKey (@Nonnull final IKeyStoreType aKeyStoreType,
+  protected CommandResult importPrivateKey (@NonNull final IKeyStoreType aKeyStoreType,
                                             final IAliasedCertificateFactory aFactory,
                                             final String sAlias,
                                             final String sFilename,

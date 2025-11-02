@@ -39,6 +39,8 @@ import java.io.OutputStream;
 
 import org.eclipse.angus.mail.util.QPDecoderStream;
 import org.eclipse.angus.mail.util.QPEncoderStream;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
@@ -58,8 +60,6 @@ import com.helger.io.file.LoggingFileOperationCallback;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.processor.receiver.AS2InvalidMessageException;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeUtility;
 
@@ -79,23 +79,23 @@ public final class AS2IOHelper
   private AS2IOHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static FileOperationManager getFileOperationManager ()
   {
     return FOM;
   }
 
-  @Nonnull
-  public static File getDirectoryFile (@Nonnull final String sDirectory)
+  @NonNull
+  public static File getDirectoryFile (@NonNull final String sDirectory)
   {
     final File aDir = new File (sDirectory);
     FOM.createDirRecursiveIfNotExisting (aDir);
     return aDir;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getTransferRate (final long nBytes, @Nonnull final StopWatch aSW)
+  public static String getTransferRate (final long nBytes, @NonNull final StopWatch aSW)
   {
     final StringBuilder aSB = new StringBuilder ();
     aSB.append (nBytes).append (" bytes in ").append (aSW.getMillis () / 1000.0).append (" seconds at ");
@@ -115,7 +115,7 @@ public final class AS2IOHelper
     return aSB.toString ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   private static String _getTransferRate (final long nBytesPerSecond)
   {
@@ -148,8 +148,8 @@ public final class AS2IOHelper
     return aSB.toString ();
   }
 
-  @Nonnull
-  public static File getUniqueFile (@Nonnull final File aDir, @Nullable final String sFilename)
+  @NonNull
+  public static File getUniqueFile (@NonNull final File aDir, @Nullable final String sFilename)
   {
     final String sBaseFilename = FilenameHelper.getAsSecureValidFilename (sFilename);
     int nCounter = -1;
@@ -176,9 +176,9 @@ public final class AS2IOHelper
    * @throws AS2Exception
    *         In case moving failed
    */
-  public static void handleError (@Nonnull final File aFile,
-                                  @Nonnull final String sErrorDirectory,
-                                  @Nonnull @Nonempty final String sTargetFilename) throws AS2Exception
+  public static void handleError (@NonNull final File aFile,
+                                  @NonNull final String sErrorDirectory,
+                                  @NonNull @Nonempty final String sTargetFilename) throws AS2Exception
   {
     File aDestFile = null;
 
@@ -208,9 +208,9 @@ public final class AS2IOHelper
     ex.terminate ();
   }
 
-  @Nonnull
-  public static File moveFile (@Nonnull final File aSrc,
-                               @Nonnull final File aDestFile,
+  @NonNull
+  public static File moveFile (@NonNull final File aSrc,
+                               @NonNull final File aDestFile,
                                final boolean bOverwrite,
                                final boolean bRename) throws IOException
   {
@@ -238,7 +238,7 @@ public final class AS2IOHelper
   }
 
   @Nullable
-  public static String getFilenameFromMessageID (@Nonnull final String sMessageID)
+  public static String getFilenameFromMessageID (@NonNull final String sMessageID)
   {
     // Remove angle brackets manually
     String s = StringRemove.removeAll (sMessageID, '<');
@@ -276,9 +276,9 @@ public final class AS2IOHelper
     return aSB.deleteCharAt (aSB.length () - 1).toString ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getAllAsciiBytes (@Nonnull final String sString)
+  public static byte [] getAllAsciiBytes (@NonNull final String sString)
   {
     final char [] aChars = sString.toCharArray ();
     final int nLength = aChars.length;
@@ -288,8 +288,8 @@ public final class AS2IOHelper
     return ret;
   }
 
-  @Nonnull
-  public static OutputStream getContentTransferEncodingAwareOutputStream (@Nonnull final OutputStream aOS,
+  @NonNull
+  public static OutputStream getContentTransferEncodingAwareOutputStream (@NonNull final OutputStream aOS,
                                                                           @Nullable final String sEncoding) throws MessagingException
   {
     if (false)
@@ -328,8 +328,8 @@ public final class AS2IOHelper
     throw new MessagingException ("Unknown Content-Transfer-Encoding '" + sEncoding + "'");
   }
 
-  @Nonnull
-  public static InputStream getContentTransferEncodingAwareInputStream (@Nonnull final InputStream aIS,
+  @NonNull
+  public static InputStream getContentTransferEncodingAwareInputStream (@NonNull final InputStream aIS,
                                                                         @Nullable final String sEncoding) throws MessagingException
   {
     if (false)

@@ -36,6 +36,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -45,8 +47,6 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.http.CHttp;
 import com.helger.http.EHttpVersion;
 import com.helger.http.header.HttpHeaderMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link IAS2HttpResponseHandler} that writes an HTTP 1.1 response directly to
@@ -59,7 +59,7 @@ public class AS2HttpResponseHandlerSocket implements IAS2HttpResponseHandler
   private final Socket m_aSocket;
   private final boolean m_bQuoteHeaderValues;
 
-  public AS2HttpResponseHandlerSocket (@Nonnull final Socket aSocket, final boolean bQuoteHeaderValues)
+  public AS2HttpResponseHandlerSocket (@NonNull final Socket aSocket, final boolean bQuoteHeaderValues)
   {
     m_aSocket = ValueEnforcer.notNull (aSocket, "Socket");
     m_bQuoteHeaderValues = bQuoteHeaderValues;
@@ -68,7 +68,7 @@ public class AS2HttpResponseHandlerSocket implements IAS2HttpResponseHandler
   /**
    * @return The socket provided in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final Socket getSocket ()
   {
     return m_aSocket;
@@ -86,14 +86,14 @@ public class AS2HttpResponseHandlerSocket implements IAS2HttpResponseHandler
   /**
    * @return The HTTP version to use. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   public EHttpVersion getHTTPVersion ()
   {
     return EHttpVersion.HTTP_11;
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   public OutputStream createOutputStream () throws IOException
   {
@@ -101,8 +101,8 @@ public class AS2HttpResponseHandlerSocket implements IAS2HttpResponseHandler
   }
 
   public void sendHttpResponse (@Nonnegative final int nHttpResponseCode,
-                                @Nonnull final HttpHeaderMap aHeaders,
-                                @Nonnull @WillNotClose final IWriteToStream aData) throws IOException
+                                @NonNull final HttpHeaderMap aHeaders,
+                                @NonNull @WillNotClose final IWriteToStream aData) throws IOException
   {
     ValueEnforcer.isGT0 (nHttpResponseCode, "HttpResponseCode");
     ValueEnforcer.notNull (aHeaders, "Headers");

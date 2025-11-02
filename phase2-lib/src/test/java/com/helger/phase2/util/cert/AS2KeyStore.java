@@ -39,30 +39,30 @@ import java.security.KeyStoreException;
 import java.security.cert.Certificate;
 import java.util.Enumeration;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public class AS2KeyStore implements ICertificateStore
 {
   private final KeyStore m_aKeyStore;
 
-  public AS2KeyStore (@Nonnull final KeyStore aKeyStore)
+  public AS2KeyStore (@NonNull final KeyStore aKeyStore)
   {
     m_aKeyStore = ValueEnforcer.notNull (aKeyStore, "KeyStore");
   }
 
-  @Nonnull
+  @NonNull
   public KeyStore getKeyStore ()
   {
     return m_aKeyStore;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAliases () throws AS2CertificateException
   {
@@ -92,7 +92,7 @@ public class AS2KeyStore implements ICertificateStore
     }
   }
 
-  public void setCertificate (@Nonnull final String sAlias, @Nonnull final Certificate aCert)
+  public void setCertificate (@NonNull final String sAlias, @NonNull final Certificate aCert)
                                                                                               throws AS2CertificateException
   {
     ValueEnforcer.notNull (sAlias, "Alias");
@@ -170,7 +170,7 @@ public class AS2KeyStore implements ICertificateStore
     }
   }
 
-  public void setKey (@Nonnull final String sAlias, @Nonnull final Key aKey, @Nullable final char [] aPassword)
+  public void setKey (@NonNull final String sAlias, @NonNull final Key aKey, @Nullable final char [] aPassword)
                                                                                                                 throws AS2CertificateException
   {
     ValueEnforcer.notNull (sAlias, "Alias");

@@ -35,14 +35,14 @@ package com.helger.phase2.partner.xml;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.typeconvert.collection.IStringMap;
 import com.helger.typeconvert.collection.StringMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents a single partner. A partnership consists of 2 partners - a sender and a
@@ -57,7 +57,7 @@ public class Partner implements IPartner
 
   private final StringMap m_aAttrs;
 
-  public Partner (@Nonnull final IStringMap aAttrs)
+  public Partner (@NonNull final IStringMap aAttrs)
   {
     m_aAttrs = new StringMap (aAttrs);
     if (!m_aAttrs.containsKey (PARTNER_NAME))
@@ -66,20 +66,20 @@ public class Partner implements IPartner
                                           "' attribute!");
   }
 
-  @Nonnull
+  @NonNull
   public String getName ()
   {
     return m_aAttrs.getAsString (PARTNER_NAME);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllAttributes ()
   {
     return m_aAttrs.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <Entry <String, String>> iterator ()
   {
     return m_aAttrs.entrySet ().iterator ();

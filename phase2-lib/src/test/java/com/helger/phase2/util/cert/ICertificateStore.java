@@ -35,11 +35,11 @@ package com.helger.phase2.util.cert;
 import java.security.Key;
 import java.security.cert.Certificate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a certificate store handling.
@@ -48,14 +48,14 @@ import jakarta.annotation.Nullable;
  */
 public interface ICertificateStore
 {
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <String> getAliases () throws AS2CertificateException;
 
   @Nullable
   Certificate getCertificate (@Nullable String sAlias) throws AS2CertificateException;
 
-  void setCertificate (@Nonnull String sAlias, @Nonnull Certificate aCert) throws AS2CertificateException;
+  void setCertificate (@NonNull String sAlias, @NonNull Certificate aCert) throws AS2CertificateException;
 
   @Nullable
   String getAlias (@Nullable Certificate aCert) throws AS2CertificateException;
@@ -67,5 +67,5 @@ public interface ICertificateStore
   @Nullable
   Key getKey (@Nullable String sAlias, char [] aPassword) throws AS2CertificateException;
 
-  void setKey (@Nonnull String sAlias, @Nonnull Key aKey, char [] aPassword) throws AS2CertificateException;
+  void setKey (@NonNull String sAlias, @NonNull Key aKey, char [] aPassword) throws AS2CertificateException;
 }

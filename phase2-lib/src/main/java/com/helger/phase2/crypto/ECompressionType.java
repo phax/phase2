@@ -34,13 +34,12 @@ package com.helger.phase2.crypto;
 
 import org.bouncycastle.cms.jcajce.ZlibCompressor;
 import org.bouncycastle.operator.OutputCompressor;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Define the supported SMIME compression types for phase2.
@@ -53,7 +52,7 @@ public enum ECompressionType implements IHasID <String>
   ZLIB ("zlib")
   {
     @Override
-    @Nonnull
+    @NonNull
     public ZlibCompressor createOutputCompressor ()
     {
       return new ZlibCompressor ();
@@ -62,12 +61,12 @@ public enum ECompressionType implements IHasID <String>
 
   private final String m_sID;
 
-  ECompressionType (@Nonnull @Nonempty final String sID)
+  ECompressionType (@NonNull @Nonempty final String sID)
   {
     m_sID = sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -77,7 +76,7 @@ public enum ECompressionType implements IHasID <String>
   /**
    * @return The {@link OutputCompressor} instance suitable for this compression type.
    */
-  @Nonnull
+  @NonNull
   public abstract OutputCompressor createOutputCompressor ();
 
   @Nullable

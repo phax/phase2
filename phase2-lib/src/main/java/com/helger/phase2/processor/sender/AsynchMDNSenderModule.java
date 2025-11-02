@@ -36,6 +36,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,8 +64,6 @@ import com.helger.phase2.util.dump.IHTTPOutgoingDumper;
 import com.helger.phase2.util.http.AS2HttpClient;
 import com.helger.phase2.util.http.AS2HttpHeaderSetter;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 
 /**
@@ -78,17 +78,17 @@ public class AsynchMDNSenderModule extends AbstractHttpSenderModule
   public AsynchMDNSenderModule ()
   {}
 
-  public boolean canHandle (@Nonnull final String sAction,
-                            @Nonnull final IMessage aMsg,
+  public boolean canHandle (@NonNull final String sAction,
+                            @NonNull final IMessage aMsg,
                             @Nullable final Map <String, Object> aOptions)
   {
     return sAction.equals (IProcessorSenderModule.DO_SEND_ASYNC_MDN) && aMsg instanceof AS2Message;
   }
 
-  private void _sendViaHTTP (@Nonnull final AS2Message aMsg,
-                             @Nonnull final DispositionType aDisposition,
+  private void _sendViaHTTP (@NonNull final AS2Message aMsg,
+                             @NonNull final DispositionType aDisposition,
                              @Nullable final IHTTPOutgoingDumper aOutgoingDumper,
-                             @Nonnull final AS2ResourceHelper aResHelper) throws AS2Exception,
+                             @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception,
                                                                           IOException,
                                                                           MessagingException
   {
@@ -185,8 +185,8 @@ public class AsynchMDNSenderModule extends AbstractHttpSenderModule
     }
   }
 
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aBaseMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aBaseMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     try (final AS2ResourceHelper aResHelper = new AS2ResourceHelper ())

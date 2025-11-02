@@ -35,12 +35,11 @@ package com.helger.phase2.crypto;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.cms.CMSAlgorithm;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Enumeration with all message encryption algorithms supported.
@@ -65,20 +64,20 @@ public enum ECryptoAlgorithmCrypt implements ICryptoAlgorithm
   private final String m_sID;
   private final ASN1ObjectIdentifier m_aOID;
 
-  ECryptoAlgorithmCrypt (@Nonnull @Nonempty final String sID, @Nonnull final ASN1ObjectIdentifier aOID)
+  ECryptoAlgorithmCrypt (@NonNull @Nonempty final String sID, @NonNull final ASN1ObjectIdentifier aOID)
   {
     m_sID = sID;
     m_aOID = aOID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   public ASN1ObjectIdentifier getOID ()
   {
     return m_aOID;
@@ -91,7 +90,7 @@ public enum ECryptoAlgorithmCrypt implements ICryptoAlgorithm
     return EnumHelper.getFromIDCaseInsensitiveOrNull (ECryptoAlgorithmCrypt.class, sID);
   }
 
-  @Nonnull
+  @NonNull
   public static ECryptoAlgorithmCrypt getFromIDOrThrow (@Nullable final String sID)
   {
     // Case insensitive for #32

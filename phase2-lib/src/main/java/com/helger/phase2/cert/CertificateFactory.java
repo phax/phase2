@@ -32,6 +32,7 @@
  */
 package com.helger.phase2.cert;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,8 +40,6 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.string.StringHelper;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nullable;
 
 /**
  * An implementation of a file-based certificate factory using a custom key store type. Since v4.6.4

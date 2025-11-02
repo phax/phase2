@@ -34,9 +34,9 @@ package com.helger.phase2.cert;
 
 import java.security.KeyStore;
 
-import com.helger.phase2.exception.AS2Exception;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.phase2.exception.AS2Exception;
 
 /**
  * Base interface for a certificate factory that is based on a key store.
@@ -48,7 +48,7 @@ public interface IKeyStoreCertificateFactory extends ICertificateFactory
   /**
    * @return The key store this certificate factory deals with. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   KeyStore getKeyStore ();
 
   /**

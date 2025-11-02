@@ -32,6 +32,8 @@
  */
 package com.helger.phase2.partner;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,9 +53,6 @@ import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
 import com.helger.phase2.message.IMessageMDN;
 import com.helger.phase2.params.MessageParameters;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract {@link IPartnershipFactory} implementation using {@link PartnershipMap} as the
@@ -80,9 +79,9 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
   protected void markAsChanged () throws AS2Exception
   {}
 
-  @Nonnull
+  @NonNull
   @OverridingMethodsMustInvokeSuper
-  public Partnership getPartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  public Partnership getPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
 
@@ -107,27 +106,27 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
     return m_aRWLock.readLockedGet ( () -> m_aPartnerships.getPartnershipByName (sName));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllPartnershipNames ()
   {
     return m_aRWLock.readLockedGet (m_aPartnerships::getAllPartnershipNames);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Partnership> getAllPartnerships ()
   {
     return m_aRWLock.readLockedGet (m_aPartnerships::getAllPartnerships);
   }
 
-  @Nonnull
+  @NonNull
   public IPartnershipMap getPartnershipMap ()
   {
     return m_aRWLock.readLockedGet ( () -> m_aPartnerships);
   }
 
-  protected final void setPartnerships (@Nonnull final PartnershipMap aPartnerships) throws AS2Exception
+  protected final void setPartnerships (@NonNull final PartnershipMap aPartnerships) throws AS2Exception
   {
     m_aRWLock.writeLockedThrowing ( () -> {
       m_aPartnerships.setPartnerships (aPartnerships);
@@ -135,8 +134,8 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
     });
   }
 
-  @Nonnull
-  public final EChange addPartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  @NonNull
+  public final EChange addPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     return m_aRWLock.writeLockedGetThrowing ( () -> {
       if (m_aPartnerships.addPartnership (aPartnership).isUnchanged ())
@@ -146,8 +145,8 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
     });
   }
 
-  @Nonnull
-  public final EChange removePartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  @NonNull
+  public final EChange removePartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     return m_aRWLock.writeLockedGetThrowing ( () -> {
       if (m_aPartnerships.removePartnership (aPartnership).isUnchanged ())
@@ -157,7 +156,7 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
     });
   }
 
-  public void updatePartnership (@Nonnull final IMessage aMsg, final boolean bOverwrite) throws AS2Exception
+  public void updatePartnership (@NonNull final IMessage aMsg, final boolean bOverwrite) throws AS2Exception
   {
     ValueEnforcer.notNull (aMsg, "Message");
 
@@ -181,7 +180,7 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
     }
   }
 
-  public final void updatePartnership (@Nonnull final IMessageMDN aMdn, final boolean bOverwrite) throws AS2Exception
+  public final void updatePartnership (@NonNull final IMessageMDN aMdn, final boolean bOverwrite) throws AS2Exception
   {
     ValueEnforcer.notNull (aMdn, "MessageMDN");
 

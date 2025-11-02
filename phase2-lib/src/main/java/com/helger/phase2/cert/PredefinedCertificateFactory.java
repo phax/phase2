@@ -34,10 +34,10 @@ package com.helger.phase2.cert;
 
 import java.security.KeyStore;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An example implementation of a Certificate factory that uses an external {@link KeyStore}.
@@ -51,13 +51,13 @@ public class PredefinedCertificateFactory extends AbstractCertificateFactory
   // Separate member to avoid that it gets overridden
   private final KeyStore m_aCtorKeyStore;
 
-  public PredefinedCertificateFactory (@Nonnull final KeyStore aKeyStore)
+  public PredefinedCertificateFactory (@NonNull final KeyStore aKeyStore)
   {
     ValueEnforcer.notNull (aKeyStore, "KeyStore");
     m_aCtorKeyStore = aKeyStore;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStore getKeyStoreFromCtor ()
   {
     return m_aCtorKeyStore;

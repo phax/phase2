@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,9 +51,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.phase2.crypto.ECryptoAlgorithmSign;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Parser and domain object for disposition options. This is usually used in the HTTP header
@@ -103,7 +102,7 @@ public class DispositionOptions
    *        The importance to set. May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DispositionOptions setProtocolImportance (@Nullable final String sProtocolImportance)
   {
     _checkImportance (sProtocolImportance);
@@ -138,7 +137,7 @@ public class DispositionOptions
    *        The protocol name (e.g. "pkcs7-signature"). May be <code>null</code> .
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DispositionOptions setProtocol (@Nullable final String sProtocol)
   {
     m_sProtocol = sProtocol;
@@ -161,7 +160,7 @@ public class DispositionOptions
    *        The importance. May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DispositionOptions setMICAlgImportance (@Nullable final String sMICAlgImportance)
   {
     _checkImportance (sMICAlgImportance);
@@ -197,7 +196,7 @@ public class DispositionOptions
    *        The MIC algorithm(s). May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DispositionOptions setMICAlg (@Nullable final String sMICAlgs)
   {
     m_aMICAlgs.clear ();
@@ -231,7 +230,7 @@ public class DispositionOptions
    *        The digesting MIC algorithm(s). May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DispositionOptions setMICAlg (@Nullable final ECryptoAlgorithmSign... aMICAlgs)
   {
     m_aMICAlgs.clear ();
@@ -249,7 +248,7 @@ public class DispositionOptions
    *        The digesting MIC algorithm(s). May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DispositionOptions setMICAlg (@Nullable final Iterable <? extends ECryptoAlgorithmSign> aMICAlgs)
   {
     m_aMICAlgs.clear ();
@@ -263,7 +262,7 @@ public class DispositionOptions
   /**
    * @return All MIC algorithms contained. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ECryptoAlgorithmSign> getAllMICAlgs ()
   {
@@ -310,7 +309,7 @@ public class DispositionOptions
     return StringImplode.getImplodedMapped (", ", m_aMICAlgs, ECryptoAlgorithmSign::getID);
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     final StringBuilder aSB = new StringBuilder ();
@@ -357,7 +356,7 @@ public class DispositionOptions
    * @throws AS2Exception
    *         In the very unlikely case of a programming error in {@link StringTokenizer}.
    */
-  @Nonnull
+  @NonNull
   public static DispositionOptions createFromString (@Nullable final String sOptions) throws AS2Exception
   {
     final DispositionOptions ret = new DispositionOptions ();

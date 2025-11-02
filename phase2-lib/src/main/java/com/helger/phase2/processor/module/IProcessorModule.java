@@ -34,13 +34,13 @@ package com.helger.phase2.processor.module;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.phase2.IDynamicComponent;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
 import com.helger.phase2.processor.IMessageProcessor;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A processor module is a module that is to be used within an {@link IMessageProcessor} instance.
@@ -62,7 +62,7 @@ public interface IProcessorModule extends IDynamicComponent
    * @return <code>true</code> of this module can handle the respective message, <code>false</code>
    *         if not.
    */
-  boolean canHandle (@Nonnull String sAction, @Nonnull IMessage aMsg, @Nullable Map <String, Object> aOptions);
+  boolean canHandle (@NonNull String sAction, @NonNull IMessage aMsg, @Nullable Map <String, Object> aOptions);
 
   /**
    * Main handling of the message. Only called, if {@link #canHandle(String, IMessage, Map)}
@@ -78,6 +78,6 @@ public interface IProcessorModule extends IDynamicComponent
    * @throws AS2Exception
    *         in case something goes wrong
    */
-  void handle (@Nonnull String sAction, @Nonnull IMessage aMsg, @Nullable Map <String, Object> aOptions)
+  void handle (@NonNull String sAction, @NonNull IMessage aMsg, @Nullable Map <String, Object> aOptions)
                                                                                                          throws AS2Exception;
 }

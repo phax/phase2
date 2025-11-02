@@ -35,14 +35,14 @@ package com.helger.phase2.processor.resender;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents a single in-memory item to be resend.
@@ -58,9 +58,9 @@ public class ResendItem
   private final IMessage m_aMsg;
   private final LocalDateTime m_aEarliestResendDT;
 
-  public ResendItem (@Nonnull @Nonempty final String sResendAction,
+  public ResendItem (@NonNull @Nonempty final String sResendAction,
                      @Nonnegative final int nRetries,
-                     @Nonnull final IMessage aMsg,
+                     @NonNull final IMessage aMsg,
                      @Nonnegative final long nResendDelayMS)
   {
     m_sResendAction = ValueEnforcer.notEmpty (sResendAction, "ResendAction");
@@ -73,7 +73,7 @@ public class ResendItem
   /**
    * @return The internal action to be taken.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getResendAction ()
   {
@@ -92,7 +92,7 @@ public class ResendItem
   /**
    * @return The message to be resend
    */
-  @Nonnull
+  @NonNull
   public IMessage getMessage ()
   {
     return m_aMsg;
@@ -101,7 +101,7 @@ public class ResendItem
   /**
    * @return The date the resend must not happen before
    */
-  @Nonnull
+  @NonNull
   public LocalDateTime getEarliestResendDate ()
   {
     return m_aEarliestResendDT;

@@ -32,6 +32,9 @@
  */
 package com.helger.phase2.message;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.http.CHttpHeader;
 import com.helger.phase2.CPhase2Info;
@@ -40,9 +43,6 @@ import com.helger.phase2.params.CompositeParameters;
 import com.helger.phase2.params.DateParameters;
 import com.helger.phase2.params.MessageParameters;
 import com.helger.phase2.params.RandomParameters;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class AS2Message extends AbstractMessage
 {
@@ -63,7 +63,7 @@ public class AS2Message extends AbstractMessage
   public AS2Message ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getProtocol ()
   {
@@ -71,7 +71,7 @@ public class AS2Message extends AbstractMessage
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @Nonempty
   public String generateMessageID ()
   {

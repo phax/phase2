@@ -34,6 +34,9 @@ package com.helger.phase2.processor;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -45,9 +48,6 @@ import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
 import com.helger.phase2.processor.module.IProcessorActiveModule;
 import com.helger.phase2.processor.module.IProcessorModule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Process incoming messages.
@@ -79,7 +79,7 @@ public interface IMessageProcessor extends IDynamicComponent
    * @see #ATTR_PENDINGMDN
    * @since 4.6.4
    */
-  default void setPendingMDNFolder (@Nonnull @Nonempty final String sPendingMDNFolder)
+  default void setPendingMDNFolder (@NonNull @Nonempty final String sPendingMDNFolder)
   {
     ValueEnforcer.notEmpty (sPendingMDNFolder, "PendingMDNFolder");
     attrs ().putIn (ATTR_PENDINGMDN, sPendingMDNFolder);
@@ -105,39 +105,39 @@ public interface IMessageProcessor extends IDynamicComponent
    * @see #ATTR_PENDINGMDNINFO
    * @since 4.6.4
    */
-  default void setPendingMDNInfoFolder (@Nonnull @Nonempty final String sPendingMDNInfoFolder)
+  default void setPendingMDNInfoFolder (@NonNull @Nonempty final String sPendingMDNInfoFolder)
   {
     ValueEnforcer.notEmpty (sPendingMDNInfoFolder, "PendingMDNInfoFolder");
     attrs ().putIn (ATTR_PENDINGMDNINFO, sPendingMDNInfoFolder);
   }
 
-  void handle (@Nonnull String sAction, @Nonnull IMessage aMsg, @Nullable Map <String, Object> aOptions)
+  void handle (@NonNull String sAction, @NonNull IMessage aMsg, @Nullable Map <String, Object> aOptions)
                                                                                                          throws AS2Exception;
 
-  void addModule (@Nonnull IProcessorModule aModule);
+  void addModule (@NonNull IProcessorModule aModule);
 
-  @Nonnull
+  @NonNull
   EChange removeModule (@Nullable IProcessorModule aModule);
 
   @Nonnegative
   int getModuleCount ();
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <IProcessorModule> getAllModules ();
 
   @Nullable
-  <T extends IProcessorModule> T getModuleOfClass (@Nonnull Class <T> aClass);
+  <T extends IProcessorModule> T getModuleOfClass (@NonNull Class <T> aClass);
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  <T extends IProcessorModule> ICommonsList <T> getAllModulesOfClass (@Nonnull Class <T> aClass);
+  <T extends IProcessorModule> ICommonsList <T> getAllModulesOfClass (@NonNull Class <T> aClass);
 
   /**
    * @return A list of all modules, that implement the <code>IProcessorActiveModule</code>
    *         interface. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <IProcessorActiveModule> getAllActiveModules ();
 

@@ -44,14 +44,14 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.collection.CollectionFind;
 import com.helger.io.file.FileHelper;
 import com.helger.phase2.crypto.ICryptoHelper;
 import com.helger.security.keystore.IKeyStoreType;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * KeyStore reader and write class
@@ -63,11 +63,11 @@ public final class AS2KeyStoreHelper
   private AS2KeyStoreHelper ()
   {}
 
-  @Nonnull
-  public static AS2KeyStore readKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
-                                          @Nonnull final String sFilename,
-                                          @Nonnull final char [] aPassword,
-                                          @Nonnull final ICryptoHelper aCryptoHelper) throws Exception
+  @NonNull
+  public static AS2KeyStore readKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
+                                          @NonNull final String sFilename,
+                                          @NonNull final char [] aPassword,
+                                          @NonNull final ICryptoHelper aCryptoHelper) throws Exception
   {
     final InputStream aIS = FileHelper.getInputStream (new File (sFilename));
     if (aIS == null)
@@ -84,9 +84,9 @@ public final class AS2KeyStoreHelper
     }
   }
 
-  public static void writeKeyStore (@Nonnull final AS2KeyStore aKeyStore,
-                                    @Nonnull final String sFilename,
-                                    @Nonnull final char [] aPassword) throws GeneralSecurityException, IOException
+  public static void writeKeyStore (@NonNull final AS2KeyStore aKeyStore,
+                                    @NonNull final String sFilename,
+                                    @NonNull final char [] aPassword) throws GeneralSecurityException, IOException
   {
     final OutputStream aOS = FileHelper.getOutputStream (new File (sFilename), EAppend.TRUNCATE);
     if (aOS == null)
@@ -102,8 +102,8 @@ public final class AS2KeyStoreHelper
     }
   }
 
-  @Nonnull
-  public static X509Certificate readX509Certificate (@Nonnull final String sFilename) throws CertificateException
+  @NonNull
+  public static X509Certificate readX509Certificate (@NonNull final String sFilename) throws CertificateException
   {
     final InputStream aIS = FileHelper.getInputStream (new File (sFilename));
     if (aIS == null)

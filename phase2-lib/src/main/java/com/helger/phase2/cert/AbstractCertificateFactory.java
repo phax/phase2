@@ -45,6 +45,8 @@ import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,9 +73,6 @@ import com.helger.phase2.util.AS2Helper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.IKeyStoreType;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base implementation of a read-only Certificate factory that operates on a
@@ -115,7 +114,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     m_aRWLock.writeLockedBoolean ( () -> m_bDebugLog = bDebugLog);
   }
 
-  protected final void debugLog (@Nonnull final Supplier <String> aSupplier)
+  protected final void debugLog (@NonNull final Supplier <String> aSupplier)
   {
     if (isDebugLogEnabled ())
       LOGGER.info (aSupplier.get ());
@@ -162,7 +161,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   private static String _debug (@Nullable final X509Certificate aCert)
   {
@@ -171,16 +170,16 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
                                     aCert.getSerialNumber ().toString ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  private static String _debug (@Nonnull final Exception ex)
+  private static String _debug (@NonNull final Exception ex)
   {
     return ex.getClass ().getName () + " - " + ex.getMessage ();
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected KeyStore createNewKeyStore (@Nonnull final EKeyStoreType eKeyStoreType) throws GeneralSecurityException
+  protected KeyStore createNewKeyStore (@NonNull final EKeyStoreType eKeyStoreType) throws GeneralSecurityException
   {
     ValueEnforcer.notNull (eKeyStoreType, "KeystoreType");
 
@@ -190,7 +189,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   }
 
   @Override
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aOptions)
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
                                                                                                               throws AS2Exception
   {
     debugLog ( () -> "initDynamicComponent (" + aSession + ", " + aOptions + ")");
@@ -202,7 +201,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     debugLog ( () -> "initDynamicComponent -> done");
   }
 
-  @Nonnull
+  @NonNull
   public KeyStore getKeyStore ()
   {
     final KeyStore ret = m_aRWLock.readLockedGet ( () -> m_aKeyStore);
@@ -217,7 +216,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
    * @param aKeyStore
    *        The key store to use. May not be <code>null</code>.
    */
-  protected final void setKeyStore (@Nonnull final KeyStore aKeyStore)
+  protected final void setKeyStore (@NonNull final KeyStore aKeyStore)
   {
     ValueEnforcer.notNull (aKeyStore, "KeyStore");
 
@@ -276,9 +275,9 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     return sAlias;
   }
 
-  @Nonnull
-  public String getAlias (@Nonnull final Partnership aPartnership,
-                          @Nonnull final ECertificatePartnershipType ePartnershipType) throws AS2Exception
+  @NonNull
+  public String getAlias (@NonNull final Partnership aPartnership,
+                          @NonNull final ECertificatePartnershipType ePartnershipType) throws AS2Exception
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
     ValueEnforcer.notNull (ePartnershipType, "PartnershipType");
@@ -308,7 +307,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   protected X509Certificate internalGetCertificate (@Nullable final String sAlias,
                                                     @Nullable final ECertificatePartnershipType ePartnershipType) throws AS2Exception
   {
@@ -336,7 +335,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
   }
 
-  @Nonnull
+  @NonNull
   public X509Certificate getCertificate (@Nullable final String sAlias) throws AS2Exception
   {
     debugLog ( () -> "getCertificate (" + sAlias + ")");
@@ -345,9 +344,9 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     return ret;
   }
 
-  @Nonnull
-  public X509Certificate getCertificate (@Nonnull final IBaseMessage aMsg,
-                                         @Nonnull final ECertificatePartnershipType ePartnershipType) throws AS2Exception
+  @NonNull
+  public X509Certificate getCertificate (@NonNull final IBaseMessage aMsg,
+                                         @NonNull final ECertificatePartnershipType ePartnershipType) throws AS2Exception
   {
     debugLog ( () -> "getCertificate (" + aMsg.getMessageID () + ", " + ePartnershipType + ")");
 
@@ -357,7 +356,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, X509Certificate> getCertificates () throws AS2Exception
   {
@@ -399,7 +398,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   protected void onChange () throws AS2Exception
   {}
 
-  @Nonnull
+  @NonNull
   private ICommonsList <String> _getAllAliases ()
   {
     debugLog ( () -> "_getAllAliases ()");
@@ -423,7 +422,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public PrivateKey getPrivateKey (@Nullable final X509Certificate aCert) throws AS2Exception
   {
     debugLog ( () -> "getPrivateKey (" + _debug (aCert) + ")");
@@ -476,8 +475,8 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
   }
 
-  public void addCertificate (@Nonnull @Nonempty final String sAlias,
-                              @Nonnull final X509Certificate aCert,
+  public void addCertificate (@NonNull @Nonempty final String sAlias,
+                              @NonNull final X509Certificate aCert,
                               final boolean bOverwrite) throws AS2Exception
   {
     ValueEnforcer.notEmpty (sAlias, "Alias");
@@ -511,9 +510,9 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     debugLog ( () -> "addCertificate -> done");
   }
 
-  public void addPrivateKey (@Nonnull @Nonempty final String sAlias,
-                             @Nonnull final Key aKey,
-                             @Nonnull final String sPassword) throws AS2Exception
+  public void addPrivateKey (@NonNull @Nonempty final String sAlias,
+                             @NonNull final Key aKey,
+                             @NonNull final String sPassword) throws AS2Exception
   {
     ValueEnforcer.notEmpty (sAlias, "Alias");
     ValueEnforcer.notNull (aKey, "Key");
@@ -586,7 +585,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     debugLog ( () -> "clearCertificates -> removed " + nFinalDeleted);
   }
 
-  public void removeCertificate (@Nonnull final X509Certificate aCert) throws AS2Exception
+  public void removeCertificate (@NonNull final X509Certificate aCert) throws AS2Exception
   {
     ValueEnforcer.notNull (aCert, "Cert");
 
@@ -647,7 +646,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     debugLog ( () -> "removeCertificate -> done");
   }
 
-  public void load (@Nonnull @WillClose final InputStream aIS, @Nonnull final char [] aPassword) throws AS2Exception
+  public void load (@NonNull @WillClose final InputStream aIS, @NonNull final char [] aPassword) throws AS2Exception
   {
     debugLog ( () -> "load (" + aIS + ", ***)");
 
@@ -678,7 +677,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     debugLog ( () -> "load -> done");
   }
 
-  public void save (@Nonnull @WillClose final OutputStream aOS, @Nonnull final char [] aPassword) throws AS2Exception
+  public void save (@NonNull @WillClose final OutputStream aOS, @NonNull final char [] aPassword) throws AS2Exception
   {
     debugLog ( () -> "save (" + aOS + ", ***)");
 

@@ -32,6 +32,8 @@
  */
 package com.helger.phase2.util;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +42,6 @@ import com.helger.base.codec.impl.RFC2616Codec;
 import com.helger.base.string.StringHelper;
 import com.helger.http.header.HttpHeaderMap;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.internet.ContentType;
 import jakarta.mail.internet.InternetHeaders;
 import jakarta.mail.internet.ParseException;
@@ -83,8 +83,8 @@ public final class AS2HttpHelper
     return aCT != null ? aCT.toString () : null;
   }
 
-  @Nonnull
-  public static InternetHeaders getAsInternetHeaders (@Nonnull final HttpHeaderMap aHeaders)
+  @NonNull
+  public static InternetHeaders getAsInternetHeaders (@NonNull final HttpHeaderMap aHeaders)
   {
     final InternetHeaders ret = new InternetHeaders ();
     // No unification/no masking

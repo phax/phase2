@@ -34,15 +34,14 @@ package com.helger.phase2.processor;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the default implementation of {@link IMessageProcessor}. It handles all actions
@@ -55,8 +54,8 @@ public class DefaultMessageProcessor extends AbstractMessageProcessor
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (DefaultMessageProcessor.class);
 
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     if (LOGGER.isDebugEnabled ())

@@ -16,6 +16,7 @@
  */
 package com.helger.phase2.servlet.mdn;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,6 @@ import com.helger.phase2.util.AS2HttpHelper;
 import com.helger.phase2.util.http.IAS2HttpResponseHandler;
 
 import jakarta.activation.DataSource;
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 
 /**
@@ -67,13 +67,13 @@ public abstract class AbstractAS2MDNReceiveXServletHandler extends AbstractAS2Re
    *         In case an overriding methods wants to throw a different exception
    */
   @Override
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected abstract AS2Session createAS2Session (@Nonnull ICommonsMap <String, String> aInitParams) throws AS2Exception,
+  protected abstract AS2Session createAS2Session (@NonNull ICommonsMap <String, String> aInitParams) throws AS2Exception,
                                                                                                      ServletException;
 
   @Override
-  public void onServletInit (@Nonnull final ICommonsMap <String, String> aInitParams) throws ServletException
+  public void onServletInit (@NonNull final ICommonsMap <String, String> aInitParams) throws ServletException
   {
     super.onServletInit (aInitParams);
 
@@ -99,7 +99,7 @@ public abstract class AbstractAS2MDNReceiveXServletHandler extends AbstractAS2Re
    * @throws IllegalStateException
    *         In case initialization failed
    */
-  @Nonnull
+  @NonNull
   protected final AS2ServletMDNReceiverModule getMDNReceiverModule ()
   {
     if (m_aReceiver == null)
@@ -116,10 +116,10 @@ public abstract class AbstractAS2MDNReceiveXServletHandler extends AbstractAS2Re
   @Override
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected void handleIncomingMessage (@Nonnull final String sClientInfo,
-                                        @Nonnull final DataSource aMsgData,
-                                        @Nonnull final AS2Message aMsg,
-                                        @Nonnull final IAS2HttpResponseHandler aResponseHandler) throws ServletException
+  protected void handleIncomingMessage (@NonNull final String sClientInfo,
+                                        @NonNull final DataSource aMsgData,
+                                        @NonNull final AS2Message aMsg,
+                                        @NonNull final IAS2HttpResponseHandler aResponseHandler) throws ServletException
   {
     // for large file support, handleIncomingMessage takes DataSource
     final String sReceivedContentType = AS2HttpHelper.getCleanContentType (aMsg.getHeader (CHttpHeader.CONTENT_TYPE));

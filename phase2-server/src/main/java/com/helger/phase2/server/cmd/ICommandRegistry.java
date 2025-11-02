@@ -32,15 +32,15 @@
  */
 package com.helger.phase2.server.cmd;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.phase2.IDynamicComponent;
 
-import jakarta.annotation.Nonnull;
-
 public interface ICommandRegistry extends IDynamicComponent
 {
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedMap <String, ICommand> getAllCommands ();
 }

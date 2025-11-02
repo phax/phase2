@@ -32,7 +32,7 @@
  */
 package com.helger.phase2.server.cmd;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public interface ICommandRegistryFactory
 {

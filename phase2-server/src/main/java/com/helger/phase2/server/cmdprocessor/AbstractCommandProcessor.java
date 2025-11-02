@@ -32,6 +32,9 @@
  */
 package com.helger.phase2.server.cmdprocessor;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.annotation.style.UnsupportedOperation;
@@ -47,9 +50,6 @@ import com.helger.phase2.server.cmd.ICommandRegistry;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.StringMap;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public abstract class AbstractCommandProcessor implements ICommandProcessor, IDynamicComponent, Runnable
 {
   private final StringMap m_aAttrs = new StringMap ();
@@ -59,14 +59,14 @@ public abstract class AbstractCommandProcessor implements ICommandProcessor, IDy
   public AbstractCommandProcessor ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final StringMap attrs ()
   {
     return m_aAttrs;
   }
 
-  @Nonnull
+  @NonNull
   public String getName ()
   {
     return ClassHelper.getClassLocalName (this);
@@ -81,7 +81,7 @@ public abstract class AbstractCommandProcessor implements ICommandProcessor, IDy
   public void init () throws AS2Exception
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, ICommand> getAllCommands ()
   {
@@ -105,7 +105,7 @@ public abstract class AbstractCommandProcessor implements ICommandProcessor, IDy
     throw new AS2Exception ("super class method call, not initialized correctly");
   }
 
-  public void addCommands (@Nonnull final ICommandRegistry aCommandRegistry)
+  public void addCommands (@NonNull final ICommandRegistry aCommandRegistry)
   {
     ValueEnforcer.notNull (aCommandRegistry, "CommandRegistry");
     m_aCommands.putAll (aCommandRegistry.getAllCommands ());

@@ -34,13 +34,13 @@ package com.helger.phase2.message;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.string.StringHelper;
 import com.helger.http.CHttpHeader;
 import com.helger.phase2.CPhase2Info;
 import com.helger.phase2.partner.Partnership;
 import com.helger.phase2.util.AS2DateHelper;
-
-import jakarta.annotation.Nonnull;
 
 public class AS2MessageMDN extends AbstractMessageMDN
 {
@@ -52,7 +52,7 @@ public class AS2MessageMDN extends AbstractMessageMDN
   public static final String MDNA_MIC = "MIC";
   public static final String DEFAULT_DATE_FORMAT = "ddMMuuuuHHmmssZ";
 
-  public AS2MessageMDN (@Nonnull final AS2Message aMsg)
+  public AS2MessageMDN (@NonNull final AS2Message aMsg)
   {
     super (aMsg);
     // Swap from and to

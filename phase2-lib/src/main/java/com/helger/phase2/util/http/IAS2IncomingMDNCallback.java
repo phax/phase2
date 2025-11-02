@@ -32,10 +32,10 @@
  */
 package com.helger.phase2.util.http;
 
-import com.helger.phase2.message.IMessageMDN;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.phase2.message.IMessageMDN;
 
 /**
  * Callback interface to be invoked for incoming MDNs to simplify logging.
@@ -70,7 +70,7 @@ public interface IAS2IncomingMDNCallback
    *        <code>true</code> if the MDN MIC matched the original MIC, <code>false</code> if not.
    */
   void onIncomingMDN (boolean bSynchronousMDN,
-                      @Nonnull IMessageMDN aMDN,
+                      @NonNull IMessageMDN aMDN,
                       @Nullable String sSenderAS2ID,
                       @Nullable String sReceiverAS2ID,
                       @Nullable String sDisposition,

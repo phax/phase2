@@ -35,6 +35,9 @@ package com.helger.phase2.server.cmd;
 import java.io.File;
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.io.file.FileHelper;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.server.app.session.AS2ServerXMLSession;
@@ -45,15 +48,12 @@ import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public class XMLCommandRegistry extends BaseCommandRegistry
 {
   public static final String ATTR_FILENAME = "filename";
 
   @Override
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aParameters) throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParameters) throws AS2Exception
   {
     super.initDynamicComponent (aSession, aParameters);
 
@@ -71,7 +71,7 @@ public class XMLCommandRegistry extends BaseCommandRegistry
       addCommand (aCommand);
   }
 
-  protected void loadMultiCommand (@Nonnull final IMicroElement aCommand, @Nullable final MultiCommand parent) throws AS2Exception
+  protected void loadMultiCommand (@NonNull final IMicroElement aCommand, @Nullable final MultiCommand parent) throws AS2Exception
   {
     final MultiCommand cmd = new MultiCommand ();
     cmd.initDynamicComponent (getSession (), AS2XMLHelper.getAllAttrsWithLowercaseName (aCommand));
@@ -95,7 +95,7 @@ public class XMLCommandRegistry extends BaseCommandRegistry
     }
   }
 
-  public void load (@Nonnull final InputStream in) throws AS2Exception
+  public void load (@NonNull final InputStream in) throws AS2Exception
   {
     final IMicroDocument aDoc = MicroReader.readMicroXML (in);
     final IMicroElement eRoot = aDoc.getDocumentElement ();

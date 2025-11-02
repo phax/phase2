@@ -34,11 +34,11 @@ package com.helger.phase2.params;
 
 import java.time.ZonedDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.VisibleForTesting;
 import com.helger.phase2.util.AS2DateHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class DateParameters extends AbstractParameterParser
 {
@@ -70,7 +70,7 @@ public class DateParameters extends AbstractParameterParser
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String getParameter (@Nullable final String sKey) throws AS2InvalidParameterException
   {
     if (sKey == null)

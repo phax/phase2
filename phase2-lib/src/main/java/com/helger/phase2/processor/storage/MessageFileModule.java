@@ -38,6 +38,8 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,9 +55,6 @@ import com.helger.phase2.params.CompositeParameters;
 import com.helger.phase2.params.DateParameters;
 import com.helger.phase2.params.MessageParameters;
 import com.helger.phase2.processor.receiver.AbstractActiveNetModule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Store message content and optionally message headers and attributes to a file
@@ -87,8 +86,8 @@ public class MessageFileModule extends AbstractStorageModule
       attrs ().putIn (ATTR_HEADER, sHeaderFilename);
   }
 
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     // store message content
@@ -135,8 +134,8 @@ public class MessageFileModule extends AbstractStorageModule
   }
 
   @Override
-  @Nonnull
-  protected String getFilename (@Nonnull final IMessage aMsg, @Nullable final String sFileParam)
+  @NonNull
+  protected String getFilename (@NonNull final IMessage aMsg, @Nullable final String sFileParam)
                                                                                                  throws AS2InvalidParameterException
   {
     final CompositeParameters aCompParams = new CompositeParameters (false).add ("date", new DateParameters ())
@@ -144,8 +143,8 @@ public class MessageFileModule extends AbstractStorageModule
     return aCompParams.format (sFileParam);
   }
 
-  @Nonnull
-  protected static InputStream getHeaderStream (@Nonnull final IMessage aMsg, @Nonnull final Charset aCharset)
+  @NonNull
+  protected static InputStream getHeaderStream (@NonNull final IMessage aMsg, @NonNull final Charset aCharset)
   {
     final StringBuilder aSB = new StringBuilder ();
 

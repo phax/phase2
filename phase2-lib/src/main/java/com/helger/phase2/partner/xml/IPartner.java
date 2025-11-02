@@ -34,12 +34,12 @@ package com.helger.phase2.partner.xml;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.name.IHasName;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Read-only interface for a single partner that is used in a partnership.
@@ -52,7 +52,7 @@ public interface IPartner extends IHasName, ICommonsIterable <Map.Entry <String,
   /**
    * @return All contained attributes. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <String, String> getAllAttributes ();
 }

@@ -32,9 +32,9 @@
  */
 package com.helger.phase2.processor.receiver;
 
-import com.helger.phase2.processor.receiver.net.AS2ReceiverHandler;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.phase2.processor.receiver.net.AS2ReceiverHandler;
 
 /**
  * The module for receiving AS2 messages.
@@ -47,7 +47,7 @@ public class AS2ReceiverModule extends AbstractActiveNetModule
   {}
 
   @Override
-  @Nonnull
+  @NonNull
   public AS2ReceiverHandler createHandler ()
   {
     return new AS2ReceiverHandler (this);

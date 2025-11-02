@@ -32,23 +32,23 @@
  */
 package com.helger.phase2.server.cmdprocessor;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.server.cmd.ICommand;
 import com.helger.phase2.server.cmd.ICommandRegistry;
 
-import jakarta.annotation.Nonnull;
-
 public interface ICommandProcessor
 {
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <String, ICommand> getAllCommands ();
 
   boolean isTerminated ();
 
-  void addCommands (@Nonnull ICommandRegistry reg);
+  void addCommands (@NonNull ICommandRegistry reg);
 
   void init () throws AS2Exception;
 

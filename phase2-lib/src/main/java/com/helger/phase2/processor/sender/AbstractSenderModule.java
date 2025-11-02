@@ -34,6 +34,8 @@ package com.helger.phase2.processor.sender;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,9 +48,6 @@ import com.helger.phase2.message.IMessage;
 import com.helger.phase2.partner.Partnership;
 import com.helger.phase2.processor.module.AbstractProcessorModule;
 import com.helger.phase2.processor.resender.IProcessorResenderModule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An abstract sender module that allows for retry. It allows to configure the maximum number of
@@ -136,8 +135,8 @@ public abstract class AbstractSenderModule extends AbstractProcessorModule imple
    * @throws AS2Exception
    *         In case of an error
    */
-  protected final boolean doResend (@Nonnull final String sResendAction,
-                                    @Nonnull final IMessage aMsg,
+  protected final boolean doResend (@NonNull final String sResendAction,
+                                    @NonNull final IMessage aMsg,
                                     @Nullable final AS2Exception aCause,
                                     final int nTriesLeft) throws AS2Exception
   {

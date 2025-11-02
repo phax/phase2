@@ -36,6 +36,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +47,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.CHttpHeader;
 import com.helger.phase2.util.http.TempSharedFileInputStream;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -66,7 +66,7 @@ public abstract class AbstractMessage extends AbstractBaseMessage implements IMe
   public AbstractMessage ()
   {}
 
-  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
+  private void readObject (@NonNull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
   {
     try
     {
@@ -85,7 +85,7 @@ public abstract class AbstractMessage extends AbstractBaseMessage implements IMe
       m_aMDN.setMessage (this);
   }
 
-  private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  private void writeObject (@NonNull final ObjectOutputStream aOOS) throws IOException
   {
     // write the mime body
     // Write to BAOS first to avoid serializing an incomplete object
@@ -174,7 +174,7 @@ public abstract class AbstractMessage extends AbstractBaseMessage implements IMe
     m_aTempSharedFileInputStream = aTempSharedFileInputStream;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsString ()
   {

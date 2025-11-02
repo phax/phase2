@@ -34,10 +34,10 @@ package com.helger.phase2.util.dump;
 
 import java.util.List;
 
-import com.helger.phase2.message.IBaseMessage;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.phase2.message.IBaseMessage;
 
 /**
  * Base interface to dump incoming HTTP requests
@@ -57,7 +57,7 @@ public interface IHTTPIncomingDumper
    * @param aMsg
    *        The message stub. May be <code>null</code> for legacy reasons.
    */
-  void dumpIncomingRequest (@Nonnull List <String> aHeaderLines,
-                            @Nonnull byte [] aPayload,
+  void dumpIncomingRequest (@NonNull List <String> aHeaderLines,
+                            @NonNull byte [] aPayload,
                             @Nullable IBaseMessage aMsg);
 }

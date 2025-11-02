@@ -34,11 +34,11 @@ package com.helger.phase2.util.dump;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.file.FileHelper;
 import com.helger.phase2.message.IBaseMessage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Directory based outgoing HTTP dumper.
@@ -56,7 +56,7 @@ public class HTTPOutgoingDumperFileBased extends HTTPOutgoingDumperStreamBased
    * @param aMsg
    *        Message to be dumped
    */
-  public HTTPOutgoingDumperFileBased (@Nonnull final File aDumpDirectory, @Nonnull final IBaseMessage aMsg)
+  public HTTPOutgoingDumperFileBased (@NonNull final File aDumpDirectory, @NonNull final IBaseMessage aMsg)
   {
     this (new File (aDumpDirectory, "as2-outgoing-" + Long.toString (System.currentTimeMillis ()) + ".http"));
   }
@@ -65,13 +65,13 @@ public class HTTPOutgoingDumperFileBased extends HTTPOutgoingDumperStreamBased
    * @param aDumpFile
    *        The file to dump to.
    */
-  public HTTPOutgoingDumperFileBased (@Nonnull final File aDumpFile)
+  public HTTPOutgoingDumperFileBased (@NonNull final File aDumpFile)
   {
     super (FileHelper.getBufferedOutputStream (aDumpFile));
     m_aDumpFile = aDumpFile;
   }
 
-  @Nonnull
+  @NonNull
   public File getDumpFile ()
   {
     return m_aDumpFile;

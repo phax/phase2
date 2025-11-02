@@ -36,13 +36,13 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.io.EAppend;
 import com.helger.io.file.FileHelper;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.security.keystore.KeyStoreHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a certificate factory that can store to a file.
@@ -58,7 +58,7 @@ public interface IStorableCertificateFactory extends ICertificateFactory
   @Nullable
   String getFilename ();
 
-  default void setPassword (@Nonnull final char [] aPassword)
+  default void setPassword (@NonNull final char [] aPassword)
   {
     setPassword (new String (aPassword));
   }
@@ -95,7 +95,7 @@ public interface IStorableCertificateFactory extends ICertificateFactory
     load (getFilename (), getPassword ());
   }
 
-  default void load (@Nonnull final String sFilename, @Nonnull final char [] aPassword) throws AS2Exception
+  default void load (@NonNull final String sFilename, @NonNull final char [] aPassword) throws AS2Exception
   {
     InputStream aFIS = null;
     try
@@ -111,7 +111,7 @@ public interface IStorableCertificateFactory extends ICertificateFactory
     load (aFIS, aPassword);
   }
 
-  void load (@Nonnull InputStream aIS, @Nonnull char [] aPassword) throws AS2Exception;
+  void load (@NonNull InputStream aIS, @NonNull char [] aPassword) throws AS2Exception;
 
   /**
    * Shortcut for <code>save (getFilename (), getPassword ());</code>
@@ -124,7 +124,7 @@ public interface IStorableCertificateFactory extends ICertificateFactory
     save (getFilename (), getPassword ());
   }
 
-  default void save (@Nonnull final String sFilename, @Nonnull final char [] aPassword) throws AS2Exception
+  default void save (@NonNull final String sFilename, @NonNull final char [] aPassword) throws AS2Exception
   {
     // Must be File by default
     final OutputStream fOut = FileHelper.getOutputStream (new File (sFilename), EAppend.TRUNCATE);
@@ -133,5 +133,5 @@ public interface IStorableCertificateFactory extends ICertificateFactory
     save (fOut, aPassword);
   }
 
-  void save (@Nonnull OutputStream aOS, @Nonnull char [] aPassword) throws AS2Exception;
+  void save (@NonNull OutputStream aOS, @NonNull char [] aPassword) throws AS2Exception;
 }

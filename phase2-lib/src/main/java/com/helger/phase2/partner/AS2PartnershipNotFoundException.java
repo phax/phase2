@@ -32,9 +32,9 @@
  */
 package com.helger.phase2.partner;
 
-import com.helger.phase2.exception.AS2Exception;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.phase2.exception.AS2Exception;
 
 /**
  * Exception thrown if a desired partnership is not present.
@@ -45,7 +45,7 @@ public class AS2PartnershipNotFoundException extends AS2Exception
 {
   private final Partnership m_aPartnership;
 
-  public AS2PartnershipNotFoundException (@Nonnull final Partnership aPartnership)
+  public AS2PartnershipNotFoundException (@NonNull final Partnership aPartnership)
   {
     super ("Partnership not found: " + aPartnership);
     m_aPartnership = aPartnership;
@@ -54,7 +54,7 @@ public class AS2PartnershipNotFoundException extends AS2Exception
   /**
    * @return The partnership that was not found. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public Partnership getPartnership ()
   {
     return m_aPartnership;

@@ -34,6 +34,9 @@ package com.helger.phase2.session;
 
 import java.net.Proxy;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -52,8 +55,6 @@ import com.helger.phase2.util.javamail.DispositionDataContentHandler;
 
 import jakarta.activation.CommandMap;
 import jakarta.activation.MailcapCommandMap;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IAS2Session}
@@ -96,8 +97,8 @@ public class AS2Session implements IAS2Session
     makeAS2CommandMapChanges ();
   }
 
-  public final void addComponent (@Nonnull @Nonempty final String sComponentID,
-                                  @Nonnull final IDynamicComponent aComponent) throws AS2ComponentDuplicateException
+  public final void addComponent (@NonNull @Nonempty final String sComponentID,
+                                  @NonNull final IDynamicComponent aComponent) throws AS2ComponentDuplicateException
   {
     ValueEnforcer.notEmpty (sComponentID, "ComponentID");
     ValueEnforcer.notNull (aComponent, "Component");
@@ -106,23 +107,23 @@ public class AS2Session implements IAS2Session
     m_aComponents.put (sComponentID, aComponent);
   }
 
-  public void setCertificateFactory (@Nonnull final ICertificateFactory aCertFactory) throws AS2ComponentDuplicateException
+  public void setCertificateFactory (@NonNull final ICertificateFactory aCertFactory) throws AS2ComponentDuplicateException
   {
     addComponent (COMPONENT_ID_CERTIFICATE_FACTORY, aCertFactory);
   }
 
-  public void setPartnershipFactory (@Nonnull final IPartnershipFactory aPartnershipFactory) throws AS2ComponentDuplicateException
+  public void setPartnershipFactory (@NonNull final IPartnershipFactory aPartnershipFactory) throws AS2ComponentDuplicateException
   {
     addComponent (COMPONENT_ID_PARTNERSHIP_FACTORY, aPartnershipFactory);
   }
 
-  public void setMessageProcessor (@Nonnull final IMessageProcessor aMsgProcessor) throws AS2ComponentDuplicateException
+  public void setMessageProcessor (@NonNull final IMessageProcessor aMsgProcessor) throws AS2ComponentDuplicateException
   {
     addComponent (COMPONENT_ID_MESSAGE_PROCESSOR, aMsgProcessor);
   }
 
-  @Nonnull
-  public final IDynamicComponent getComponent (@Nonnull @Nonempty final String sComponentID) throws AS2ComponentNotFoundException
+  @NonNull
+  public final IDynamicComponent getComponent (@NonNull @Nonempty final String sComponentID) throws AS2ComponentNotFoundException
   {
     ValueEnforcer.notEmpty (sComponentID, "ComponentID");
     final IDynamicComponent aComponent = m_aComponents.get (sComponentID);
@@ -136,33 +137,33 @@ public class AS2Session implements IAS2Session
    *
    * @return The mutual component map. Never <code>null</code> handle with care.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   protected final ICommonsMap <String, IDynamicComponent> components ()
   {
     return m_aComponents;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsMap <String, IDynamicComponent> getAllComponents ()
   {
     return m_aComponents.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public final ICertificateFactory getCertificateFactory () throws AS2ComponentNotFoundException
   {
     return (ICertificateFactory) getComponent (COMPONENT_ID_CERTIFICATE_FACTORY);
   }
 
-  @Nonnull
+  @NonNull
   public final IPartnershipFactory getPartnershipFactory () throws AS2ComponentNotFoundException
   {
     return (IPartnershipFactory) getComponent (COMPONENT_ID_PARTNERSHIP_FACTORY);
   }
 
-  @Nonnull
+  @NonNull
   public final IMessageProcessor getMessageProcessor () throws AS2ComponentNotFoundException
   {
     return (IMessageProcessor) getComponent (COMPONENT_ID_MESSAGE_PROCESSOR);
@@ -199,14 +200,14 @@ public class AS2Session implements IAS2Session
     m_aHttpProxy = aHttpProxy;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getAS2VersionID ()
   {
     return m_sAS2VersionID;
   }
 
-  public final void setAS2VersionID (@Nonnull @Nonempty final String sAS2Version)
+  public final void setAS2VersionID (@NonNull @Nonempty final String sAS2Version)
   {
     ValueEnforcer.notEmpty (sAS2Version, "AS2Version");
     m_sAS2VersionID = sAS2Version;

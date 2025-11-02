@@ -35,6 +35,8 @@ package com.helger.phase2.params;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,17 +44,14 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.phase2.exception.AS2Exception;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public abstract class AbstractParameterParser
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractParameterParser.class);
 
-  public abstract void setParameter (@Nonnull String sKey, @Nonnull String sValue) throws AS2InvalidParameterException;
+  public abstract void setParameter (@NonNull String sKey, @NonNull String sValue) throws AS2InvalidParameterException;
 
   @Nullable
-  public abstract String getParameter (@Nonnull String sKey) throws AS2InvalidParameterException;
+  public abstract String getParameter (@NonNull String sKey) throws AS2InvalidParameterException;
 
   /**
    * Set parameters from a string, like
@@ -63,7 +62,7 @@ public abstract class AbstractParameterParser
    * @throws AS2InvalidParameterException
    *         In case the string is incorrect
    */
-  public void setParameters (@Nonnull final String sEncodedParams) throws AS2InvalidParameterException
+  public void setParameters (@NonNull final String sEncodedParams) throws AS2InvalidParameterException
   {
     final StringTokenizer aParams = new StringTokenizer (sEncodedParams, "=,", false);
     while (aParams.hasMoreTokens ())
@@ -92,7 +91,7 @@ public abstract class AbstractParameterParser
    */
   public void setParameters (@Nullable final String sFormat,
                              @Nullable final String sDelimiters,
-                             @Nonnull final String sValue) throws AS2Exception
+                             @NonNull final String sValue) throws AS2Exception
   {
     final List <String> aKeys = StringHelper.getExploded (',', sFormat);
 
@@ -116,7 +115,7 @@ public abstract class AbstractParameterParser
    * @throws AS2InvalidParameterException
    *         In case the string is incorrect
    */
-  @Nonnull
+  @NonNull
   public String format (@Nullable final String sFormat) throws AS2InvalidParameterException
   {
     if (LOGGER.isTraceEnabled ())

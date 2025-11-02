@@ -32,13 +32,13 @@
  */
 package com.helger.phase2.processor.receiver;
 
-import com.helger.phase2.exception.AS2Exception;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.phase2.exception.AS2Exception;
 
 public class AS2InvalidMessageException extends AS2Exception
 {
-  public AS2InvalidMessageException (@Nonnull final String sMsg)
+  public AS2InvalidMessageException (@NonNull final String sMsg)
   {
     super (sMsg);
   }

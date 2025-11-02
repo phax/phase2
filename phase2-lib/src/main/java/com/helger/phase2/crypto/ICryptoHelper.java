@@ -39,14 +39,15 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.mail.cte.EContentTransferEncoding;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.util.AS2ResourceHelper;
 import com.helger.security.keystore.IKeyStoreType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.internet.MimeBodyPart;
 
 /**
@@ -63,8 +64,8 @@ public interface ICryptoHelper
    * @throws GeneralSecurityException
    *         In case something goes wrong.
    */
-  @Nonnull
-  KeyStore createNewKeyStore (@Nonnull IKeyStoreType aKeyStoreType) throws GeneralSecurityException;
+  @NonNull
+  KeyStore createNewKeyStore (@NonNull IKeyStoreType aKeyStoreType) throws GeneralSecurityException;
 
   /**
    * Load a key store from the specified input stream.
@@ -79,10 +80,10 @@ public interface ICryptoHelper
    * @throws Exception
    *         In case loading fails.
    */
-  @Nonnull
-  KeyStore loadKeyStore (@Nonnull IKeyStoreType aKeyStoreType,
-                         @Nonnull @WillNotClose InputStream aIS,
-                         @Nonnull char [] aPassword) throws Exception;
+  @NonNull
+  KeyStore loadKeyStore (@NonNull IKeyStoreType aKeyStoreType,
+                         @NonNull @WillNotClose InputStream aIS,
+                         @NonNull char [] aPassword) throws Exception;
 
   /**
    * Check if the passed MIME body part is encrypted. The default implementation checks if the base
@@ -95,7 +96,7 @@ public interface ICryptoHelper
    * @throws Exception
    *         In case something goes wrong.
    */
-  boolean isEncrypted (@Nonnull MimeBodyPart aPart) throws Exception;
+  boolean isEncrypted (@NonNull MimeBodyPart aPart) throws Exception;
 
   /**
    * Check if the passed MIME body part is signed. The default implementation checks if the base
@@ -107,7 +108,7 @@ public interface ICryptoHelper
    * @throws Exception
    *         In case something goes wrong.
    */
-  boolean isSigned (@Nonnull MimeBodyPart aPart) throws Exception;
+  boolean isSigned (@NonNull MimeBodyPart aPart) throws Exception;
 
   /**
    * Check if the passed content type indicates compression. The default implementation checks if
@@ -119,7 +120,7 @@ public interface ICryptoHelper
    * @throws AS2Exception
    *         In case something goes wrong.
    */
-  boolean isCompressed (@Nonnull String sContentType) throws AS2Exception;
+  boolean isCompressed (@NonNull String sContentType) throws AS2Exception;
 
   /**
    * Calculate the MIC
@@ -135,23 +136,23 @@ public interface ICryptoHelper
    * @throws Exception
    *         In case something goes wrong.
    */
-  @Nonnull
-  MIC calculateMIC (@Nonnull MimeBodyPart aPart,
-                    @Nonnull ECryptoAlgorithmSign eDigestAlgorithm,
+  @NonNull
+  MIC calculateMIC (@NonNull MimeBodyPart aPart,
+                    @NonNull ECryptoAlgorithmSign eDigestAlgorithm,
                     boolean bIncludeHeaders) throws Exception;
 
-  @Nonnull
-  MimeBodyPart encrypt (@Nonnull MimeBodyPart aPart,
-                        @Nonnull X509Certificate aCert,
-                        @Nonnull ECryptoAlgorithmCrypt eAlgorithm,
-                        @Nonnull EContentTransferEncoding eCTE) throws Exception;
+  @NonNull
+  MimeBodyPart encrypt (@NonNull MimeBodyPart aPart,
+                        @NonNull X509Certificate aCert,
+                        @NonNull ECryptoAlgorithmCrypt eAlgorithm,
+                        @NonNull EContentTransferEncoding eCTE) throws Exception;
 
-  @Nonnull
-  MimeBodyPart decrypt (@Nonnull MimeBodyPart aPart,
-                        @Nonnull X509Certificate aCert,
-                        @Nonnull PrivateKey aKey,
+  @NonNull
+  MimeBodyPart decrypt (@NonNull MimeBodyPart aPart,
+                        @NonNull X509Certificate aCert,
+                        @NonNull PrivateKey aKey,
                         boolean bForceDecrypt,
-                        @Nonnull AS2ResourceHelper aResHelper) throws Exception;
+                        @NonNull AS2ResourceHelper aResHelper) throws Exception;
 
   /**
    * Sign a MIME body part.
@@ -183,15 +184,15 @@ public interface ICryptoHelper
    * @throws Exception
    *         In case something goes wrong.
    */
-  @Nonnull
-  MimeBodyPart sign (@Nonnull MimeBodyPart aPart,
-                     @Nonnull X509Certificate aCert,
-                     @Nonnull PrivateKey aKey,
-                     @Nonnull ECryptoAlgorithmSign eAlgorithm,
+  @NonNull
+  MimeBodyPart sign (@NonNull MimeBodyPart aPart,
+                     @NonNull X509Certificate aCert,
+                     @NonNull PrivateKey aKey,
+                     @NonNull ECryptoAlgorithmSign eAlgorithm,
                      boolean bIncludeCertificateInSignedContent,
                      boolean bUseOldRFC3851MicAlgs,
                      boolean bRemoveCmsAlgorithmProtect,
-                     @Nonnull EContentTransferEncoding eCTE) throws Exception;
+                     @NonNull EContentTransferEncoding eCTE) throws Exception;
 
   /**
    * Verify the specified Mime Body part against the part certificate
@@ -217,11 +218,11 @@ public interface ICryptoHelper
    *         In case something goes wrong.
    * @since 4.4.1
    */
-  @Nonnull
-  MimeBodyPart verify (@Nonnull MimeBodyPart aPart,
+  @NonNull
+  MimeBodyPart verify (@NonNull MimeBodyPart aPart,
                        @Nullable X509Certificate aCert,
                        boolean bUseCertificateInBodyPart,
                        boolean bForceVerifySigned,
                        @Nullable Consumer <X509Certificate> aEffectiveCertificateConsumer,
-                       @Nonnull AS2ResourceHelper aResHelper) throws Exception;
+                       @NonNull AS2ResourceHelper aResHelper) throws Exception;
 }

@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +49,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.io.file.FilenameHelper;
 import com.helger.phase2.util.AS2IOHelper;
 
-import jakarta.annotation.Nonnull;
 import jakarta.mail.util.SharedFileInputStream;
 
 /**
@@ -62,7 +62,7 @@ public class TempSharedFileInputStream extends SharedFileInputStream
 
   private final File m_aTempFile;
 
-  private TempSharedFileInputStream (@Nonnull final File aFile) throws IOException
+  private TempSharedFileInputStream (@NonNull final File aFile) throws IOException
   {
     super (aFile);
     m_aTempFile = aFile;
@@ -130,8 +130,8 @@ public class TempSharedFileInputStream extends SharedFileInputStream
    * @throws IOException
    *         in case of IO error
    */
-  @Nonnull
-  protected static File storeContentToTempFile (@Nonnull @WillClose final InputStream aIS, @Nonnull final String sName)
+  @NonNull
+  protected static File storeContentToTempFile (@NonNull @WillClose final InputStream aIS, @NonNull final String sName)
                                                                                                                         throws IOException
   {
     // create temp file and write steam content to it
@@ -169,9 +169,9 @@ public class TempSharedFileInputStream extends SharedFileInputStream
    * @throws IOException
    *         in case of IO error
    */
-  @Nonnull
-  public static TempSharedFileInputStream getTempSharedFileInputStream (@Nonnull @WillClose final InputStream aIS,
-                                                                        @Nonnull final String sName) throws IOException
+  @NonNull
+  public static TempSharedFileInputStream getTempSharedFileInputStream (@NonNull @WillClose final InputStream aIS,
+                                                                        @NonNull final String sName) throws IOException
   {
     // IS is closed inside the copying
     final File aDest = storeContentToTempFile (aIS, sName);

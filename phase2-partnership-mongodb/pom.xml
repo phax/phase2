@@ -99,7 +99,7 @@
             <Export-Package>
               com.helger.phase2.partner.mongodb
             </Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

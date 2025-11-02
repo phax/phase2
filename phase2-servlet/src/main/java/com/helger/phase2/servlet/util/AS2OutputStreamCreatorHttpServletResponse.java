@@ -19,6 +19,8 @@ package com.helger.phase2.servlet.util;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.enforce.ValueEnforcer;
@@ -27,7 +29,6 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.http.header.HttpHeaderMap;
 import com.helger.phase2.util.http.IAS2HttpResponseHandler;
 
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
@@ -41,7 +42,7 @@ public class AS2OutputStreamCreatorHttpServletResponse implements IAS2HttpRespon
   private final HttpServletResponse m_aHttpResponse;
   private final boolean m_bQuoteHeaderValues;
 
-  public AS2OutputStreamCreatorHttpServletResponse (@Nonnull final HttpServletResponse aHttpResponse, final boolean bQuoteHeaderValues)
+  public AS2OutputStreamCreatorHttpServletResponse (@NonNull final HttpServletResponse aHttpResponse, final boolean bQuoteHeaderValues)
   {
     m_aHttpResponse = ValueEnforcer.notNull (aHttpResponse, "HttpResponse");
     m_bQuoteHeaderValues = bQuoteHeaderValues;
@@ -58,8 +59,8 @@ public class AS2OutputStreamCreatorHttpServletResponse implements IAS2HttpRespon
   }
 
   public void sendHttpResponse (@Nonnegative final int nHttpResponseCode,
-                                @Nonnull final HttpHeaderMap aHeaders,
-                                @Nonnull @WillNotClose final IWriteToStream aData) throws IOException
+                                @NonNull final HttpHeaderMap aHeaders,
+                                @NonNull @WillNotClose final IWriteToStream aData) throws IOException
   {
     // Set status code
     m_aHttpResponse.setStatus (nHttpResponseCode);

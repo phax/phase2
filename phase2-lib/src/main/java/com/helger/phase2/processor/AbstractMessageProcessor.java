@@ -34,6 +34,8 @@ package com.helger.phase2.processor;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,9 +50,6 @@ import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
 import com.helger.phase2.processor.module.IProcessorActiveModule;
 import com.helger.phase2.processor.module.IProcessorModule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract empty implementation of {@link IMessageProcessor}. It provides all methods except
@@ -67,13 +66,13 @@ public abstract class AbstractMessageProcessor extends AbstractDynamicComponent 
   protected AbstractMessageProcessor ()
   {}
 
-  public void addModule (@Nonnull final IProcessorModule aModule)
+  public void addModule (@NonNull final IProcessorModule aModule)
   {
     ValueEnforcer.notNull (aModule, "Module");
     m_aModules.add (aModule);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeModule (@Nullable final IProcessorModule aModule)
   {
     if (aModule == null)
@@ -87,7 +86,7 @@ public abstract class AbstractMessageProcessor extends AbstractDynamicComponent 
     return m_aModules.size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IProcessorModule> getAllModules ()
   {
@@ -95,21 +94,21 @@ public abstract class AbstractMessageProcessor extends AbstractDynamicComponent 
   }
 
   @Nullable
-  public <T extends IProcessorModule> T getModuleOfClass (@Nonnull final Class <T> aClass)
+  public <T extends IProcessorModule> T getModuleOfClass (@NonNull final Class <T> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
     return m_aModules.findFirstMapped (x -> aClass.isAssignableFrom (x.getClass ()), aClass::cast);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public <T extends IProcessorModule> ICommonsList <T> getAllModulesOfClass (@Nonnull final Class <T> aClass)
+  public <T extends IProcessorModule> ICommonsList <T> getAllModulesOfClass (@NonNull final Class <T> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
     return m_aModules.getAllInstanceOf (aClass);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IProcessorActiveModule> getAllActiveModules ()
   {
@@ -154,8 +153,8 @@ public abstract class AbstractMessageProcessor extends AbstractDynamicComponent 
    * @throws AS2Exception
    *         In case of error
    */
-  protected final void executeAction (@Nonnull final String sAction,
-                                      @Nonnull final IMessage aMsg,
+  protected final void executeAction (@NonNull final String sAction,
+                                      @NonNull final IMessage aMsg,
                                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     final ICommonsList <AS2Exception> aCauses = new CommonsArrayList <> ();

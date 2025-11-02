@@ -32,6 +32,9 @@
  */
 package com.helger.phase2;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -45,9 +48,6 @@ import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.IStringMap;
 import com.helger.typeconvert.collection.StringMap;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Abstract implementation of {@link IDynamicComponent}.
  *
@@ -60,7 +60,7 @@ public abstract class AbstractDynamicComponent implements IDynamicComponent
   private final StringMap m_aAttrs = new StringMap ();
   private IAS2Session m_aSession;
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final StringMap attrs ()
   {
@@ -73,8 +73,8 @@ public abstract class AbstractDynamicComponent implements IDynamicComponent
     return ClassHelper.getClassLocalName (this);
   }
 
-  @Nonnull
-  public final String getAttributeAsStringRequired (@Nonnull final String sKey) throws AS2InvalidParameterException
+  @NonNull
+  public final String getAttributeAsStringRequired (@NonNull final String sKey) throws AS2InvalidParameterException
   {
     final String sValue = m_aRWLock.readLockedGet ( () -> attrs ().getAsString (sKey));
     if (sValue == null)
@@ -82,7 +82,7 @@ public abstract class AbstractDynamicComponent implements IDynamicComponent
     return sValue;
   }
 
-  public final int getAttributeAsIntRequired (@Nonnull final String sKey) throws AS2InvalidParameterException
+  public final int getAttributeAsIntRequired (@NonNull final String sKey) throws AS2InvalidParameterException
   {
     final int nValue = m_aRWLock.readLockedInt ( () -> attrs ().getAsInt (sKey, Integer.MIN_VALUE));
     if (nValue == Integer.MIN_VALUE)
@@ -90,7 +90,7 @@ public abstract class AbstractDynamicComponent implements IDynamicComponent
     return nValue;
   }
 
-  @Nonnull
+  @NonNull
   public final IAS2Session getSession ()
   {
     if (m_aSession == null)
@@ -99,7 +99,7 @@ public abstract class AbstractDynamicComponent implements IDynamicComponent
   }
 
   @OverridingMethodsMustInvokeSuper
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aParameters)
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParameters)
                                                                                                                  throws AS2Exception
   {
     m_aSession = ValueEnforcer.notNull (aSession, "Session");

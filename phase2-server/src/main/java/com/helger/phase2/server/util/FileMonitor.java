@@ -37,13 +37,13 @@ import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.CGlobal;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class FileMonitor
 {
@@ -118,7 +118,7 @@ public class FileMonitor
     m_aListeners = aListeners;
   }
 
-  @Nonnull
+  @NonNull
   public ICommonsList <IFileMonitorListener> getListeners ()
   {
     if (m_aListeners == null)
@@ -162,7 +162,7 @@ public class FileMonitor
     return false;
   }
 
-  @Nonnull
+  @NonNull
   protected Timer getTimer ()
   {
     if (m_aTimer == null)
@@ -179,7 +179,7 @@ public class FileMonitor
     }
   }
 
-  protected void updateListeners (@Nonnull final EFileMonitorEvent eEvent)
+  protected void updateListeners (@NonNull final EFileMonitorEvent eEvent)
   {
     final ICommonsList <IFileMonitorListener> aListeners = getListeners ();
     for (final IFileMonitorListener aListener : aListeners)

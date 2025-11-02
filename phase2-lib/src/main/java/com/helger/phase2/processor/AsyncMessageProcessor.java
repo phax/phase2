@@ -37,6 +37,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,9 +49,6 @@ import com.helger.base.callback.CallbackList;
 import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An implementation of {@link AbstractMessageProcessor} that uses a separate thread for performing
@@ -67,8 +66,8 @@ public class AsyncMessageProcessor extends AbstractMessageProcessor
     @CodingStyleguideUnaware
     private final Map <String, Object> m_aOptions;
 
-    public HandleObject (@Nonnull final String sAction,
-                         @Nonnull final IMessage aMsg,
+    public HandleObject (@NonNull final String sAction,
+                         @NonNull final IMessage aMsg,
                          @Nullable final Map <String, Object> aOptions)
     {
       m_sAction = sAction;
@@ -123,21 +122,21 @@ public class AsyncMessageProcessor extends AbstractMessageProcessor
     m_aProcessorThread.start ();
   }
 
-  @Nonnull
+  @NonNull
   protected final Thread getProcessortThread ()
   {
     return m_aProcessorThread;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {
     return m_aExceptionCallbacks;
   }
 
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     if (LOGGER.isDebugEnabled ())

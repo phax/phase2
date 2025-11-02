@@ -16,6 +16,7 @@
  */
 package com.helger.phase2.servlet;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,6 @@ import com.helger.phase2.util.AS2HttpHelper;
 import com.helger.phase2.util.http.IAS2HttpResponseHandler;
 
 import jakarta.activation.DataSource;
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 
 /**
@@ -57,7 +57,7 @@ public abstract class AbstractAS2ReceiveXServletHandler extends AbstractAS2Recei
   private AS2ServletReceiverModule m_aReceiver;
 
   @Override
-  public void onServletInit (@Nonnull final ICommonsMap <String, String> aInitParams) throws ServletException
+  public void onServletInit (@NonNull final ICommonsMap <String, String> aInitParams) throws ServletException
   {
     super.onServletInit (aInitParams);
 
@@ -83,7 +83,7 @@ public abstract class AbstractAS2ReceiveXServletHandler extends AbstractAS2Recei
    * @throws IllegalStateException
    *         In case initialization failed
    */
-  @Nonnull
+  @NonNull
   protected final AS2ServletReceiverModule getReceiverModule ()
   {
     if (m_aReceiver == null)
@@ -100,10 +100,10 @@ public abstract class AbstractAS2ReceiveXServletHandler extends AbstractAS2Recei
   @Override
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected void handleIncomingMessage (@Nonnull final String sClientInfo,
-                                        @Nonnull final DataSource aMsgData,
-                                        @Nonnull final AS2Message aMsg,
-                                        @Nonnull final IAS2HttpResponseHandler aResponseHandler) throws ServletException
+  protected void handleIncomingMessage (@NonNull final String sClientInfo,
+                                        @NonNull final DataSource aMsgData,
+                                        @NonNull final AS2Message aMsg,
+                                        @NonNull final IAS2HttpResponseHandler aResponseHandler) throws ServletException
   {
     // for large file support, handleIncomingMessage takes DataSource
     final String sReceivedContentType = AS2HttpHelper.getCleanContentType (aMsg.getHeader (CHttpHeader.CONTENT_TYPE));

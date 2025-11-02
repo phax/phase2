@@ -35,13 +35,13 @@ package com.helger.phase2.client;
 import java.security.cert.X509Certificate;
 import java.time.Duration;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.phase2.message.AS2MessageMDN;
 import com.helger.phase2.message.IMessageMDN;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains the basic content that was received from an AS2 server as a response.
@@ -70,7 +70,7 @@ public class AS2ClientResponse
    *        The original AS2 message ID. May not be <code>null</code>.
    * @see com.helger.phase2.message.IMessage#getMessageID()
    */
-  public void setOriginalMessageID (@Nonnull final String sOriginalMessageID)
+  public void setOriginalMessageID (@NonNull final String sOriginalMessageID)
   {
     ValueEnforcer.notNull (sOriginalMessageID, "OriginalMessageID");
     m_sOriginalMessageID = sOriginalMessageID;
@@ -92,7 +92,7 @@ public class AS2ClientResponse
    * @param aThrowable
    *        The raised exception. May not be <code>null</code>.
    */
-  public void setException (@Nonnull final Throwable aThrowable)
+  public void setException (@NonNull final Throwable aThrowable)
   {
     ValueEnforcer.notNull (aThrowable, "Throwable");
     m_aThrowable = aThrowable;
@@ -124,7 +124,7 @@ public class AS2ClientResponse
    * @param aMDN
    *        The MDN retrieved. May not be <code>null</code>.
    */
-  public void setMDN (@Nonnull final IMessageMDN aMDN)
+  public void setMDN (@NonNull final IMessageMDN aMDN)
   {
     ValueEnforcer.notNull (aMDN, "MDN");
     m_aMDN = aMDN;
@@ -208,7 +208,7 @@ public class AS2ClientResponse
    * @param aExecutionDuration
    *        The duration to be set. May not be <code>null</code>.
    */
-  public void setExecutionDuration (@Nonnull final Duration aExecutionDuration)
+  public void setExecutionDuration (@NonNull final Duration aExecutionDuration)
   {
     ValueEnforcer.notNull (aExecutionDuration, "ExecutionDuration");
     m_aExecutionDuration = aExecutionDuration;
@@ -235,7 +235,7 @@ public class AS2ClientResponse
   /**
    * @return The whole client response in a single string for debugging purposes.
    */
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     // For logging it's okay to use \n only

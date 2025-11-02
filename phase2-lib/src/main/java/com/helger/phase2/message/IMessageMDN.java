@@ -32,8 +32,9 @@
  */
 package com.helger.phase2.message;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import jakarta.mail.internet.MimeBodyPart;
 
 /**
@@ -48,10 +49,10 @@ public interface IMessageMDN extends IBaseMessage
 
   void setData (@Nullable MimeBodyPart aData);
 
-  @Nonnull
+  @NonNull
   IMessage getMessage ();
 
-  void setMessage (@Nonnull IMessage aMessage);
+  void setMessage (@NonNull IMessage aMessage);
 
   @Nullable
   String getText ();

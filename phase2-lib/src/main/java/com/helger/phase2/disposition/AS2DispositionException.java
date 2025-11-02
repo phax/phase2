@@ -34,13 +34,13 @@ package com.helger.phase2.disposition;
 
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.processor.AS2ProcessorException;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Exception thrown in case a message disposition contains an error or a warning. The content of
@@ -53,7 +53,7 @@ public class AS2DispositionException extends AS2Exception
   private final transient DispositionType m_aDisposition;
   private final String m_sText;
 
-  public AS2DispositionException (@Nonnull final DispositionType aDisposition,
+  public AS2DispositionException (@NonNull final DispositionType aDisposition,
                                   @Nullable final String sText,
                                   @Nullable final Throwable aCause)
   {
@@ -65,7 +65,7 @@ public class AS2DispositionException extends AS2Exception
   /**
    * @return The disposition as provided in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final DispositionType getDisposition ()
   {
     return m_aDisposition;
@@ -77,10 +77,10 @@ public class AS2DispositionException extends AS2Exception
     return m_sText;
   }
 
-  @Nonnull
-  public static AS2DispositionException wrap (@Nonnull final Exception ex,
-                                              @Nonnull final Supplier <DispositionType> aDispositionTypeSupplier,
-                                              @Nonnull final Supplier <String> aTextSupplier)
+  @NonNull
+  public static AS2DispositionException wrap (@NonNull final Exception ex,
+                                              @NonNull final Supplier <DispositionType> aDispositionTypeSupplier,
+                                              @NonNull final Supplier <String> aTextSupplier)
   {
     ValueEnforcer.notNull (ex, "Exception");
     ValueEnforcer.notNull (aDispositionTypeSupplier, "DispositionTypeSupplier");

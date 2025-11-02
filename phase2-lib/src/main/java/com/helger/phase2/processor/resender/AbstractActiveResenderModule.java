@@ -35,6 +35,9 @@ package com.helger.phase2.processor.resender;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.base.CGlobal;
@@ -43,9 +46,6 @@ import com.helger.phase2.params.AS2InvalidParameterException;
 import com.helger.phase2.processor.module.AbstractActiveModule;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for an active resender module.
@@ -83,7 +83,7 @@ public abstract class AbstractActiveResenderModule extends AbstractActiveModule 
 
   @Override
   @OverridingMethodsMustInvokeSuper
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aParameters)
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParameters)
                                                                                                                  throws AS2Exception
   {
     super.initDynamicComponent (aSession, aParameters);

@@ -36,14 +36,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.CHttp;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -53,20 +54,20 @@ public abstract class AbstractMessageMDN extends AbstractBaseMessage implements 
   private MimeBodyPart m_aData;
   private String m_sText;
 
-  public AbstractMessageMDN (@Nonnull final IMessage aMsg)
+  public AbstractMessageMDN (@NonNull final IMessage aMsg)
   {
     // Link MDN and message
     setMessage (aMsg);
     aMsg.setMDN (this);
   }
 
-  @Nonnull
+  @NonNull
   public final IMessage getMessage ()
   {
     return m_aMessage;
   }
 
-  public final void setMessage (@Nonnull final IMessage aMessage)
+  public final void setMessage (@NonNull final IMessage aMessage)
   {
     ValueEnforcer.notNull (aMessage, "Message");
     m_aMessage = aMessage;
@@ -94,7 +95,7 @@ public abstract class AbstractMessageMDN extends AbstractBaseMessage implements 
     m_sText = sText;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsString ()
   {
@@ -148,7 +149,7 @@ public abstract class AbstractMessageMDN extends AbstractBaseMessage implements 
     }
   }
 
-  private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  private void writeObject (@NonNull final ObjectOutputStream aOOS) throws IOException
   {
     // write text
     aOOS.writeObject (m_sText);

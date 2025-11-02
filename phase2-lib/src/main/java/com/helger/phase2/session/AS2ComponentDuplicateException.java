@@ -32,10 +32,10 @@
  */
 package com.helger.phase2.session;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Exception to be thrown from {@link AS2Session} if a component with the specified ID is already
@@ -47,13 +47,13 @@ public class AS2ComponentDuplicateException extends AS2Exception
 {
   private final String m_sComponentID;
 
-  public AS2ComponentDuplicateException (@Nonnull @Nonempty final String sComponentID)
+  public AS2ComponentDuplicateException (@NonNull @Nonempty final String sComponentID)
   {
     super (sComponentID);
     m_sComponentID = sComponentID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getComponentID ()
   {

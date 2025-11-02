@@ -19,6 +19,8 @@ package com.helger.phase2.servlet.util;
 import java.io.File;
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +38,6 @@ import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * A special {@link AS2Session} that loads its configuration from a file.
  *
@@ -55,7 +54,7 @@ public class AS2ServletXMLSession extends AS2Session
   private final File m_aConfigFile;
   private final String m_sBaseDirectory;
 
-  public AS2ServletXMLSession (@Nonnull final File aFile) throws AS2Exception
+  public AS2ServletXMLSession (@NonNull final File aFile) throws AS2Exception
   {
     ValueEnforcer.notNull (aFile, "File");
     if (!aFile.exists ())
@@ -68,19 +67,19 @@ public class AS2ServletXMLSession extends AS2Session
     _load (FileHelper.getInputStream (aFile));
   }
 
-  @Nonnull
+  @NonNull
   public final File getConfigFile ()
   {
     return m_aConfigFile;
   }
 
-  @Nonnull
+  @NonNull
   public final String getBaseDirectory ()
   {
     return m_sBaseDirectory;
   }
 
-  private void _loadCertificateFactory (@Nonnull final IMicroElement aElement) throws AS2Exception
+  private void _loadCertificateFactory (@NonNull final IMicroElement aElement) throws AS2Exception
   {
     LOGGER.info ("Loading certificates");
     final ICertificateFactory aFactory = AS2XMLHelper.createComponent (aElement,
@@ -100,8 +99,8 @@ public class AS2ServletXMLSession extends AS2Session
     setPartnershipFactory (aFactory);
   }
 
-  private void _loadProcessorModule (@Nonnull final IMessageProcessor aMsgProcessor,
-                                     @Nonnull final IMicroElement eModule) throws AS2Exception
+  private void _loadProcessorModule (@NonNull final IMessageProcessor aMsgProcessor,
+                                     @NonNull final IMicroElement eModule) throws AS2Exception
   {
     final IProcessorModule aProcessorModule = AS2XMLHelper.createComponent (eModule,
                                                                             IProcessorModule.class,

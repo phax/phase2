@@ -39,6 +39,8 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,8 +75,6 @@ import com.helger.phase2.processor.CNetAttribute;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.security.certificate.CertificateHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.internet.ContentType;
 import jakarta.mail.internet.InternetHeaders;
 import jakarta.mail.internet.MimeBodyPart;
@@ -99,7 +99,7 @@ public final class AS2Helper
   private AS2Helper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static ICryptoHelper getCryptoHelper ()
   {
     return SingletonHolder.INSTANCE;
@@ -131,8 +131,8 @@ public final class AS2Helper
    * @throws Exception
    *         In case something internally goes wrong
    */
-  public static void createMDNData (@Nonnull final IAS2Session aSession,
-                                    @Nonnull final IMessageMDN aMdn,
+  public static void createMDNData (@NonNull final IAS2Session aSession,
+                                    @NonNull final IMessageMDN aMdn,
                                     final boolean bSignMDN,
                                     final boolean bIncludeCertificateInSignedContent,
                                     @Nullable final ECryptoAlgorithmSign eMICAlg,
@@ -240,7 +240,7 @@ public final class AS2Helper
   }
 
   @Nullable
-  public static MIC createMICOnReception (@Nonnull final AS2Message aMsg) throws Exception
+  public static MIC createMICOnReception (@NonNull final AS2Message aMsg) throws Exception
   {
     final Partnership aPartnership = aMsg.partnership ();
 
@@ -288,12 +288,12 @@ public final class AS2Helper
    * @throws Exception
    *         In case of an error
    */
-  @Nonnull
-  public static IMessageMDN createSyncMDN (@Nonnull final IAS2Session aSession,
-                                           @Nonnull final AS2Message aMsg,
+  @NonNull
+  public static IMessageMDN createSyncMDN (@NonNull final IAS2Session aSession,
+                                           @NonNull final AS2Message aMsg,
                                            @Nullable final MIC aIncomingMIC,
-                                           @Nonnull final DispositionType aDisposition,
-                                           @Nonnull final String sText) throws Exception
+                                           @NonNull final DispositionType aDisposition,
+                                           @NonNull final String sText) throws Exception
   {
     ValueEnforcer.notNull (aSession, "AS2Session");
     ValueEnforcer.notNull (aMsg, "AS2Message");
@@ -409,11 +409,11 @@ public final class AS2Helper
     return aMDN;
   }
 
-  public static void parseMDN (@Nonnull final IMessage aMsg,
+  public static void parseMDN (@NonNull final IMessage aMsg,
                                @Nullable final X509Certificate aReceiverCert,
                                final boolean bUseCertificateInBodyPart,
                                @Nullable final Consumer <? super X509Certificate> aEffectiveCertificateConsumer,
-                               @Nonnull final AS2ResourceHelper aResHelper) throws Exception
+                               @NonNull final AS2ResourceHelper aResHelper) throws Exception
   {
     final String sLoggingText = aMsg.getLoggingText ();
     LOGGER.info ("Start parsing MDN of" + sLoggingText);
@@ -510,8 +510,8 @@ public final class AS2Helper
     }
   }
 
-  @Nonnull
-  public static String getWithoutSpaces (@Nonnull final String s)
+  @NonNull
+  public static String getWithoutSpaces (@NonNull final String s)
   {
     return RegExHelper.stringReplacePattern ("\\s+", s, "");
   }

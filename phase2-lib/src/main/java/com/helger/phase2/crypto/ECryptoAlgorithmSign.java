@@ -37,13 +37,12 @@ import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
 import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.operator.DefaultSignatureAlgorithmIdentifierFinder;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This enum contains all signing supported crypto algorithms. The algorithms contained in here may
@@ -231,10 +230,10 @@ public enum ECryptoAlgorithmSign implements ICryptoAlgorithm
   private final ASN1ObjectIdentifier m_aDigestOID;
   private final String m_sBCAlgorithmName;
 
-  ECryptoAlgorithmSign (@Nonnull @Nonempty final String sID,
-                        @Nonnull @Nonempty final String sMicAlgID,
-                        @Nonnull final ASN1ObjectIdentifier aDigestOID,
-                        @Nonnull @Nonempty final String sBCAlgorithmName)
+  ECryptoAlgorithmSign (@NonNull @Nonempty final String sID,
+                        @NonNull @Nonempty final String sMicAlgID,
+                        @NonNull final ASN1ObjectIdentifier aDigestOID,
+                        @NonNull @Nonempty final String sBCAlgorithmName)
   {
     m_sID = sID;
     m_sMicAlgID = sMicAlgID;
@@ -248,7 +247,7 @@ public enum ECryptoAlgorithmSign implements ICryptoAlgorithm
    * Returns the Signature ID as the combination of the signature algorithm and the digest
    * algorithm.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -259,7 +258,7 @@ public enum ECryptoAlgorithmSign implements ICryptoAlgorithm
    * @return the MIC algorithm ID. That is the value that is added into the "micalg" Content-Type
    *         parameter of the "Content-Type" header.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getMICAlgorithmID ()
   {
@@ -269,7 +268,7 @@ public enum ECryptoAlgorithmSign implements ICryptoAlgorithm
   /**
    * The OID with which the message digest is created. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ASN1ObjectIdentifier getOID ()
   {
     return m_aDigestOID;
@@ -278,7 +277,7 @@ public enum ECryptoAlgorithmSign implements ICryptoAlgorithm
   /**
    * @return The algorithm name to be used for BouncyCastle to do the SMIME packaging.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getSignAlgorithmName ()
   {
@@ -322,7 +321,7 @@ public enum ECryptoAlgorithmSign implements ICryptoAlgorithm
     return EnumHelper.getFromIDCaseInsensitiveOrNull (ECryptoAlgorithmSign.class, sID);
   }
 
-  @Nonnull
+  @NonNull
   public static ECryptoAlgorithmSign getFromIDOrThrow (@Nullable final String sID)
   {
     // Case insensitive for #32

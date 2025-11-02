@@ -36,6 +36,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,9 +47,6 @@ import com.helger.base.CGlobal;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public abstract class AbstractActivePollingModule extends AbstractActiveReceiverModule
 {
@@ -84,7 +83,7 @@ public abstract class AbstractActivePollingModule extends AbstractActiveReceiver
 
   @Override
   @OverridingMethodsMustInvokeSuper
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aOptions)
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
                                                                                                               throws AS2Exception
   {
     super.initDynamicComponent (aSession, aOptions);

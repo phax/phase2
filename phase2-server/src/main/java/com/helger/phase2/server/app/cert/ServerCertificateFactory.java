@@ -35,6 +35,8 @@ package com.helger.phase2.server.app.cert;
 import java.io.File;
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,9 +48,6 @@ import com.helger.phase2.server.util.EFileMonitorEvent;
 import com.helger.phase2.server.util.FileMonitor;
 import com.helger.phase2.server.util.IFileMonitorListener;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public class ServerCertificateFactory extends CertificateFactory implements IFileMonitorListener
 {
   public static final String ATTR_INTERVAL = "interval";
@@ -57,7 +56,7 @@ public class ServerCertificateFactory extends CertificateFactory implements IFil
   private FileMonitor m_aFileMonitor;
 
   @Override
-  public void load (@Nonnull @WillClose final InputStream aIS, @Nonnull final char [] password) throws AS2Exception
+  public void load (@NonNull @WillClose final InputStream aIS, @NonNull final char [] password) throws AS2Exception
   {
     super.load (aIS, password);
     getFileMonitor ();

@@ -87,6 +87,8 @@ import org.bouncycastle.mail.smime.util.FileBackedMimeBodyPart;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.OutputEncryptor;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,8 +118,6 @@ import com.helger.security.keystore.IKeyStoreType;
 
 import jakarta.activation.CommandMap;
 import jakarta.activation.MailcapCommandMap;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.ContentType;
 import jakarta.mail.internet.MimeBodyPart;
@@ -210,7 +210,7 @@ public class BCCryptoHelper implements ICryptoHelper
    * @return The security provider name to use. <code>BC</code> by default.
    * @since 4.2.0
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getSecurityProviderName ()
   {
@@ -225,16 +225,16 @@ public class BCCryptoHelper implements ICryptoHelper
    * @return this for chaining
    * @since 4.2.0
    */
-  @Nonnull
-  public BCCryptoHelper setSecurityProviderName (@Nonnull @Nonempty final String sSecurityProviderName)
+  @NonNull
+  public BCCryptoHelper setSecurityProviderName (@NonNull @Nonempty final String sSecurityProviderName)
   {
     ValueEnforcer.notEmpty (sSecurityProviderName, "SecurityProviderName");
     m_sSecurityProviderName = sSecurityProviderName;
     return this;
   }
 
-  @Nonnull
-  public KeyStore createNewKeyStore (@Nonnull final IKeyStoreType aKeyStoreType) throws GeneralSecurityException
+  @NonNull
+  public KeyStore createNewKeyStore (@NonNull final IKeyStoreType aKeyStoreType) throws GeneralSecurityException
   {
     try
     {
@@ -249,10 +249,10 @@ public class BCCryptoHelper implements ICryptoHelper
     }
   }
 
-  @Nonnull
-  public KeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
+  @NonNull
+  public KeyStore loadKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
                                 @Nullable @WillNotClose final InputStream aIS,
-                                @Nonnull final char [] aPassword) throws Exception
+                                @NonNull final char [] aPassword) throws Exception
   {
     final KeyStore aKeyStore = createNewKeyStore (aKeyStoreType);
     if (aIS != null)
@@ -260,7 +260,7 @@ public class BCCryptoHelper implements ICryptoHelper
     return aKeyStore;
   }
 
-  public boolean isEncrypted (@Nonnull final MimeBodyPart aPart) throws MessagingException
+  public boolean isEncrypted (@NonNull final MimeBodyPart aPart) throws MessagingException
   {
     ValueEnforcer.notNull (aPart, "Part");
 
@@ -278,7 +278,7 @@ public class BCCryptoHelper implements ICryptoHelper
     return sSmimeType != null && sSmimeType.equalsIgnoreCase ("enveloped-data");
   }
 
-  public boolean isSigned (@Nonnull final MimeBodyPart aPart) throws MessagingException
+  public boolean isSigned (@NonNull final MimeBodyPart aPart) throws MessagingException
   {
     ValueEnforcer.notNull (aPart, "Part");
 
@@ -290,7 +290,7 @@ public class BCCryptoHelper implements ICryptoHelper
     return sBaseType.equalsIgnoreCase ("multipart/signed");
   }
 
-  public boolean isCompressed (@Nonnull final String sContentType) throws AS2Exception
+  public boolean isCompressed (@NonNull final String sContentType) throws AS2Exception
   {
     ValueEnforcer.notNull (sContentType, "ContentType");
 
@@ -304,9 +304,9 @@ public class BCCryptoHelper implements ICryptoHelper
     return sSmimeType != null && sSmimeType.equalsIgnoreCase ("compressed-data");
   }
 
-  @Nonnull
-  public MIC calculateMIC (@Nonnull final MimeBodyPart aPart,
-                           @Nonnull final ECryptoAlgorithmSign eDigestAlgorithm,
+  @NonNull
+  public MIC calculateMIC (@NonNull final MimeBodyPart aPart,
+                           @NonNull final ECryptoAlgorithmSign eDigestAlgorithm,
                            final boolean bIncludeHeaders) throws GeneralSecurityException,
                                                           MessagingException,
                                                           IOException
@@ -378,7 +378,7 @@ public class BCCryptoHelper implements ICryptoHelper
     return ret;
   }
 
-  private static void _dumpDecrypted (@Nonnull final byte [] aPayload)
+  private static void _dumpDecrypted (@NonNull final byte [] aPayload)
   {
     // Ensure a unique filename
     File aDestinationFile;
@@ -406,12 +406,12 @@ public class BCCryptoHelper implements ICryptoHelper
     }
   }
 
-  @Nonnull
-  public MimeBodyPart decrypt (@Nonnull final MimeBodyPart aPart,
-                               @Nonnull final X509Certificate aX509Cert,
-                               @Nonnull final PrivateKey aPrivateKey,
+  @NonNull
+  public MimeBodyPart decrypt (@NonNull final MimeBodyPart aPart,
+                               @NonNull final X509Certificate aX509Cert,
+                               @NonNull final PrivateKey aPrivateKey,
                                final boolean bForceDecrypt,
-                               @Nonnull final AS2ResourceHelper aResHelper) throws GeneralSecurityException,
+                               @NonNull final AS2ResourceHelper aResHelper) throws GeneralSecurityException,
                                                                             MessagingException,
                                                                             CMSException,
                                                                             SMIMEException,
@@ -470,11 +470,11 @@ public class BCCryptoHelper implements ICryptoHelper
     return aDecryptedDataBodyPart;
   }
 
-  @Nonnull
-  public MimeBodyPart encrypt (@Nonnull final MimeBodyPart aPart,
-                               @Nonnull final X509Certificate aX509Cert,
-                               @Nonnull final ECryptoAlgorithmCrypt eAlgorithm,
-                               @Nonnull final EContentTransferEncoding eCTE) throws GeneralSecurityException,
+  @NonNull
+  public MimeBodyPart encrypt (@NonNull final MimeBodyPart aPart,
+                               @NonNull final X509Certificate aX509Cert,
+                               @NonNull final ECryptoAlgorithmCrypt eAlgorithm,
+                               @NonNull final EContentTransferEncoding eCTE) throws GeneralSecurityException,
                                                                              SMIMEException,
                                                                              CMSException
   {
@@ -529,15 +529,15 @@ public class BCCryptoHelper implements ICryptoHelper
       LOGGER.debug ("The current algorithms for RFC 5751 mode are " + NEW_SIGN_ALGOS);
   }
 
-  @Nonnull
-  public MimeBodyPart sign (@Nonnull final MimeBodyPart aPart,
-                            @Nonnull final X509Certificate aX509Cert,
-                            @Nonnull final PrivateKey aPrivateKey,
-                            @Nonnull final ECryptoAlgorithmSign eAlgorithm,
+  @NonNull
+  public MimeBodyPart sign (@NonNull final MimeBodyPart aPart,
+                            @NonNull final X509Certificate aX509Cert,
+                            @NonNull final PrivateKey aPrivateKey,
+                            @NonNull final ECryptoAlgorithmSign eAlgorithm,
                             final boolean bIncludeCertificateInSignedContent,
                             final boolean bUseOldRFC3851MicAlgs,
                             final boolean bRemoveCmsAlgorithmProtect,
-                            @Nonnull final EContentTransferEncoding eCTE) throws GeneralSecurityException,
+                            @NonNull final EContentTransferEncoding eCTE) throws GeneralSecurityException,
                                                                           SMIMEException,
                                                                           MessagingException,
                                                                           OperatorCreationException
@@ -636,10 +636,10 @@ public class BCCryptoHelper implements ICryptoHelper
     return aSignedPart;
   }
 
-  @Nonnull
+  @NonNull
   private X509Certificate _verifyFindCertificate (@Nullable final X509Certificate aX509Cert,
                                                   final boolean bUseCertificateInBodyPart,
-                                                  @Nonnull final SMIMESignedParser aSignedParser) throws CMSException,
+                                                  @NonNull final SMIMESignedParser aSignedParser) throws CMSException,
                                                                                                   GeneralSecurityException
   {
     X509Certificate aRealX509Cert = aX509Cert;
@@ -688,13 +688,13 @@ public class BCCryptoHelper implements ICryptoHelper
     return aRealX509Cert;
   }
 
-  @Nonnull
-  public MimeBodyPart verify (@Nonnull final MimeBodyPart aPart,
+  @NonNull
+  public MimeBodyPart verify (@NonNull final MimeBodyPart aPart,
                               @Nullable final X509Certificate aX509Cert,
                               final boolean bUseCertificateInBodyPart,
                               final boolean bForceVerifySigned,
                               @Nullable final Consumer <X509Certificate> aEffectiveCertificateConsumer,
-                              @Nonnull final AS2ResourceHelper aResHelper) throws GeneralSecurityException,
+                              @NonNull final AS2ResourceHelper aResHelper) throws GeneralSecurityException,
                                                                            IOException,
                                                                            MessagingException,
                                                                            CMSException,

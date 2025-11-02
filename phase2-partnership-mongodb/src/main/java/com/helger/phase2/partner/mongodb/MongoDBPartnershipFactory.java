@@ -18,6 +18,8 @@ package com.helger.phase2.partner.mongodb;
 import java.util.Map;
 
 import org.bson.Document;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -43,9 +45,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.IndexOptions;
 import com.mongodb.client.result.DeleteResult;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * MongoDB based implementation of {@link IPartnershipFactory}
  *
@@ -62,16 +61,16 @@ public class MongoDBPartnershipFactory extends AbstractDynamicComponent implemen
   private final MongoCollection <Document> m_aPartnerships;
   private final Logger m_aLogger;
 
-  public MongoDBPartnershipFactory (@Nonnull final MongoCollection <Document> aPartnerships,
-                                    @Nonnull final Logger aLogger)
+  public MongoDBPartnershipFactory (@NonNull final MongoCollection <Document> aPartnerships,
+                                    @NonNull final Logger aLogger)
   {
     m_aLogger = aLogger;
     aPartnerships.createIndex (new Document (NAME_KEY, Integer.valueOf (1)), new IndexOptions ().unique (true));
     m_aPartnerships = aPartnerships;
   }
 
-  @Nonnull
-  private static Document _toBson (@Nonnull final IStringMap aStringMap)
+  @NonNull
+  private static Document _toBson (@NonNull final IStringMap aStringMap)
   {
     final Document ret = new Document ();
     for (final Map.Entry <String, String> aEntry : aStringMap.entrySet ())
@@ -79,8 +78,8 @@ public class MongoDBPartnershipFactory extends AbstractDynamicComponent implemen
     return ret;
   }
 
-  @Nonnull
-  private static Document _toBson (@Nonnull final Partnership aPartnership)
+  @NonNull
+  private static Document _toBson (@NonNull final Partnership aPartnership)
   {
     final Document ret = new Document ();
     ret.put (NAME_KEY, aPartnership.getName ());
@@ -90,15 +89,15 @@ public class MongoDBPartnershipFactory extends AbstractDynamicComponent implemen
     return ret;
   }
 
-  @Nonnull
-  public EChange addPartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  @NonNull
+  public EChange addPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     m_aPartnerships.insertOne (_toBson (aPartnership));
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange removePartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  @NonNull
+  public EChange removePartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     final DeleteResult aDeleteResult = m_aPartnerships.deleteOne (new Document (NAME_KEY, aPartnership.getName ()));
     if (aDeleteResult.getDeletedCount () >= 1L)
@@ -107,7 +106,7 @@ public class MongoDBPartnershipFactory extends AbstractDynamicComponent implemen
     return EChange.UNCHANGED;
   }
 
-  public void updatePartnership (@Nonnull final IMessage aMsg, final boolean bOverwrite) throws AS2Exception
+  public void updatePartnership (@NonNull final IMessage aMsg, final boolean bOverwrite) throws AS2Exception
   {
     // Fill in any available partnership information
     final Partnership aPartnership = getPartnership (aMsg.partnership ());
@@ -129,7 +128,7 @@ public class MongoDBPartnershipFactory extends AbstractDynamicComponent implemen
     }
   }
 
-  public void updatePartnership (@Nonnull final IMessageMDN aMdn, final boolean bOverwrite) throws AS2Exception
+  public void updatePartnership (@NonNull final IMessageMDN aMdn, final boolean bOverwrite) throws AS2Exception
   {
     final Partnership aPartnership = getPartnership (aMdn.partnership ());
     aMdn.partnership ().copyFrom (aPartnership);
@@ -173,8 +172,8 @@ public class MongoDBPartnershipFactory extends AbstractDynamicComponent implemen
     return null;
   }
 
-  @Nonnull
-  public Partnership getPartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  @NonNull
+  public Partnership getPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     Partnership aRealPartnership = getPartnershipByName (aPartnership.getName ());
     if (aRealPartnership == null)
@@ -199,22 +198,22 @@ public class MongoDBPartnershipFactory extends AbstractDynamicComponent implemen
                           .first ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllPartnershipNames ()
   {
     return m_aPartnerships.distinct (NAME_KEY, String.class).into (new CommonsHashSet <> ());
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Partnership> getAllPartnerships ()
   {
     return m_aPartnerships.find ().map (MongoDBPartnershipFactory::_toPartnership).into (new CommonsArrayList <> ());
   }
 
-  @Nonnull
-  private static Partnership _toPartnership (@Nonnull final Document aBson)
+  @NonNull
+  private static Partnership _toPartnership (@NonNull final Document aBson)
   {
     final Partnership ret = new Partnership (aBson.getString (NAME_KEY));
     final Document aBsonSenderIDs = (Document) aBson.get (SENDER_IDS);

@@ -35,12 +35,11 @@ package com.helger.phase2.crypto;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.array.ArrayHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A logging wrapper around a {@link MessageDigest}. For debugging purposes only.
@@ -52,7 +51,7 @@ final class LoggingMessageDigest extends MessageDigest
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingMessageDigest.class);
   private final MessageDigest m_aMD;
 
-  LoggingMessageDigest (@Nonnull final MessageDigest aMD)
+  LoggingMessageDigest (@NonNull final MessageDigest aMD)
   {
     super (aMD.getAlgorithm ());
     m_aMD = aMD;

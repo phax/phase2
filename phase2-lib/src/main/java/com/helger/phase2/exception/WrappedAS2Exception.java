@@ -32,8 +32,8 @@
  */
 package com.helger.phase2.exception;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An {@link AS2Exception} that wraps an existing exception easily.
@@ -54,8 +54,8 @@ public final class WrappedAS2Exception extends AS2Exception
    *        The Throwable to use.
    * @return Either t or a {@link WrappedAS2Exception} containing t.
    */
-  @Nonnull
-  public static AS2Exception wrap (@Nonnull final Throwable t)
+  @NonNull
+  public static AS2Exception wrap (@NonNull final Throwable t)
   {
     if (t instanceof AS2Exception)
       return (AS2Exception) t;

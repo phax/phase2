@@ -32,9 +32,9 @@
  */
 package com.helger.phase2.session;
 
-import com.helger.phase2.exception.AS2Exception;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.phase2.exception.AS2Exception;
 
 /**
  * Thrown from {@link AS2Session} if a component was not present.

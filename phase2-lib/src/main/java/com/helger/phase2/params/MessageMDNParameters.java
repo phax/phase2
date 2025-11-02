@@ -34,14 +34,13 @@ package com.helger.phase2.params;
 
 import java.util.StringTokenizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.phase2.message.IMessageMDN;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Access to MDN parameters
@@ -61,7 +60,7 @@ public class MessageMDNParameters extends AbstractParameterParser
 
   private final IMessageMDN m_aMDN;
 
-  public MessageMDNParameters (@Nonnull final IMessageMDN aTarget)
+  public MessageMDNParameters (@NonNull final IMessageMDN aTarget)
   {
     m_aMDN = ValueEnforcer.notNull (aTarget, "Target");
   }

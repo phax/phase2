@@ -32,21 +32,21 @@
  */
 package com.helger.phase2.server.cmd.partner;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.partner.IPartnershipFactory;
 import com.helger.phase2.partner.xml.IPartnershipFactoryWithPartners;
 import com.helger.phase2.server.cmd.AbstractCommand;
 import com.helger.phase2.server.cmd.CommandResult;
 
-import jakarta.annotation.Nonnull;
-
 public abstract class AbstractAliasedPartnershipsCommand extends AbstractCommand
 {
-  @Nonnull
-  protected abstract CommandResult execute (@Nonnull IPartnershipFactoryWithPartners aPartnershipFactory,
+  @NonNull
+  protected abstract CommandResult execute (@NonNull IPartnershipFactoryWithPartners aPartnershipFactory,
                                             Object [] params) throws AS2Exception;
 
-  @Nonnull
+  @NonNull
   public final CommandResult execute (final Object [] params)
   {
     try

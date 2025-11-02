@@ -32,14 +32,14 @@
  */
 package com.helger.phase2.partner.xml;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.partner.AS2PartnershipNotFoundException;
 import com.helger.phase2.partner.Partnership;
 import com.helger.phase2.partner.SelfFillingPartnershipFactory;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link XMLPartnershipFactory} that adds a new partnership if it is not yet existing.
@@ -59,14 +59,14 @@ public class SelfFillingXMLPartnershipFactory extends XMLPartnershipFactory
    */
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected void onBeforeAddPartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  protected void onBeforeAddPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     SelfFillingPartnershipFactory.ensureUsablePartnership (aPartnership);
   }
 
   @Override
-  @Nonnull
-  public Partnership getPartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  @NonNull
+  public Partnership getPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     try
     {

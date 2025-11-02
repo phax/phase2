@@ -34,6 +34,8 @@ package com.helger.phase2.processor.resender;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,9 +49,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
 import com.helger.phase2.processor.sender.IProcessorSenderModule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An asynchronous, in-memory, polling based resender module. Upon
@@ -68,16 +67,16 @@ public class InMemoryResenderModule extends AbstractActiveResenderModule
   private final ICommonsList <ResendItem> m_aItems = new CommonsArrayList <> ();
 
   @Override
-  public boolean canHandle (@Nonnull final String sAction,
-                            @Nonnull final IMessage aMsg,
+  public boolean canHandle (@NonNull final String sAction,
+                            @NonNull final IMessage aMsg,
                             @Nullable final Map <String, Object> aOptions)
   {
     return sAction.equals (IProcessorResenderModule.DO_RESEND);
   }
 
   @Override
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     // Get the action to be used
@@ -107,7 +106,7 @@ public class InMemoryResenderModule extends AbstractActiveResenderModule
     LOGGER.info ("Message put in resend queue" + aMsg.getLoggingText ());
   }
 
-  protected void resendItem (@Nonnull final ResendItem aItem) throws AS2Exception
+  protected void resendItem (@NonNull final ResendItem aItem) throws AS2Exception
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Resending item");
@@ -174,7 +173,7 @@ public class InMemoryResenderModule extends AbstractActiveResenderModule
     }
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ResendItem> getAllResendItems ()
   {

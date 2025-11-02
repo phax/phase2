@@ -34,12 +34,12 @@ package com.helger.phase2.util.http;
 
 import java.io.IOException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.io.iface.IWriteToStream;
 import com.helger.http.header.HttpHeaderMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract HTTP response handler. This abstraction layer may be used to either write to a socket
@@ -63,6 +63,6 @@ public interface IAS2HttpResponseHandler
    *         In case of error
    */
   void sendHttpResponse (@Nonnegative int nHttpResponseCode,
-                         @Nonnull HttpHeaderMap aHeaders,
-                         @Nonnull @WillNotClose IWriteToStream aData) throws IOException;
+                         @NonNull HttpHeaderMap aHeaders,
+                         @NonNull @WillNotClose IWriteToStream aData) throws IOException;
 }

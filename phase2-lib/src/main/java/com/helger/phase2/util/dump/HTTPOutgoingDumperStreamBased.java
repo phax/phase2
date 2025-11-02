@@ -35,6 +35,7 @@ package com.helger.phase2.util.dump;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +46,6 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.CHttp;
 import com.helger.phase2.message.AS2Message;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract outgoing HTTP dumper using an {@link OutputStream} for operations.
@@ -68,13 +67,13 @@ public class HTTPOutgoingDumperStreamBased implements IHTTPOutgoingDumper
    * @param aOS
    *        The output stream to dump to. May not be <code>null</code>.
    */
-  public HTTPOutgoingDumperStreamBased (@Nonnull @WillCloseWhenClosed final OutputStream aOS)
+  public HTTPOutgoingDumperStreamBased (@NonNull @WillCloseWhenClosed final OutputStream aOS)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
     m_aOS = aOS;
   }
 
-  @Nonnull
+  @NonNull
   protected final OutputStream getWrappedOS ()
   {
     return m_aOS;
@@ -85,7 +84,7 @@ public class HTTPOutgoingDumperStreamBased implements IHTTPOutgoingDumper
     return m_bDumpComment;
   }
 
-  @Nonnull
+  @NonNull
   public final HTTPOutgoingDumperStreamBased setDumpComment (final boolean bDumpComment)
   {
     m_bDumpComment = bDumpComment;
@@ -97,7 +96,7 @@ public class HTTPOutgoingDumperStreamBased implements IHTTPOutgoingDumper
     return m_bDumpHeader;
   }
 
-  @Nonnull
+  @NonNull
   public final HTTPOutgoingDumperStreamBased setDumpHeader (final boolean bDumpHeader)
   {
     m_bDumpHeader = bDumpHeader;
@@ -109,7 +108,7 @@ public class HTTPOutgoingDumperStreamBased implements IHTTPOutgoingDumper
     return m_bDumpPayload;
   }
 
-  @Nonnull
+  @NonNull
   public final HTTPOutgoingDumperStreamBased setDumpPayload (final boolean bDumpPayload)
   {
     m_bDumpPayload = bDumpPayload;
@@ -128,12 +127,12 @@ public class HTTPOutgoingDumperStreamBased implements IHTTPOutgoingDumper
     }
   }
 
-  private void _write (@Nonnull final byte [] aBytes)
+  private void _write (@NonNull final byte [] aBytes)
   {
     _write (aBytes, 0, aBytes.length);
   }
 
-  private void _write (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  private void _write (@NonNull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     try
     {
@@ -146,7 +145,7 @@ public class HTTPOutgoingDumperStreamBased implements IHTTPOutgoingDumper
   }
 
   @Override
-  public void start (@Nonnull final String sURL, @Nonnull final AS2Message aMsg)
+  public void start (@NonNull final String sURL, @NonNull final AS2Message aMsg)
   {
     if (m_bDumpComment)
     {
@@ -159,7 +158,7 @@ public class HTTPOutgoingDumperStreamBased implements IHTTPOutgoingDumper
     }
   }
 
-  public void dumpHeader (@Nonnull final String sName, @Nonnull final String sValue)
+  public void dumpHeader (@NonNull final String sName, @NonNull final String sValue)
   {
     if (m_bDumpHeader)
     {
@@ -185,7 +184,7 @@ public class HTTPOutgoingDumperStreamBased implements IHTTPOutgoingDumper
       _write (nByte);
   }
 
-  public void dumpPayload (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void dumpPayload (@NonNull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (m_bDumpPayload)
       _write (aBytes, nOfs, nLen);
