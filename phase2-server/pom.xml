@@ -37,7 +37,7 @@
   <parent>
     <groupId>com.helger.phase2</groupId>
     <artifactId>phase2-parent-pom</artifactId>
-    <version>6.1.0</version>
+    <version>6.1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>phase2-server</artifactId>
