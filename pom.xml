@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.phase2</groupId>
   <artifactId>phase2-parent-pom</artifactId>
-  <version>6.0.1-SNAPSHOT</version>
+  <version>6.1.0</version>
   <packaging>pom</packaging>
   <name>phase2-parent-pom</name>
   <description>Base POM to build the phase2 projects</description>
@@ -50,7 +50,7 @@
     <connection>scm:git:https://github.com/phax/phase2.git</connection>
     <developerConnection>scm:git:https://github.com/phax/phase2.git</developerConnection>
     <url>https://github.com/phax/phase2</url>
-    <tag>HEAD</tag>
+    <tag>phase2-parent-pom-6.1.0</tag>
   </scm>
 
   <organization>

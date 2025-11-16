@@ -38,7 +38,7 @@
   <parent>
     <groupId>com.helger.phase2</groupId>
     <artifactId>phase2-parent-pom</artifactId>
-    <version>6.0.1-SNAPSHOT</version>
+    <version>6.1.0</version>
   </parent>
   <artifactId>phase2-lib</artifactId>
   <packaging>bundle</packaging>
