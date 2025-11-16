@@ -47,11 +47,11 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
-public class AS2KeyStore implements ICertificateStore
+public class MockAS2KeyStore implements ICertificateStore
 {
   private final KeyStore m_aKeyStore;
 
-  public AS2KeyStore (@NonNull final KeyStore aKeyStore)
+  public MockAS2KeyStore (@NonNull final KeyStore aKeyStore)
   {
     m_aKeyStore = ValueEnforcer.notNull (aKeyStore, "KeyStore");
   }
@@ -64,7 +64,7 @@ public class AS2KeyStore implements ICertificateStore
 
   @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <String> getAliases () throws AS2CertificateException
+  public ICommonsList <String> getAliases () throws MockAS2CertificateException
   {
     try
     {
@@ -72,12 +72,12 @@ public class AS2KeyStore implements ICertificateStore
     }
     catch (final KeyStoreException kse)
     {
-      throw new AS2CertificateException ("Error getting aliases", kse);
+      throw new MockAS2CertificateException ("Error getting aliases", kse);
     }
   }
 
   @Nullable
-  public Certificate getCertificate (@Nullable final String sAlias) throws AS2CertificateException
+  public Certificate getCertificate (@Nullable final String sAlias) throws MockAS2CertificateException
   {
     if (sAlias == null)
       return null;
@@ -88,12 +88,12 @@ public class AS2KeyStore implements ICertificateStore
     }
     catch (final KeyStoreException kse)
     {
-      throw new AS2CertificateException ("Error getting certificate for alias: " + sAlias, kse);
+      throw new MockAS2CertificateException ("Error getting certificate for alias: " + sAlias, kse);
     }
   }
 
   public void setCertificate (@NonNull final String sAlias, @NonNull final Certificate aCert)
-                                                                                              throws AS2CertificateException
+                                                                                              throws MockAS2CertificateException
   {
     ValueEnforcer.notNull (sAlias, "Alias");
     ValueEnforcer.notNull (aCert, "Certificate");
@@ -104,12 +104,12 @@ public class AS2KeyStore implements ICertificateStore
     }
     catch (final KeyStoreException kse)
     {
-      throw new AS2CertificateException ("Error setting certificate: " + sAlias, kse);
+      throw new MockAS2CertificateException ("Error setting certificate: " + sAlias, kse);
     }
   }
 
   @Nullable
-  public String getAlias (@Nullable final Certificate aCert) throws AS2CertificateException
+  public String getAlias (@Nullable final Certificate aCert) throws MockAS2CertificateException
   {
     if (aCert == null)
       return null;
@@ -120,11 +120,11 @@ public class AS2KeyStore implements ICertificateStore
     }
     catch (final KeyStoreException kse)
     {
-      throw new AS2CertificateException ("Error getting alias for certificate: " + aCert.toString (), kse);
+      throw new MockAS2CertificateException ("Error getting alias for certificate: " + aCert.toString (), kse);
     }
   }
 
-  public void removeCertificate (@Nullable final String sAlias) throws AS2CertificateException
+  public void removeCertificate (@Nullable final String sAlias) throws MockAS2CertificateException
   {
     if (sAlias != null)
       try
@@ -133,11 +133,11 @@ public class AS2KeyStore implements ICertificateStore
       }
       catch (final KeyStoreException kse)
       {
-        throw new AS2CertificateException ("Error while removing certificate: " + sAlias, kse);
+        throw new MockAS2CertificateException ("Error while removing certificate: " + sAlias, kse);
       }
   }
 
-  public void clearCertificates () throws AS2CertificateException
+  public void clearCertificates () throws MockAS2CertificateException
   {
     try
     {
@@ -150,12 +150,12 @@ public class AS2KeyStore implements ICertificateStore
     }
     catch (final KeyStoreException kse)
     {
-      throw new AS2CertificateException ("Error clearing certificates", kse);
+      throw new MockAS2CertificateException ("Error clearing certificates", kse);
     }
   }
 
   @Nullable
-  public Key getKey (@Nullable final String sAlias, @Nullable final char [] aPassword) throws AS2CertificateException
+  public Key getKey (@Nullable final String sAlias, @Nullable final char [] aPassword) throws MockAS2CertificateException
   {
     if (sAlias == null)
       return null;
@@ -166,12 +166,12 @@ public class AS2KeyStore implements ICertificateStore
     }
     catch (final GeneralSecurityException gse)
     {
-      throw new AS2CertificateException ("Error getting key for alias: " + sAlias, gse);
+      throw new MockAS2CertificateException ("Error getting key for alias: " + sAlias, gse);
     }
   }
 
   public void setKey (@NonNull final String sAlias, @NonNull final Key aKey, @Nullable final char [] aPassword)
-                                                                                                                throws AS2CertificateException
+                                                                                                                throws MockAS2CertificateException
   {
     ValueEnforcer.notNull (sAlias, "Alias");
     ValueEnforcer.notNull (aKey, "Key");
@@ -184,7 +184,7 @@ public class AS2KeyStore implements ICertificateStore
     }
     catch (final KeyStoreException kse)
     {
-      throw new AS2CertificateException ("Error setting key for alias: " + sAlias, kse);
+      throw new MockAS2CertificateException ("Error setting key for alias: " + sAlias, kse);
     }
   }
 }

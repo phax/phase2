@@ -509,7 +509,7 @@ public class BCCryptoHelper implements ICryptoHelper
     return aGen.generate (aPart, aEncryptor);
   }
 
-  private static Map <ASN1ObjectIdentifier, String> NEW_SIGN_ALGOS;
+  private static final Map <ASN1ObjectIdentifier, String> NEW_SIGN_ALGOS;
 
   static
   {
@@ -715,11 +715,9 @@ public class BCCryptoHelper implements ICryptoHelper
     // Get only once and check
     // Throws "ParseException" if it is not a MIME message
     final Object aContent = aPart.getContent ();
-    if (!(aContent instanceof MimeMultipart))
+    if (!(aContent instanceof final MimeMultipart aMainPart))
       throw new IllegalStateException ("Expected Part content to be MimeMultipart but it isn't. It is " +
                                        ClassHelper.getClassName (aContent));
-    final MimeMultipart aMainPart = (MimeMultipart) aContent;
-
     // SMIMESignedParser uses "7bit" as the default - AS2 wants "binary"
     final SMIMESignedParser aSignedParser = new SMIMESignedParser (new JcaDigestCalculatorProviderBuilder ().setProvider (m_sSecurityProviderName)
                                                                                                             .build (),

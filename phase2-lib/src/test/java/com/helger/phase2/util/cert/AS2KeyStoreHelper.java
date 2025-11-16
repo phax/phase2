@@ -64,7 +64,7 @@ public final class AS2KeyStoreHelper
   {}
 
   @NonNull
-  public static AS2KeyStore readKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
+  public static MockAS2KeyStore readKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
                                           @NonNull final String sFilename,
                                           @NonNull final char [] aPassword,
                                           @NonNull final ICryptoHelper aCryptoHelper) throws Exception
@@ -76,7 +76,7 @@ public final class AS2KeyStoreHelper
     try
     {
       final KeyStore aKeyStore = aCryptoHelper.loadKeyStore (aKeyStoreType, aIS, aPassword);
-      return new AS2KeyStore (aKeyStore);
+      return new MockAS2KeyStore (aKeyStore);
     }
     finally
     {
@@ -84,7 +84,7 @@ public final class AS2KeyStoreHelper
     }
   }
 
-  public static void writeKeyStore (@NonNull final AS2KeyStore aKeyStore,
+  public static void writeKeyStore (@NonNull final MockAS2KeyStore aKeyStore,
                                     @NonNull final String sFilename,
                                     @NonNull final char [] aPassword) throws GeneralSecurityException, IOException
   {

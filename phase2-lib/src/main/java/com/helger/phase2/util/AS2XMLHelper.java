@@ -32,7 +32,6 @@
  */
 package com.helger.phase2.util;
 
-import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -46,6 +45,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.phase2.IDynamicComponent;
 import com.helger.phase2.exception.AS2Exception;
@@ -150,7 +150,7 @@ public final class AS2XMLHelper
     }
   }
 
-  private static Map <String, String> PHASE2_PACKAGE_MAP = new LinkedHashMap <> ();
+  private static final ICommonsMap <String, String> PHASE2_PACKAGE_MAP = new CommonsLinkedHashMap <> ();
   static
   {
     // Order is important

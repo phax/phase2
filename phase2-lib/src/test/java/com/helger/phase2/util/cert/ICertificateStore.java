@@ -50,22 +50,22 @@ public interface ICertificateStore
 {
   @NonNull
   @ReturnsMutableCopy
-  ICommonsList <String> getAliases () throws AS2CertificateException;
+  ICommonsList <String> getAliases () throws MockAS2CertificateException;
 
   @Nullable
-  Certificate getCertificate (@Nullable String sAlias) throws AS2CertificateException;
+  Certificate getCertificate (@Nullable String sAlias) throws MockAS2CertificateException;
 
-  void setCertificate (@NonNull String sAlias, @NonNull Certificate aCert) throws AS2CertificateException;
-
-  @Nullable
-  String getAlias (@Nullable Certificate aCert) throws AS2CertificateException;
-
-  void removeCertificate (@Nullable String sAlias) throws AS2CertificateException;
-
-  void clearCertificates () throws AS2CertificateException;
+  void setCertificate (@NonNull String sAlias, @NonNull Certificate aCert) throws MockAS2CertificateException;
 
   @Nullable
-  Key getKey (@Nullable String sAlias, char [] aPassword) throws AS2CertificateException;
+  String getAlias (@Nullable Certificate aCert) throws MockAS2CertificateException;
 
-  void setKey (@NonNull String sAlias, @NonNull Key aKey, char [] aPassword) throws AS2CertificateException;
+  void removeCertificate (@Nullable String sAlias) throws MockAS2CertificateException;
+
+  void clearCertificates () throws MockAS2CertificateException;
+
+  @Nullable
+  Key getKey (@Nullable String sAlias, char [] aPassword) throws MockAS2CertificateException;
+
+  void setKey (@NonNull String sAlias, @NonNull Key aKey, char [] aPassword) throws MockAS2CertificateException;
 }
