@@ -48,7 +48,6 @@ import java.security.cert.X509Certificate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -94,6 +93,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillNotClose;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
@@ -104,7 +104,9 @@ import com.helger.base.system.SystemProperties;
 import com.helger.bc.PBCProvider;
 import com.helger.collection.CollectionFind;
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.http.CHttp;
 import com.helger.http.CHttpHeader;
@@ -509,13 +511,14 @@ public class BCCryptoHelper implements ICryptoHelper
     return aGen.generate (aPart, aEncryptor);
   }
 
+  @CodingStyleguideUnaware
   private static final Map <ASN1ObjectIdentifier, String> NEW_SIGN_ALGOS;
 
   static
   {
     @SuppressWarnings ("unchecked")
     // Start with existing RFC-5751 algorithms
-    final Map <ASN1ObjectIdentifier, String> stdMicAlgs = new LinkedHashMap <> (SMIMESignedGenerator.RFC5751_MICALGS);
+    final ICommonsMap <ASN1ObjectIdentifier, String> stdMicAlgs = new CommonsLinkedHashMap <> (SMIMESignedGenerator.RFC5751_MICALGS);
 
     // add all remaining algorithms
     for (final ECryptoAlgorithmSign e : ECryptoAlgorithmSign.values ())
