@@ -565,17 +565,6 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
                                               () -> AbstractActiveNetModule.DISP_PARTNERSHIP_NOT_FOUND);
         }
 
-        // Calculate MIC before decrypt and decompress (see #140)
-        try
-        {
-          aIncomingMIC = AS2Helper.createMICOnReception (aMsg);
-        }
-        catch (final Exception ex)
-        {
-          // Ignore error
-          throw WrappedAS2Exception.wrap (ex);
-        }
-
         // Per RFC5402 compression is always before encryption but can be before
         // or after signing of message but only in one place
         final ICryptoHelper aCryptoHelper = AS2Helper.getCryptoHelper ();
@@ -595,6 +584,19 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
 
         // Verify may fail, if our certificate is expired
         verify (aMsg, aResHelper);
+
+        // Calculate MIC AFTER decryption and signature verification (RFC 4130)
+        // The MIC must be calculated on the same data that the sender calculated it on,
+        // which is the decrypted signed content, not the encrypted envelope
+        try
+        {
+          aIncomingMIC = AS2Helper.createMICOnReception (aMsg);
+        }
+        catch (final Exception ex)
+        {
+          // Ignore error
+          throw WrappedAS2Exception.wrap (ex);
+        }
 
         if (aCryptoHelper.isCompressed (aMsg.getContentType ()))
         {

@@ -268,7 +268,45 @@ public final class AS2Helper
                                          aPartnership.getEncryptAlgorithm () != null ||
                                          aPartnership.getCompressionType () != null;
 
-    return getCryptoHelper ().calculateMIC (aMsg.getData (), eSigningAlgorithm, bIncludeHeadersInMIC);
+    // For signed messages (multipart/signed), calculate MIC on the first body part (the actual content),
+    // not on the multipart wrapper which includes a random boundary parameter
+    MimeBodyPart aPartToHash = aMsg.getData ();
+    LOGGER.info ("createMICOnReception: signingAlgorithm=" + aPartnership.getSigningAlgorithm () + ", contentType=" + aPartToHash.getContentType ());
+    if (aPartnership.getSigningAlgorithm () != null)
+    {
+      try
+      {
+        final Object aContent = aPartToHash.getContent ();
+        LOGGER.info ("createMICOnReception: content class=" + (aContent != null ? aContent.getClass ().getName () : "null"));
+        if (aContent instanceof com.helger.mail.cte.EContentTransferEncoding)
+        {
+          // Already the right part
+          LOGGER.info ("createMICOnReception: Content is EContentTransferEncoding");
+        }
+        else if (aContent instanceof jakarta.mail.Multipart)
+        {
+          // This is multipart/signed - extract the first body part (the signed content)
+          final jakarta.mail.Multipart aMultipart = (jakarta.mail.Multipart) aContent;
+          LOGGER.info ("createMICOnReception: Content is Multipart with " + aMultipart.getCount () + " parts");
+          if (aMultipart.getCount () > 0)
+          {
+            aPartToHash = (MimeBodyPart) aMultipart.getBodyPart (0);
+            LOGGER.info ("Calculating MIC on first body part of multipart/signed, not on the multipart wrapper");
+          }
+        }
+        else
+        {
+          LOGGER.info ("createMICOnReception: Content is unknown type");
+        }
+      }
+      catch (final Exception ex)
+      {
+        LOGGER.warn ("Failed to extract first body part from multipart/signed: " + ex.getMessage (), ex);
+        // Fall back to using the whole part
+      }
+    }
+
+    return getCryptoHelper ().calculateMIC (aPartToHash, eSigningAlgorithm, bIncludeHeadersInMIC);
   }
 
   /**
