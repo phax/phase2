@@ -32,13 +32,13 @@
  */
 package com.helger.phase2;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.params.AS2InvalidParameterException;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The Component interface provides a standard way to dynamically create and initialize an object.
@@ -57,7 +57,7 @@ public interface IDynamicComponent
   /**
    * @return The attributes of this component.
    */
-  @Nonnull
+  @NonNull
   IStringMap attrs ();
 
   /**
@@ -76,7 +76,7 @@ public interface IDynamicComponent
    *
    * @return this component's session. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IAS2Session getSession ();
 
   /**
@@ -95,5 +95,5 @@ public interface IDynamicComponent
    *         If a required parameter is null in the parameters Map
    * @see IAS2Session
    */
-  void initDynamicComponent (@Nonnull IAS2Session aSession, @Nullable IStringMap aParameters) throws AS2Exception;
+  void initDynamicComponent (@NonNull IAS2Session aSession, @Nullable IStringMap aParameters) throws AS2Exception;
 }

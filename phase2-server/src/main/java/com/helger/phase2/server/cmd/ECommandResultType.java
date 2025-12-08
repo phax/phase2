@@ -32,10 +32,10 @@
  */
 package com.helger.phase2.server.cmd;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.state.ISuccessIndicator;
-
-import jakarta.annotation.Nonnull;
 
 public enum ECommandResultType implements ISuccessIndicator
 {
@@ -48,7 +48,7 @@ public enum ECommandResultType implements ISuccessIndicator
 
   private final String m_sText;
 
-  ECommandResultType (@Nonnull @Nonempty final String sText)
+  ECommandResultType (@NonNull @Nonempty final String sText)
   {
     m_sText = sText;
   }
@@ -58,7 +58,7 @@ public enum ECommandResultType implements ISuccessIndicator
     return this == TYPE_OK;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getText ()
   {

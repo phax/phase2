@@ -34,15 +34,15 @@ package com.helger.phase2.processor;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * AS2 exception that is thrown if no handling module was found.
@@ -84,13 +84,13 @@ public class AS2NoModuleException extends AS2Exception
     return m_aOptions;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return getAsString (m_sAction, m_aMsg, m_aOptions);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   protected static String getAsString (@Nullable final String sAction,
                                        @Nullable final IMessage aMsg,

@@ -45,6 +45,8 @@ import java.util.function.Consumer;
 
 import org.bouncycastle.mail.smime.SMIMECompressedGenerator;
 import org.bouncycastle.mail.smime.SMIMEException;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,8 +103,6 @@ import com.helger.phase2.util.http.AS2HttpClient;
 import com.helger.phase2.util.http.AS2HttpHeaderSetter;
 import com.helger.phase2.util.http.IAS2IncomingMDNCallback;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -126,7 +126,7 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    * @return The current MIC matching handler. Never <code>null</code>.
    * @since 4.4.0
    */
-  @Nonnull
+  @NonNull
   public final IMICMatchingHandler getMICMatchingHandler ()
   {
     return m_aMICMatchingHandler;
@@ -140,8 +140,8 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    * @return this for chaining
    * @since 4.4.0
    */
-  @Nonnull
-  public final AS2SenderModule setMICMatchingHandler (@Nonnull final IMICMatchingHandler aMICMatchingHandler)
+  @NonNull
+  public final AS2SenderModule setMICMatchingHandler (@NonNull final IMICMatchingHandler aMICMatchingHandler)
   {
     ValueEnforcer.notNull (aMICMatchingHandler, "MICMatchingHandler");
     m_aMICMatchingHandler = aMICMatchingHandler;
@@ -189,21 +189,21 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    * @return this for chaining
    * @since 4.4.1
    */
-  @Nonnull
+  @NonNull
   public final AS2SenderModule setVerificationCertificateConsumer (@Nullable final Consumer <? super X509Certificate> aVerificationCertificateConsumer)
   {
     m_aVerificationCertificateConsumer = aVerificationCertificateConsumer;
     return this;
   }
 
-  public boolean canHandle (@Nonnull final String sAction,
-                            @Nonnull final IMessage aMsg,
+  public boolean canHandle (@NonNull final String sAction,
+                            @NonNull final IMessage aMsg,
                             @Nullable final Map <String, Object> aOptions)
   {
     return IProcessorSenderModule.DO_SEND.equals (sAction) && aMsg instanceof AS2Message;
   }
 
-  protected void checkRequired (@Nonnull final AS2Message aMsg) throws AS2InvalidParameterException
+  protected void checkRequired (@NonNull final AS2Message aMsg) throws AS2InvalidParameterException
   {
     final Partnership aPartnership = aMsg.partnership ();
 
@@ -247,8 +247,8 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    */
   @Nullable
   @OverrideOnDemand
-  protected OutputStream openPendingInfoStreamForWriting (@Nonnull final AS2Message aMsg,
-                                                          @Nonnull @Nonempty final String sMsgFilename) throws AS2Exception
+  protected OutputStream openPendingInfoStreamForWriting (@NonNull final AS2Message aMsg,
+                                                          @NonNull @Nonempty final String sMsgFilename) throws AS2Exception
   {
     // The file that is written
     final String sPendingMDNInfoFolder = AS2IOHelper.getSafeFileAndFolderName (getSession ().getMessageProcessor ()
@@ -280,7 +280,7 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    * @throws AS2Exception
    *         In case of an error
    */
-  protected void storePendingInfo (@Nonnull final AS2Message aMsg, @Nonnull final MIC aMIC) throws AS2Exception
+  protected void storePendingInfo (@NonNull final AS2Message aMsg, @NonNull final MIC aMIC) throws AS2Exception
   {
     ValueEnforcer.notNull (aMsg, "Msg");
     ValueEnforcer.notNull (aMIC, "MIC");
@@ -366,8 +366,8 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    * @throws Exception
    *         On security or AS2 issues
    */
-  @Nonnull
-  protected MIC calculateAndStoreMIC (@Nonnull final AS2Message aMsg) throws Exception
+  @NonNull
+  protected MIC calculateAndStoreMIC (@NonNull final AS2Message aMsg) throws Exception
   {
     final Partnership aPartnership = aMsg.partnership ();
 
@@ -410,10 +410,10 @@ public class AS2SenderModule extends AbstractHttpSenderModule
     return aMIC;
   }
 
-  @Nonnull
-  public static MimeBodyPart compressMimeBodyPart (@Nonnull final MimeBodyPart aData,
-                                                   @Nonnull final ECompressionType eCompressionType,
-                                                   @Nonnull final EContentTransferEncoding eCTE) throws SMIMEException
+  @NonNull
+  public static MimeBodyPart compressMimeBodyPart (@NonNull final MimeBodyPart aData,
+                                                   @NonNull final ECompressionType eCompressionType,
+                                                   @NonNull final EContentTransferEncoding eCTE) throws SMIMEException
   {
     ValueEnforcer.notNull (aData, "Data");
     ValueEnforcer.notNull (eCompressionType, "CompressionType");
@@ -429,7 +429,7 @@ public class AS2SenderModule extends AbstractHttpSenderModule
     return aCompressedGenerator.generate (aData, eCompressionType.createOutputCompressor ());
   }
 
-  private static void _logMimeBodyPart (@Nonnull final MimeBodyPart aMimePart, @Nonnull final String sContext)
+  private static void _logMimeBodyPart (@NonNull final MimeBodyPart aMimePart, @NonNull final String sContext)
                                                                                                                throws IOException,
                                                                                                                MessagingException
   {
@@ -446,9 +446,9 @@ public class AS2SenderModule extends AbstractHttpSenderModule
     }
   }
 
-  @Nonnull
-  public static MimeBodyPart secureMimeBodyPart (@Nonnull final MimeBodyPart aSrcPart,
-                                                 @Nonnull final EContentTransferEncoding eCTE,
+  @NonNull
+  public static MimeBodyPart secureMimeBodyPart (@NonNull final MimeBodyPart aSrcPart,
+                                                 @NonNull final EContentTransferEncoding eCTE,
                                                  @Nullable final ECompressionType eCompressionType,
                                                  final boolean bCompressBeforeSign,
                                                  @Nullable final Consumer <MimeBodyPart> aCompressBeforeSignCallback,
@@ -460,7 +460,7 @@ public class AS2SenderModule extends AbstractHttpSenderModule
                                                  final boolean bRemoveCmsAlgorithmProtect,
                                                  @Nullable final ECryptoAlgorithmCrypt eCryptAlgorithm,
                                                  @Nullable final X509Certificate aReceiverCert,
-                                                 @Nonnull final String sLoggingText) throws Exception
+                                                 @NonNull final String sLoggingText) throws Exception
   {
     ValueEnforcer.notNull (aSrcPart, "SrcPart");
     ValueEnforcer.notNull (eCTE, "ContentTransferEncoding");
@@ -541,8 +541,8 @@ public class AS2SenderModule extends AbstractHttpSenderModule
     return aDataBP;
   }
 
-  @Nonnull
-  protected MimeBodyPart secure (@Nonnull final IMessage aMsg, @Nonnull final EContentTransferEncoding eCTE)
+  @NonNull
+  protected MimeBodyPart secure (@NonNull final IMessage aMsg, @NonNull final EContentTransferEncoding eCTE)
                                                                                                              throws Exception
   {
     final Partnership aPartnership = aMsg.partnership ();
@@ -663,7 +663,7 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    * @param aMsg
    *        The message to be send. Never <code>null</code>.
    */
-  protected void updateHttpHeaders (@Nonnull final AS2HttpHeaderSetter aHeaderSetter, @Nonnull final IMessage aMsg)
+  protected void updateHttpHeaders (@NonNull final AS2HttpHeaderSetter aHeaderSetter, @NonNull final IMessage aMsg)
   {
     final Partnership aPartnership = aMsg.partnership ();
 
@@ -730,11 +730,11 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    * @throws IOException
    *         in case of an IO error
    */
-  protected void receiveSyncMDN (@Nonnull final AS2Message aMsg,
-                                 @Nonnull final AS2HttpClient aHttpClient,
-                                 @Nonnull final MIC aOriginalMIC,
+  protected void receiveSyncMDN (@NonNull final AS2Message aMsg,
+                                 @NonNull final AS2HttpClient aHttpClient,
+                                 @NonNull final MIC aOriginalMIC,
                                  @Nullable final IHTTPIncomingDumper aIncomingDumper,
-                                 @Nonnull final AS2ResourceHelper aResHelper) throws AS2Exception, IOException
+                                 @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception, IOException
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Receiving synchronous MDN for message" + aMsg.getLoggingText ());
@@ -870,18 +870,18 @@ public class AS2SenderModule extends AbstractHttpSenderModule
    *         In case an overload wants to throw the exception
    */
   @OverrideOnDemand
-  protected void onReceivedMDNError (@Nonnull final AS2Message aMsg, @Nonnull final AS2Exception ex) throws AS2Exception
+  protected void onReceivedMDNError (@NonNull final AS2Message aMsg, @NonNull final AS2Exception ex) throws AS2Exception
   {
     new AS2Exception ("Message was sent but an error occured while receiving the MDN", ex).terminate (aMsg);
   }
 
-  private void _sendViaHTTP (@Nonnull final AS2Message aMsg,
-                             @Nonnull final MimeBodyPart aSecuredMimePart,
+  private void _sendViaHTTP (@NonNull final AS2Message aMsg,
+                             @NonNull final MimeBodyPart aSecuredMimePart,
                              @Nullable final MIC aMIC,
                              @Nullable final EContentTransferEncoding eCTE,
                              @Nullable final IHTTPOutgoingDumper aOutgoingDumper,
                              @Nullable final IHTTPIncomingDumper aIncomingDumper,
-                             @Nonnull final AS2ResourceHelper aResHelper) throws AS2Exception,
+                             @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception,
                                                                           IOException,
                                                                           MessagingException
   {
@@ -987,8 +987,8 @@ public class AS2SenderModule extends AbstractHttpSenderModule
     }
   }
 
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aBaseMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aBaseMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     final AS2Message aMsg = (AS2Message) aBaseMsg;

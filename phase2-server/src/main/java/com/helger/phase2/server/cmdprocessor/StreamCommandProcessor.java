@@ -39,6 +39,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,9 +56,6 @@ import com.helger.phase2.server.cmd.ICommand;
 import com.helger.phase2.server.util.CommandTokenizer;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * original author unknown in this release made the process a thread so it can be shared with other
@@ -83,17 +82,17 @@ public class StreamCommandProcessor extends AbstractCommandProcessor
     m_aWriter = new BufferedWriter (new OutputStreamWriter (System.out));
   }
 
-  public void initDynamicComponent (@Nonnull final IAS2Session session, @Nullable final IStringMap parameters)
+  public void initDynamicComponent (@NonNull final IAS2Session session, @Nullable final IStringMap parameters)
                                                                                                                throws AS2Exception
   {}
 
-  @Nonnull
+  @NonNull
   public BufferedReader getReader ()
   {
     return m_aReader;
   }
 
-  @Nonnull
+  @NonNull
   public BufferedWriter getWriter ()
   {
     return m_aWriter;

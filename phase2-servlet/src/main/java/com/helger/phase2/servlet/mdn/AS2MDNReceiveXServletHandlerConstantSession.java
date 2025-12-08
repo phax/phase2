@@ -16,12 +16,13 @@
  */
 package com.helger.phase2.servlet.mdn;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.session.AS2Session;
 
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 
 /**
@@ -35,15 +36,15 @@ public class AS2MDNReceiveXServletHandlerConstantSession extends AbstractAS2MDNR
 {
   private final AS2Session m_aSession;
 
-  public AS2MDNReceiveXServletHandlerConstantSession (@Nonnull final AS2Session aSession)
+  public AS2MDNReceiveXServletHandlerConstantSession (@NonNull final AS2Session aSession)
   {
     ValueEnforcer.notNull (aSession, "Session");
     m_aSession = aSession;
   }
 
   @Override
-  @Nonnull
-  protected AS2Session createAS2Session (@Nonnull final ICommonsMap <String, String> aInitParams) throws AS2Exception, ServletException
+  @NonNull
+  protected AS2Session createAS2Session (@NonNull final ICommonsMap <String, String> aInitParams) throws AS2Exception, ServletException
   {
     return m_aSession;
   }

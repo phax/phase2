@@ -32,6 +32,9 @@
  */
 package com.helger.phase2.partner;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.ICommonsList;
@@ -40,9 +43,6 @@ import com.helger.phase2.IDynamicComponent;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
 import com.helger.phase2.message.IMessageMDN;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the base interface for a partnership factory (it is more manager but who cares). It
@@ -65,8 +65,8 @@ public interface IPartnershipFactory extends IDynamicComponent
    * @throws AS2Exception
    *         Generic error
    */
-  @Nonnull
-  EChange addPartnership (@Nonnull Partnership aPartnership) throws AS2Exception;
+  @NonNull
+  EChange addPartnership (@NonNull Partnership aPartnership) throws AS2Exception;
 
   /**
    * Remove the specified partnership.
@@ -78,8 +78,8 @@ public interface IPartnershipFactory extends IDynamicComponent
    * @throws AS2Exception
    *         Generic error
    */
-  @Nonnull
-  EChange removePartnership (@Nonnull Partnership aPartnership) throws AS2Exception;
+  @NonNull
+  EChange removePartnership (@NonNull Partnership aPartnership) throws AS2Exception;
 
   /**
    * Get the partnership identified by the provided stub partnership.
@@ -90,8 +90,8 @@ public interface IPartnershipFactory extends IDynamicComponent
    * @throws AS2Exception
    *         If no partnership matching the provided stub partnership can be found.
    */
-  @Nonnull
-  Partnership getPartnership (@Nonnull Partnership aPartnership) throws AS2Exception;
+  @NonNull
+  Partnership getPartnership (@NonNull Partnership aPartnership) throws AS2Exception;
 
   /**
    * Find an existing partnership by its name.
@@ -106,14 +106,14 @@ public interface IPartnershipFactory extends IDynamicComponent
   /**
    * @return A set with all contained partnership names. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSet <String> getAllPartnershipNames ();
 
   /**
    * @return A list of all contained partnerships. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <Partnership> getAllPartnerships ();
 
@@ -130,7 +130,7 @@ public interface IPartnershipFactory extends IDynamicComponent
    *         In case of an error
    * @see #getPartnership(Partnership)
    */
-  void updatePartnership (@Nonnull IMessage aMsg, boolean bOverwrite) throws AS2Exception;
+  void updatePartnership (@NonNull IMessage aMsg, boolean bOverwrite) throws AS2Exception;
 
   /**
    * Looks up and fills in any header info for a specific MDN's partnership
@@ -145,5 +145,5 @@ public interface IPartnershipFactory extends IDynamicComponent
    *         In case of an error
    * @see #getPartnership(Partnership)
    */
-  void updatePartnership (@Nonnull IMessageMDN aMdn, boolean bOverwrite) throws AS2Exception;
+  void updatePartnership (@NonNull IMessageMDN aMdn, boolean bOverwrite) throws AS2Exception;
 }

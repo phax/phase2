@@ -32,13 +32,13 @@
  */
 package com.helger.phase2.server.cmd;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.phase2.AbstractDynamicComponent;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public abstract class AbstractCommand extends AbstractDynamicComponent implements ICommand
 {
@@ -47,7 +47,7 @@ public abstract class AbstractCommand extends AbstractDynamicComponent implement
   public static final String ATTR_USAGE = "usage";
 
   @Override
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aParameters) throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParameters) throws AS2Exception
   {
     super.initDynamicComponent (aSession, aParameters);
     if (getName () == null)

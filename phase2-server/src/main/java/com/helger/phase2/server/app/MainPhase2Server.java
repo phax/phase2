@@ -35,6 +35,7 @@ package com.helger.phase2.server.app;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,8 +48,6 @@ import com.helger.phase2.server.app.session.AS2ServerXMLSession;
 import com.helger.phase2.server.cmd.CommandManager;
 import com.helger.phase2.server.cmd.ICommandRegistry;
 import com.helger.phase2.server.cmdprocessor.AbstractCommandProcessor;
-
-import jakarta.annotation.Nullable;
 
 /**
  * original author unknown in this release added ability to have multiple

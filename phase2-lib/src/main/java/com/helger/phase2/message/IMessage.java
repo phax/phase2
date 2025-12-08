@@ -32,11 +32,12 @@
  */
 package com.helger.phase2.message;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.http.CHttpHeader;
 import com.helger.phase2.util.http.TempSharedFileInputStream;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.internet.MimeBodyPart;
 
 /**
@@ -104,7 +105,7 @@ public interface IMessage extends IBaseMessage
   @Nullable
   MimeBodyPart getData ();
 
-  void setData (@Nonnull MimeBodyPart aData);
+  void setData (@NonNull MimeBodyPart aData);
 
   @Nullable
   MimeBodyPart getMICSource ();

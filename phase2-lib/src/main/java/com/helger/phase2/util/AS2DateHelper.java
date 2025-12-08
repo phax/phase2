@@ -36,12 +36,12 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.datetime.format.DateTimeFormatterCache;
 import com.helger.datetime.format.PDTFromString;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
 
 @Immutable
 public final class AS2DateHelper
@@ -49,15 +49,15 @@ public final class AS2DateHelper
   private AS2DateHelper ()
   {}
 
-  @Nonnull
-  public static String getFormattedDateNow (@Nonnull final String sFormat)
+  @NonNull
+  public static String getFormattedDateNow (@NonNull final String sFormat)
   {
     // Must use "ZonedDateTime" because time zone is part of many formats
     return formatDate (sFormat, PDTFactory.getCurrentZonedDateTime ());
   }
 
-  @Nonnull
-  public static String formatDate (@Nonnull final String sFormat, @Nonnull final ZonedDateTime aValue)
+  @NonNull
+  public static String formatDate (@NonNull final String sFormat, @NonNull final ZonedDateTime aValue)
   {
     try
     {
@@ -69,8 +69,8 @@ public final class AS2DateHelper
     }
   }
 
-  @Nonnull
-  public static LocalDateTime parseDate (@Nonnull final String sFormat, @Nonnull final String sValue)
+  @NonNull
+  public static LocalDateTime parseDate (@NonNull final String sFormat, @NonNull final String sValue)
   {
     final ZonedDateTime ret = PDTFromString.getZonedDateTimeFromString (sValue, sFormat);
     if (ret == null)

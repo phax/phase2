@@ -36,6 +36,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
@@ -43,8 +45,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.header.HttpHeaderMap;
 import com.helger.phase2.partner.Partnership;
 import com.helger.typeconvert.collection.StringMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base implementation of {@link IBaseMessage} as the base class for {@link AbstractMessage} and
@@ -61,7 +61,7 @@ public abstract class AbstractBaseMessage implements IBaseMessage
   public AbstractBaseMessage ()
   {}
 
-  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
+  private void readObject (@NonNull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
   {
     // read in attributes
     m_aAttributes = (StringMap) aOIS.readObject ();
@@ -71,7 +71,7 @@ public abstract class AbstractBaseMessage implements IBaseMessage
     m_aPartnership = (Partnership) aOIS.readObject ();
   }
 
-  private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  private void writeObject (@NonNull final ObjectOutputStream aOOS) throws IOException
   {
     // write attributes
     aOOS.writeObject (m_aAttributes);
@@ -83,34 +83,34 @@ public abstract class AbstractBaseMessage implements IBaseMessage
     aOOS.writeObject (m_aPartnership);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final StringMap attrs ()
   {
     return m_aAttributes;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final HttpHeaderMap headers ()
   {
     return m_aHeaders;
   }
 
-  public final void setPartnership (@Nonnull final Partnership aPartnership)
+  public final void setPartnership (@NonNull final Partnership aPartnership)
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
     m_aPartnership = aPartnership;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final Partnership partnership ()
   {
     return m_aPartnership;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getLoggingText ()
   {

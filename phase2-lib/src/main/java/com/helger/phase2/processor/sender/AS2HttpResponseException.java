@@ -32,9 +32,9 @@
  */
 package com.helger.phase2.processor.sender;
 
-import com.helger.phase2.exception.AS2Exception;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.phase2.exception.AS2Exception;
 
 /**
  * Special {@link AS2Exception} with HTTP URL details
@@ -57,7 +57,7 @@ public class AS2HttpResponseException extends AS2Exception
    * @param sMessage
    *        The HTTP status message
    */
-  public AS2HttpResponseException (@Nonnull final String sUrl, final int nCode, @Nonnull final String sMessage)
+  public AS2HttpResponseException (@NonNull final String sUrl, final int nCode, @NonNull final String sMessage)
   {
     super ("Http Response from " + sUrl + ": " + nCode + " - " + sMessage);
     m_sURL = sUrl;
@@ -68,7 +68,7 @@ public class AS2HttpResponseException extends AS2Exception
   /**
    * @return The URL that failed. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public String getUrl ()
   {
     return m_sURL;

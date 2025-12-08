@@ -34,6 +34,9 @@ package com.helger.phase2.server.cmd;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
@@ -41,15 +44,12 @@ import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.IStringMap;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public class MultiCommand extends AbstractCommand
 {
   private ICommonsList <ICommand> m_aCmds;
 
   @Override
-  public void initDynamicComponent (@Nonnull final IAS2Session session, @Nullable final IStringMap parameters) throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session session, @Nullable final IStringMap parameters) throws AS2Exception
   {
     super.initDynamicComponent (session, parameters);
     getAttributeAsStringRequired (ATTR_NAME);
@@ -59,7 +59,7 @@ public class MultiCommand extends AbstractCommand
   }
 
   @Nullable
-  public ICommand getCommand (@Nonnull final String sName)
+  public ICommand getCommand (@NonNull final String sName)
   {
     final String sLCName = sName.toLowerCase (Locale.US);
     for (final ICommand cmd : getCommands ())
@@ -68,7 +68,7 @@ public class MultiCommand extends AbstractCommand
     return null;
   }
 
-  @Nonnull
+  @NonNull
   public ICommonsList <ICommand> getCommands ()
   {
     if (m_aCmds == null)

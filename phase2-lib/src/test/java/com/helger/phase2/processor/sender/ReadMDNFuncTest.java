@@ -62,13 +62,12 @@ import com.helger.security.certificate.CertificateHelper;
 
 import jakarta.mail.internet.MimeBodyPart;
 
-public class ReadMDNFuncTest
+public final class ReadMDNFuncTest
 {
   @Test
   public void testReadMDN02 () throws Exception
   {
-    String sPrefix = "external/mdn/4af6f84c-d882-4466-8e0c-305a7fbe37b3";
-    sPrefix = "external/mdn/20190925-david";
+    String sPrefix = "external/mdn/20190925-david";
     final IReadableResource aHeaderRes = new ClassPathResource (sPrefix + ".header");
     assertTrue (aHeaderRes.exists ());
     final IReadableResource aPayloadRes = new ClassPathResource (sPrefix + ".payload");

@@ -32,10 +32,11 @@
  */
 package com.helger.phase2.util;
 
-import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,15 +45,13 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.phase2.IDynamicComponent;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.StringMap;
 import com.helger.xml.microdom.IMicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class AS2XMLHelper
@@ -70,9 +69,9 @@ public final class AS2XMLHelper
    *        The source element to extract the attributes from. May not be <code>null</code>.
    * @return A new map and never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static StringMap getAllAttrsWithLowercaseName (@Nonnull final IMicroElement aElement)
+  public static StringMap getAllAttrsWithLowercaseName (@NonNull final IMicroElement aElement)
   {
     ValueEnforcer.notNull (aElement, "Element");
 
@@ -81,10 +80,10 @@ public final class AS2XMLHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static StringMap getAllAttrsWithLowercaseNameWithRequired (@Nonnull final IMicroElement aElement,
-                                                                    @Nonnull final String... aRequiredAttributes) throws AS2Exception
+  public static StringMap getAllAttrsWithLowercaseNameWithRequired (@NonNull final IMicroElement aElement,
+                                                                    @NonNull final String... aRequiredAttributes) throws AS2Exception
   {
     final StringMap aAttributes = getAllAttrsWithLowercaseName (aElement);
     for (final String sRequiredAttribute : aRequiredAttributes)
@@ -106,12 +105,12 @@ public final class AS2XMLHelper
    * @throws AS2Exception
    *         In case a node is missing a key or value attribute.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <String, String> mapAttributeNodes (@Nonnull final IMicroElement aNode,
-                                                                       @Nonnull final String sNodeName,
-                                                                       @Nonnull final String sNodeKeyName,
-                                                                       @Nonnull final String sNodeValueName) throws AS2Exception
+  public static ICommonsOrderedMap <String, String> mapAttributeNodes (@NonNull final IMicroElement aNode,
+                                                                       @NonNull final String sNodeName,
+                                                                       @NonNull final String sNodeKeyName,
+                                                                       @NonNull final String sNodeValueName) throws AS2Exception
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (sNodeName, "NodeName");
@@ -136,7 +135,7 @@ public final class AS2XMLHelper
     return ret;
   }
 
-  private static void _updateDirectories (@Nonnull final StringMap aAttributes, @Nullable final String sBaseDirectory)
+  private static void _updateDirectories (@NonNull final StringMap aAttributes, @Nullable final String sBaseDirectory)
                                                                                                                        throws AS2Exception
   {
     for (final Map.Entry <String, String> attrEntry : aAttributes.entrySet ())
@@ -151,7 +150,7 @@ public final class AS2XMLHelper
     }
   }
 
-  private static Map <String, String> PHASE2_PACKAGE_MAP = new LinkedHashMap <> ();
+  private static final ICommonsMap <String, String> PHASE2_PACKAGE_MAP = new CommonsLinkedHashMap <> ();
   static
   {
     // Order is important
@@ -161,8 +160,8 @@ public final class AS2XMLHelper
     PHASE2_PACKAGE_MAP.put ("com.helger.as2servlet.", "com.helger.phase2.servlet.");
   }
 
-  @Nonnull
-  private static String _convertToPhase2 (@Nonnull final String sClassName)
+  @NonNull
+  private static String _convertToPhase2 (@NonNull final String sClassName)
   {
     // Check for package mappings
     for (final var e : PHASE2_PACKAGE_MAP.entrySet ())
@@ -171,11 +170,11 @@ public final class AS2XMLHelper
     return sClassName;
   }
 
-  @Nonnull
-  private static <T extends IDynamicComponent> T _createComponent (@Nonnull final IMicroElement aElement,
+  @NonNull
+  private static <T extends IDynamicComponent> T _createComponent (@NonNull final IMicroElement aElement,
                                                                    final String sClassName,
-                                                                   @Nonnull final Class <T> aClass,
-                                                                   @Nonnull final IAS2Session aSession,
+                                                                   @NonNull final Class <T> aClass,
+                                                                   @NonNull final IAS2Session aSession,
                                                                    @Nullable final String sBaseDirectory) throws AS2Exception
   {
     try
@@ -214,10 +213,10 @@ public final class AS2XMLHelper
     }
   }
 
-  @Nonnull
-  public static <T extends IDynamicComponent> T createComponent (@Nonnull final IMicroElement aElement,
-                                                                 @Nonnull final Class <T> aClass,
-                                                                 @Nonnull final IAS2Session aSession,
+  @NonNull
+  public static <T extends IDynamicComponent> T createComponent (@NonNull final IMicroElement aElement,
+                                                                 @NonNull final Class <T> aClass,
+                                                                 @NonNull final IAS2Session aSession,
                                                                  @Nullable final String sBaseDirectory) throws AS2Exception
   {
     ValueEnforcer.notNull (aElement, "Element");

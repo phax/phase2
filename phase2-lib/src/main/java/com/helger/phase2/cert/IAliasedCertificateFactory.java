@@ -35,11 +35,11 @@ package com.helger.phase2.cert;
 import java.security.Key;
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Certificate factory with support for alias handling
@@ -52,15 +52,15 @@ public interface IAliasedCertificateFactory extends ICertificateFactory
 
   ICommonsOrderedMap <String, X509Certificate> getCertificates () throws AS2Exception;
 
-  void addCertificate (@Nonnull @Nonempty String sAlias, @Nonnull X509Certificate aCert, boolean bOverwrite)
+  void addCertificate (@NonNull @Nonempty String sAlias, @NonNull X509Certificate aCert, boolean bOverwrite)
                                                                                                              throws AS2Exception;
 
-  void addPrivateKey (@Nonnull @Nonempty String sAlias, @Nonnull Key aKey, @Nonnull String sPassword)
+  void addPrivateKey (@NonNull @Nonempty String sAlias, @NonNull Key aKey, @NonNull String sPassword)
                                                                                                       throws AS2Exception;
 
   void clearCertificates () throws AS2Exception;
 
-  void removeCertificate (@Nonnull X509Certificate aCert) throws AS2Exception;
+  void removeCertificate (@NonNull X509Certificate aCert) throws AS2Exception;
 
   void removeCertificate (String sAlias) throws AS2Exception;
 }

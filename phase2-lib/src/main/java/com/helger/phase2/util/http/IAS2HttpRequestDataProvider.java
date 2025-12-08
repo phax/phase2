@@ -35,10 +35,10 @@ package com.helger.phase2.util.http;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.helger.http.header.HttpHeaderMap;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.http.header.HttpHeaderMap;
 
 /**
  * Provider interface to retrieve an AS2 {@link InputStream}.
@@ -54,7 +54,7 @@ public interface IAS2HttpRequestDataProvider
    * @throws IOException
    *         In case of error
    */
-  @Nonnull
+  @NonNull
   InputStream getHttpInputStream () throws IOException;
 
   /**
@@ -79,12 +79,12 @@ public interface IAS2HttpRequestDataProvider
   /**
    * @return The HTTP request version used. Something like <code>HTTP/1.1</code>.
    */
-  @Nonnull
+  @NonNull
   String getHttpRequestVersion ();
 
   /**
    * @return The provided HTTP header map. Mutable map is returned. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   HttpHeaderMap getHttpHeaderMap ();
 }

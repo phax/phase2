@@ -34,9 +34,9 @@ package com.helger.phase2.server.util;
 
 import java.io.File;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 public interface IFileMonitorListener
 {
-  void onFileMonitorEvent (@Nonnull FileMonitor aMonitor, @Nonnull File aFile, @Nonnull EFileMonitorEvent eEvent);
+  void onFileMonitorEvent (@NonNull FileMonitor aMonitor, @NonNull File aFile, @NonNull EFileMonitorEvent eEvent);
 }

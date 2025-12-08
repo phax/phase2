@@ -18,6 +18,8 @@ package com.helger.phase2.servlet;
 
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
@@ -28,7 +30,6 @@ import com.helger.http.header.HttpHeaderMap;
 import com.helger.phase2.util.http.IAS2HttpRequestDataProvider;
 import com.helger.web.scope.IRequestWebScope;
 
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.ServletRequest;
 
@@ -54,8 +55,8 @@ final class AS2HttpRequestDataProviderServletRequest implements IAS2HttpRequestD
    *        Servlet request InputStream to read from. Will not be closed. May
    *        not be <code>null</code>.
    */
-  public AS2HttpRequestDataProviderServletRequest (@Nonnull final IRequestWebScope aRequestScope,
-                                                   @Nonnull @WillNotClose final ServletInputStream aRequestIS)
+  public AS2HttpRequestDataProviderServletRequest (@NonNull final IRequestWebScope aRequestScope,
+                                                   @NonNull @WillNotClose final ServletInputStream aRequestIS)
   {
     ValueEnforcer.notNull (aRequestScope, "RequestScope");
     ValueEnforcer.notNull (aRequestIS, "RequestIS");
@@ -69,7 +70,7 @@ final class AS2HttpRequestDataProviderServletRequest implements IAS2HttpRequestD
    *
    * @return {@link InputStream}
    */
-  @Nonnull
+  @NonNull
   public InputStream getHttpInputStream ()
   {
     // Use "NonClosing" internally to that the returned stream is easily
@@ -83,28 +84,28 @@ final class AS2HttpRequestDataProviderServletRequest implements IAS2HttpRequestD
     return true;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getHttpRequestMethod ()
   {
     return m_aRequestScope.getHttpMethod ().getName ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getHttpRequestUrl ()
   {
     return m_aRequestScope.getRequestURIDecoded ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getHttpRequestVersion ()
   {
     return m_aRequestScope.getHttpVersion ().getName ();
   }
 
-  @Nonnull
+  @NonNull
   public HttpHeaderMap getHttpHeaderMap ()
   {
     return m_aRequestScope.headers ();

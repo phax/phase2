@@ -35,12 +35,12 @@ package com.helger.phase2.cert;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.phase2.IDynamicComponent;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IBaseMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a certificate factory.
@@ -62,8 +62,8 @@ public interface ICertificateFactory extends IDynamicComponent
    * @throws AS2CertificateNotFoundException
    *         If no certificate is present
    */
-  @Nonnull
-  X509Certificate getCertificate (@Nonnull IBaseMessage aMsg, @Nonnull ECertificatePartnershipType ePartnershipType)
+  @NonNull
+  X509Certificate getCertificate (@NonNull IBaseMessage aMsg, @NonNull ECertificatePartnershipType ePartnershipType)
                                                                                                                      throws AS2Exception;
 
   /**
@@ -78,8 +78,8 @@ public interface ICertificateFactory extends IDynamicComponent
    *         In case of error
    */
   @Nullable
-  default X509Certificate getCertificateOrNull (@Nonnull final IBaseMessage aMsg,
-                                                @Nonnull final ECertificatePartnershipType ePartnershipType) throws AS2Exception
+  default X509Certificate getCertificateOrNull (@NonNull final IBaseMessage aMsg,
+                                                @NonNull final ECertificatePartnershipType ePartnershipType) throws AS2Exception
   {
     try
     {
@@ -92,6 +92,6 @@ public interface ICertificateFactory extends IDynamicComponent
     }
   }
 
-  @Nonnull
+  @NonNull
   PrivateKey getPrivateKey (@Nullable X509Certificate aCert) throws AS2Exception;
 }

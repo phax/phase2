@@ -16,9 +16,10 @@
  */
 package com.helger.phase2.webapp.servlet;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.web.scope.mgr.WebScopeManager;
 
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -39,13 +40,13 @@ public class AS2WebAppListener implements ServletContextListener
    * @param aSC
    *        The servlet context. May not be <code>null</code>.
    */
-  public static void staticInit (@Nonnull final ServletContext aSC)
+  public static void staticInit (@NonNull final ServletContext aSC)
   {
     com.helger.phase2.servlet.AS2WebAppListener.staticInit (aSC);
     GlobalAS2Session.ensureClassIsLoaded ();
   }
 
-  public void contextInitialized (@Nonnull final ServletContextEvent aSCE)
+  public void contextInitialized (@NonNull final ServletContextEvent aSCE)
   {
     final ServletContext aSC = aSCE.getServletContext ();
     staticInit (aSC);
@@ -60,7 +61,7 @@ public class AS2WebAppListener implements ServletContextListener
     WebScopeManager.onGlobalEnd ();
   }
 
-  public void contextDestroyed (@Nonnull final ServletContextEvent aSce)
+  public void contextDestroyed (@NonNull final ServletContextEvent aSce)
   {
     staticDestroy ();
   }

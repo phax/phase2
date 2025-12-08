@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.phase2</groupId>
   <artifactId>phase2-parent-pom</artifactId>
-  <version>6.0.1-SNAPSHOT</version>
+  <version>6.1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>phase2-parent-pom</name>
   <description>Base POM to build the phase2 projects</description>
@@ -77,28 +77,28 @@
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons-parent-pom</artifactId>
-        <version>12.0.3</version>
+        <version>12.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-css-parent-pom</artifactId>
-        <version>8.0.0</version>
+        <version>8.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.web</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>11.1.1</version>
+        <version>11.2.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.photon</groupId>
         <artifactId>ph-oton-parent-pom</artifactId>
-        <version>10.0.1</version>
+        <version>10.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

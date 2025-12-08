@@ -21,7 +21,7 @@
   <parent>
     <groupId>com.helger.phase2</groupId>
     <artifactId>phase2-parent-pom</artifactId>
-    <version>6.0.1-SNAPSHOT</version>
+    <version>6.1.1-SNAPSHOT</version>
   </parent>
   <artifactId>phase2-partnership-mongodb</artifactId>
   <packaging>bundle</packaging>
@@ -53,7 +53,7 @@
   
   <!-- Include here to not bloat the global scope -->
   <properties>
-    <mongodb-client.version>5.6.0</mongodb-client.version>
+    <mongodb-client.version>5.6.1</mongodb-client.version>
     <flapdoodle.version>4.21.0</flapdoodle.version>
   </properties>  
   
@@ -99,7 +99,7 @@
             <Export-Package>
               com.helger.phase2.partner.mongodb
             </Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

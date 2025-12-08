@@ -35,14 +35,14 @@ package com.helger.phase2.processor.module;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.exception.AS2UnsupportedException;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base implementation for {@link IProcessorActiveModule} derived from
@@ -65,15 +65,15 @@ public abstract class AbstractActiveModule extends AbstractProcessorModule imple
   }
 
   @OverrideOnDemand
-  public boolean canHandle (@Nonnull final String sAction,
-                            @Nonnull final IMessage aMsg,
+  public boolean canHandle (@NonNull final String sAction,
+                            @NonNull final IMessage aMsg,
                             @Nullable final Map <String, Object> aOptions)
   {
     return false;
   }
 
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     throw new AS2UnsupportedException ("Active modules don't handle anything by default");

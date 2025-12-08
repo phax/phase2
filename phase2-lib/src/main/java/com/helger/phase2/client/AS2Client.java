@@ -36,6 +36,8 @@ import java.net.Proxy;
 import java.security.cert.X509Certificate;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,8 +68,6 @@ import com.helger.phase2.session.AS2Session;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.typeconvert.collection.StringMap;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -95,8 +95,8 @@ public class AS2Client
    *        The factory to be used. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public AS2Client setAS2SenderModuleFactory (@Nonnull final Supplier <AS2SenderModule> aAS2SenderModuleFactory)
+  @NonNull
+  public AS2Client setAS2SenderModuleFactory (@NonNull final Supplier <AS2SenderModule> aAS2SenderModuleFactory)
   {
     m_aAS2SenderModuleFactory = ValueEnforcer.notNull (aAS2SenderModuleFactory, "AS2SenderModuleFactory");
     return this;
@@ -118,7 +118,7 @@ public class AS2Client
    *        The proxy to use. May be <code>null</code> to indicate no proxy.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public AS2Client setHttpProxy (@Nullable final Proxy aHttpProxy)
   {
     m_aHttpProxy = aHttpProxy;
@@ -133,10 +133,10 @@ public class AS2Client
    *        The current client settings. Never <code>null</code>.
    * @return Non-<code>null</code> Partnership.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected Partnership buildPartnership (@Nonnull final AS2ClientSettings aSettings)
+  protected Partnership buildPartnership (@NonNull final AS2ClientSettings aSettings)
   {
     final Partnership aPartnership = new Partnership (aSettings.getPartnershipName ());
 
@@ -193,17 +193,17 @@ public class AS2Client
     return aPartnership;
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected AS2Message createAS2MessageObj ()
   {
     return new AS2Message ();
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected AS2Message createMessage (@Nonnull final Partnership aPartnership, @Nonnull final AS2ClientRequest aRequest)
+  protected AS2Message createMessage (@NonNull final Partnership aPartnership, @NonNull final AS2ClientRequest aRequest)
                                                                                                                          throws MessagingException
   {
     final AS2Message aMsg = createAS2MessageObj ();
@@ -227,7 +227,7 @@ public class AS2Client
   /**
    * @return The certificate factory instance to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected CertificateFactory createCertificateFactory ()
   {
@@ -246,7 +246,7 @@ public class AS2Client
    *         In case of error
    */
   @OverrideOnDemand
-  protected void initCertificateFactory (@Nonnull final AS2ClientSettings aSettings, @Nonnull final AS2Session aSession)
+  protected void initCertificateFactory (@NonNull final AS2ClientSettings aSettings, @NonNull final AS2Session aSession)
                                                                                                                          throws AS2Exception
   {
     final StringMap aParams = new StringMap ();
@@ -310,7 +310,7 @@ public class AS2Client
    *         In case of error
    */
   @OverrideOnDemand
-  protected void initPartnershipFactory (@Nonnull final AS2Session aSession) throws AS2Exception
+  protected void initPartnershipFactory (@NonNull final AS2Session aSession) throws AS2Exception
   {
     // Use a self-filling in-memory partnership factory
     final SelfFillingPartnershipFactory aPartnershipFactory = new SelfFillingPartnershipFactory ();
@@ -328,7 +328,7 @@ public class AS2Client
    *         In case of error
    */
   @OverrideOnDemand
-  protected void initMessageProcessor (@Nonnull final AS2Session aSession) throws AS2Exception
+  protected void initMessageProcessor (@NonNull final AS2Session aSession) throws AS2Exception
   {
     final IMessageProcessor aMessageProcessor = new DefaultMessageProcessor ();
     aMessageProcessor.initDynamicComponent (aSession, null);
@@ -340,7 +340,7 @@ public class AS2Client
    *
    * @return The empty response object and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected AS2ClientResponse createResponse ()
   {
@@ -352,7 +352,7 @@ public class AS2Client
    *
    * @return The new AS2 session and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected AS2Session createSession ()
   {
@@ -373,9 +373,9 @@ public class AS2Client
    *        Current message. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void beforeSend (@Nonnull final AS2ClientSettings aSettings,
-                             @Nonnull final AS2Session aSession,
-                             @Nonnull final IMessage aMsg)
+  protected void beforeSend (@NonNull final AS2ClientSettings aSettings,
+                             @NonNull final AS2Session aSession,
+                             @NonNull final IMessage aMsg)
   {}
 
   /**
@@ -387,9 +387,9 @@ public class AS2Client
    *        The request data to be send. May not be <code>null</code>.
    * @return The response object. Never <code>null</code>.
    */
-  @Nonnull
-  public AS2ClientResponse sendSynchronous (@Nonnull final AS2ClientSettings aSettings,
-                                            @Nonnull final AS2ClientRequest aRequest)
+  @NonNull
+  public AS2ClientResponse sendSynchronous (@NonNull final AS2ClientSettings aSettings,
+                                            @NonNull final AS2ClientRequest aRequest)
   {
     ValueEnforcer.notNull (aSettings, "ClientSettings");
     ValueEnforcer.notNull (aRequest, "ClientRequest");

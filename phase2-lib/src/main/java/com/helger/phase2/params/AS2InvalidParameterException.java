@@ -32,11 +32,11 @@
  */
 package com.helger.phase2.params;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class AS2InvalidParameterException extends AS2Exception
 {
@@ -81,15 +81,15 @@ public class AS2InvalidParameterException extends AS2Exception
     return m_sValue;
   }
 
-  public static void checkValue (@Nonnull final Object aTarget,
-                                 @Nonnull final String sValueName,
+  public static void checkValue (@NonNull final Object aTarget,
+                                 @NonNull final String sValueName,
                                  @Nullable final Object aValue) throws AS2InvalidParameterException
   {
     if (aValue == null)
       throw new AS2InvalidParameterException ("Value is missing", aTarget, sValueName, null);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getAsString (@Nullable final String sKey, @Nullable final String sValue)
   {

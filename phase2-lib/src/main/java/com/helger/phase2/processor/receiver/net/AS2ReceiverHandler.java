@@ -45,6 +45,8 @@ import org.bouncycastle.cms.jcajce.ZlibExpanderProvider;
 import org.bouncycastle.mail.smime.SMIMECompressedParser;
 import org.bouncycastle.mail.smime.SMIMEException;
 import org.bouncycastle.mail.smime.SMIMEUtil;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,8 +98,6 @@ import com.helger.security.certificate.CertificateHelper;
 
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -121,7 +121,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
    *        The receiver module to be used. May not be <code>null</code>. Required for the session
    *        and the error handling.
    */
-  public AS2ReceiverHandler (@Nonnull final AS2ReceiverModule aModule)
+  public AS2ReceiverHandler (@NonNull final AS2ReceiverModule aModule)
   {
     m_aReceiverModule = ValueEnforcer.notNull (aModule, "Module");
   }
@@ -129,7 +129,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
   /**
    * @return The receiver module provided in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   protected final AS2ReceiverModule getReceiverModule ()
   {
     return m_aReceiverModule;
@@ -151,7 +151,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
    * @return this for chaining
    * @since 4.4.2
    */
-  @Nonnull
+  @NonNull
   public final AS2ReceiverHandler setSendExceptionsInMDN (final boolean bSendExceptionsInMDN)
   {
     m_bSendExceptionsInMDN = bSendExceptionsInMDN;
@@ -180,7 +180,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
    * @return this for chaining
    * @since 4.4.6
    */
-  @Nonnull
+  @NonNull
   public final AS2ReceiverHandler setSendExceptionStackTraceInMDN (final boolean bSendExceptionStackTraceInMDN)
   {
     m_bSendExceptionStackTraceInMDN = bSendExceptionStackTraceInMDN;
@@ -194,8 +194,8 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
    *        The socket through which the message will be read.
    * @return The {@link AS2Message} to use and never <code>null</code>.
    */
-  @Nonnull
-  protected AS2Message createMessage (@Nonnull final Socket aSocket)
+  @NonNull
+  protected AS2Message createMessage (@NonNull final Socket aSocket)
   {
     final AS2Message aMsg = new AS2Message ();
     aMsg.attrs ().putIn (CNetAttribute.MA_SOURCE_IP, aSocket.getInetAddress ().getHostAddress ());
@@ -206,7 +206,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
     return aMsg;
   }
 
-  protected void decrypt (@Nonnull final IMessage aMsg, @Nonnull final AS2ResourceHelper aResHelper) throws AS2Exception
+  protected void decrypt (@NonNull final IMessage aMsg, @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception
   {
     final ICertificateFactory aCertFactory = m_aReceiverModule.getSession ().getCertificateFactory ();
     final ICryptoHelper aCryptoHelper = AS2Helper.getCryptoHelper ();
@@ -262,7 +262,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
     }
   }
 
-  protected void verify (@Nonnull final IMessage aMsg, @Nonnull final AS2ResourceHelper aResHelper) throws AS2Exception
+  protected void verify (@NonNull final IMessage aMsg, @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception
   {
     final ICertificateFactory aCertFactory = m_aReceiverModule.getSession ().getCertificateFactory ();
     final ICryptoHelper aCryptoHelper = AS2Helper.getCryptoHelper ();
@@ -343,7 +343,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
     }
   }
 
-  protected void decompress (@Nonnull final IMessage aMsg, @Nonnull final AS2ResourceHelper aResHelper)
+  protected void decompress (@NonNull final IMessage aMsg, @NonNull final AS2ResourceHelper aResHelper)
                                                                                                         throws AS2DispositionException
   {
     try
@@ -400,13 +400,13 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
   }
 
   // Send a synchronous MDN
-  protected void sendSyncMDN (@Nonnull final String sClientInfo,
-                              @Nonnull final IAS2HttpResponseHandler aResponseHandler,
-                              @Nonnull final AS2Message aMsg,
+  protected void sendSyncMDN (@NonNull final String sClientInfo,
+                              @NonNull final IAS2HttpResponseHandler aResponseHandler,
+                              @NonNull final AS2Message aMsg,
                               @Nullable final MIC aIncomingMIC,
-                              @Nonnull final DispositionType aDisposition,
-                              @Nonnull final String sText,
-                              @Nonnull final ESuccess eSuccess)
+                              @NonNull final DispositionType aDisposition,
+                              @NonNull final String sText,
+                              @NonNull final ESuccess eSuccess)
   {
     final boolean bAllowErrorMDN = !aMsg.partnership ().isBlockErrorMDN ();
     if (eSuccess.isSuccess () || bAllowErrorMDN)
@@ -480,8 +480,8 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
     }
   }
 
-  @Nonnull
-  private String _getDispositionText (@Nonnull final AS2Exception ex)
+  @NonNull
+  private String _getDispositionText (@NonNull final AS2Exception ex)
   {
     // Issue 90 - use CRLF as separator
     if (m_bSendExceptionsInMDN)
@@ -519,10 +519,10 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
    * @param aResponseHandler
    *        The response handler which handles HTTP error messages as well as synchronous MDN.
    */
-  public void handleIncomingMessage (@Nonnull final String sClientInfo,
-                                     @Nonnull final DataSource aMsgData,
-                                     @Nonnull final AS2Message aMsg,
-                                     @Nonnull final IAS2HttpResponseHandler aResponseHandler)
+  public void handleIncomingMessage (@NonNull final String sClientInfo,
+                                     @NonNull final DataSource aMsgData,
+                                     @NonNull final AS2Message aMsg,
+                                     @NonNull final IAS2HttpResponseHandler aResponseHandler)
   {
     // Must be outer try-catch to make sure it is usable in the exception
     // handler, to avoid the decrypted content gets removed (see issue #135)
@@ -787,7 +787,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
     }
   }
 
-  public void handle (@Nonnull final AbstractActiveNetModule aOwner, @Nonnull final Socket aSocket)
+  public void handle (@NonNull final AbstractActiveNetModule aOwner, @NonNull final Socket aSocket)
   {
     final String sClientInfo = getClientInfo (aSocket);
     LOGGER.info ("Incoming connection " + sClientInfo);

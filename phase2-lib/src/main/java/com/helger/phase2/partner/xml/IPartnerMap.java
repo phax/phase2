@@ -32,13 +32,13 @@
  */
 package com.helger.phase2.partner.xml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.typeconvert.collection.StringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Read-only interface to manage the mapping from name to partner (represented by a
@@ -51,11 +51,11 @@ public interface IPartnerMap
   @Nullable
   IPartner getPartnerOfName (@Nullable String sPartnerName);
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> getAllPartnerNames ();
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <? extends IPartner> getAllPartners ();
 }

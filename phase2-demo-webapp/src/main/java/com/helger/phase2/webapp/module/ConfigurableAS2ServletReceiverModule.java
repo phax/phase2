@@ -16,10 +16,10 @@
  */
 package com.helger.phase2.webapp.module;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.phase2.processor.receiver.net.AS2ReceiverHandler;
 import com.helger.phase2.servlet.util.AS2ServletReceiverModule;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Configurable version of {@link AS2ServletReceiverModule}.
@@ -29,7 +29,7 @@ import jakarta.annotation.Nonnull;
 public class ConfigurableAS2ServletReceiverModule extends AS2ServletReceiverModule
 {
   @Override
-  @Nonnull
+  @NonNull
   public AS2ReceiverHandler createHandler ()
   {
     final AS2ReceiverHandler ret = super.createHandler ();

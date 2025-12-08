@@ -34,11 +34,11 @@ package com.helger.phase2.cert;
 
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.collection.commons.ICommonsList;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * AS2 exception to be thrown if a private key is not found
@@ -47,9 +47,9 @@ import jakarta.annotation.Nullable;
  */
 public class AS2KeyNotFoundException extends AS2Exception
 {
-  public AS2KeyNotFoundException (@Nonnull final X509Certificate aCert,
+  public AS2KeyNotFoundException (@NonNull final X509Certificate aCert,
                                   @Nullable final String sAlias,
-                                  @Nonnull final ICommonsList <String> aAllAliases,
+                                  @NonNull final ICommonsList <String> aAllAliases,
                                   @Nullable final Throwable aCause)
   {
     super ("Alias '" + sAlias + "' for Certificate '" + aCert + "'. All contained aliases are: " + aAllAliases, aCause);

@@ -37,15 +37,15 @@ import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillCloseWhenClosed;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.CHttp;
 import com.helger.phase2.message.IBaseMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Stream based incoming HTTP dumper.
@@ -57,20 +57,20 @@ public class HTTPIncomingDumperStreamBased implements IHTTPIncomingDumper
 {
   private final OutputStream m_aOS;
 
-  public HTTPIncomingDumperStreamBased (@Nonnull @WillCloseWhenClosed final OutputStream aOS)
+  public HTTPIncomingDumperStreamBased (@NonNull @WillCloseWhenClosed final OutputStream aOS)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
     m_aOS = aOS;
   }
 
-  @Nonnull
+  @NonNull
   protected final OutputStream getWrappedOS ()
   {
     return m_aOS;
   }
 
-  public void dumpIncomingRequest (@Nonnull final List <String> aHeaderLines,
-                                   @Nonnull final byte [] aPayload,
+  public void dumpIncomingRequest (@NonNull final List <String> aHeaderLines,
+                                   @NonNull final byte [] aPayload,
                                    @Nullable final IBaseMessage aMsg)
   {
     try

@@ -18,6 +18,8 @@ package com.helger.phase2.servlet;
 
 import java.io.IOException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,8 +44,6 @@ import com.helger.web.scope.IRequestWebScope;
 import com.helger.xservlet.handler.IXServletHandler;
 
 import jakarta.activation.DataSource;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -74,14 +74,14 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
    * @throws ServletException
    *         In case an overriding methods wants to throw a different exception
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected abstract AS2Session createAS2Session (@Nonnull ICommonsMap <String, String> aInitParams) throws AS2Exception,
+  protected abstract AS2Session createAS2Session (@NonNull ICommonsMap <String, String> aInitParams) throws AS2Exception,
                                                                                                      ServletException;
 
   @Override
   @OverridingMethodsMustInvokeSuper
-  public void onServletInit (@Nonnull final ICommonsMap <String, String> aInitParams) throws ServletException
+  public void onServletInit (@NonNull final ICommonsMap <String, String> aInitParams) throws ServletException
   {
     try
     {
@@ -101,7 +101,7 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
    * @throws IllegalStateException
    *         In case initialization failed
    */
-  @Nonnull
+  @NonNull
   protected final AS2Session getSession ()
   {
     if (m_aSession == null)
@@ -169,16 +169,16 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
    * @throws ServletException
    *         In case of an error
    */
-  protected abstract void handleIncomingMessage (@Nonnull final String sClientInfo,
-                                                 @Nonnull final DataSource aMsgData,
-                                                 @Nonnull final AS2Message aMsg,
-                                                 @Nonnull final IAS2HttpResponseHandler aResponseHandler) throws ServletException;
+  protected abstract void handleIncomingMessage (@NonNull final String sClientInfo,
+                                                 @NonNull final DataSource aMsgData,
+                                                 @NonNull final AS2Message aMsg,
+                                                 @NonNull final IAS2HttpResponseHandler aResponseHandler) throws ServletException;
 
-  public final void onRequest (@Nonnull final HttpServletRequest aHttpRequest,
-                               @Nonnull final HttpServletResponse aHttpResponse,
-                               @Nonnull final EHttpVersion eHttpVersion,
-                               @Nonnull final EHttpMethod eHttpMethod,
-                               @Nonnull final IRequestWebScope aRequestScope) throws ServletException, IOException
+  public final void onRequest (@NonNull final HttpServletRequest aHttpRequest,
+                               @NonNull final HttpServletResponse aHttpResponse,
+                               @NonNull final EHttpVersion eHttpVersion,
+                               @NonNull final EHttpMethod eHttpMethod,
+                               @NonNull final IRequestWebScope aRequestScope) throws ServletException, IOException
   {
     // Handle the incoming message, and return the MDN if necessary
     final String sClientInfo = aHttpRequest.getRemoteAddr () + ":" + aHttpRequest.getRemotePort ();

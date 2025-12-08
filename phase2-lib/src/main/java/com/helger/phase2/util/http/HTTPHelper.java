@@ -40,6 +40,8 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,8 +77,6 @@ import com.helger.phase2.util.dump.HTTPIncomingDumperDirectoryBased;
 import com.helger.phase2.util.dump.IHTTPIncomingDumper;
 
 import jakarta.activation.DataSource;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 
 /**
@@ -131,9 +131,9 @@ public final class HTTPHelper
   private HTTPHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <String> getAllHTTPHeaderLines (@Nonnull final HttpHeaderMap aHeaders)
+  public static ICommonsList <String> getAllHTTPHeaderLines (@NonNull final HttpHeaderMap aHeaders)
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
     aHeaders.forEachHeaderLine (ret::add, true);
@@ -154,7 +154,7 @@ public final class HTTPHelper
    * @return the global dumper factory for incoming HTTP requests. Never <code>null</code>.
    * @since 4.4.0
    */
-  @Nonnull
+  @NonNull
   public static Supplier <? extends IHTTPIncomingDumper> getHTTPIncomingDumperFactory ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aHTTPIncomingDumperFactory);
@@ -167,7 +167,7 @@ public final class HTTPHelper
    *        The dumper factory to be used. May not be <code>null</code>.
    * @since 3.1.0
    */
-  public static void setHTTPIncomingDumperFactory (@Nonnull final Supplier <? extends IHTTPIncomingDumper> aHttpDumperFactory)
+  public static void setHTTPIncomingDumperFactory (@NonNull final Supplier <? extends IHTTPIncomingDumper> aHttpDumperFactory)
   {
     ValueEnforcer.notNull (aHttpDumperFactory, "HttpDumperFactory");
     RW_LOCK.writeLocked ( () -> s_aHTTPIncomingDumperFactory = aHttpDumperFactory);
@@ -191,10 +191,10 @@ public final class HTTPHelper
    * @throws MessagingException
    *         In case header line parsing fails
    */
-  @Nonnull
-  public static IExtendedDataSource readHttpRequest (@Nonnull final IAS2HttpRequestDataProvider aRDP,
-                                                     @Nonnull final IAS2HttpResponseHandler aResponseHandler,
-                                                     @Nonnull final IMessage aMsg,
+  @NonNull
+  public static IExtendedDataSource readHttpRequest (@NonNull final IAS2HttpRequestDataProvider aRDP,
+                                                     @NonNull final IAS2HttpResponseHandler aResponseHandler,
+                                                     @NonNull final IMessage aMsg,
                                                      @Nullable final IHTTPIncomingDumper aIncomingDumper) throws IOException,
                                                                                                           MessagingException
   {
@@ -306,10 +306,10 @@ public final class HTTPHelper
     // Don't close the IS here!
   }
 
-  @Nonnull
-  public static DataSource readAndDecodeHttpRequest (@Nonnull final IAS2HttpRequestDataProvider aRDP,
-                                                     @Nonnull final IAS2HttpResponseHandler aResponseHandler,
-                                                     @Nonnull final IMessage aMsg,
+  @NonNull
+  public static DataSource readAndDecodeHttpRequest (@NonNull final IAS2HttpRequestDataProvider aRDP,
+                                                     @NonNull final IAS2HttpResponseHandler aResponseHandler,
+                                                     @NonNull final IMessage aMsg,
                                                      @Nullable final IHTTPIncomingDumper aIncomingDumper) throws IOException,
                                                                                                           MessagingException
   {
@@ -366,7 +366,7 @@ public final class HTTPHelper
    * @throws IOException
    *         In case sending fails for whatever reason
    */
-  public static void sendSimpleHTTPResponse (@Nonnull final IAS2HttpResponseHandler aResponseHandler,
+  public static void sendSimpleHTTPResponse (@NonNull final IAS2HttpResponseHandler aResponseHandler,
                                              @Nonnegative final int nResponseCode) throws IOException
   {
     try (final NonBlockingByteArrayOutputStream aData = new NonBlockingByteArrayOutputStream ())
@@ -381,7 +381,7 @@ public final class HTTPHelper
     }
   }
 
-  @Nonnull
+  @NonNull
   private static String _debugByte (final int n)
   {
     if (n >= 0x20 && n <= 0x7e)
@@ -400,7 +400,7 @@ public final class HTTPHelper
    *         if stream ends during chunk length read
    */
   @Nonnegative
-  public static int readChunkLen (@Nonnull @WillNotClose final InputStream aIS) throws IOException
+  public static int readChunkLen (@NonNull @WillNotClose final InputStream aIS) throws IOException
   {
     int nRes = 0;
     boolean bHeadersStarted = false;
@@ -504,7 +504,7 @@ public final class HTTPHelper
    * @throws IOException
    *         if stream ends during chunk length read
    */
-  public static void readTillNextLine (@Nonnull @WillNotClose final InputStream aIS) throws IOException
+  public static void readTillNextLine (@NonNull @WillNotClose final InputStream aIS) throws IOException
   {
     int nSkipped = 0;
     while (true)

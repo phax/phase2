@@ -32,14 +32,14 @@
  */
 package com.helger.phase2.server.cmd.cert;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.phase2.cert.IAliasedCertificateFactory;
 import com.helger.phase2.cert.ICertificateFactory;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.server.cmd.AbstractCommand;
 import com.helger.phase2.server.cmd.CommandResult;
 import com.helger.phase2.server.cmd.ECommandResultType;
-
-import jakarta.annotation.Nonnull;
 
 public abstract class AbstractAliasedCertCommand extends AbstractCommand
 {
@@ -63,5 +63,5 @@ public abstract class AbstractAliasedCertCommand extends AbstractCommand
     }
   }
 
-  protected abstract CommandResult execute (@Nonnull IAliasedCertificateFactory certFx, Object [] params) throws AS2Exception;
+  protected abstract CommandResult execute (@NonNull IAliasedCertificateFactory certFx, Object [] params) throws AS2Exception;
 }

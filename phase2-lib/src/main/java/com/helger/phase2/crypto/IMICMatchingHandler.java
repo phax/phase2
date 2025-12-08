@@ -32,11 +32,11 @@
  */
 package com.helger.phase2.crypto;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special handler if MIC is not matched.
@@ -56,7 +56,7 @@ public interface IMICMatchingHandler
    * @throws AS2Exception
    *         In case of error
    */
-  void onMICMatch (@Nonnull IMessage aMsg, @Nonnull String sMIC) throws AS2Exception;
+  void onMICMatch (@NonNull IMessage aMsg, @NonNull String sMIC) throws AS2Exception;
 
   /**
    * Invoked upon MIC mismatch
@@ -70,6 +70,6 @@ public interface IMICMatchingHandler
    * @throws AS2Exception
    *         In case of error
    */
-  void onMICMismatch (@Nonnull IMessage aMsg, @Nullable String sOriginalMIC, @Nullable String sReceivedMIC)
+  void onMICMismatch (@NonNull IMessage aMsg, @Nullable String sOriginalMIC, @Nullable String sReceivedMIC)
                                                                                                             throws AS2Exception;
 }

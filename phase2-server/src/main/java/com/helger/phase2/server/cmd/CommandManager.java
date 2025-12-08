@@ -32,11 +32,11 @@
  */
 package com.helger.phase2.server.cmd;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.phase2.server.cmdprocessor.AbstractCommandProcessor;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * command calls the registered command processors
@@ -49,7 +49,7 @@ public class CommandManager
 
   private ICommonsList <AbstractCommandProcessor> m_aProcessors;
 
-  @Nonnull
+  @NonNull
   public static CommandManager getCmdManager ()
   {
     if (s_aDefaultManager == null)

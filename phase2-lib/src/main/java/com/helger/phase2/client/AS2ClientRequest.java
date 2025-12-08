@@ -36,6 +36,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillClose;
 import com.helger.base.enforce.ValueEnforcer;
@@ -47,8 +50,6 @@ import com.helger.mail.cte.EContentTransferEncoding;
 import com.helger.mime.CMimeType;
 
 import jakarta.activation.DataHandler;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -80,7 +81,7 @@ public class AS2ClientRequest
    *        The subject to use. May neither be <code>null</code> nor empty. Has no impact on the
    *        MIME part creation. Just declarative.
    */
-  public AS2ClientRequest (@Nonnull @Nonempty final String sSubject)
+  public AS2ClientRequest (@NonNull @Nonempty final String sSubject)
   {
     m_sSubject = ValueEnforcer.notEmpty (sSubject, "Subject");
   }
@@ -88,7 +89,7 @@ public class AS2ClientRequest
   /**
    * @return The subject as provided in the constructor. May neither be <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getSubject ()
   {
@@ -103,8 +104,8 @@ public class AS2ClientRequest
    *        The content type. May neither be <code>null</code> nor empty.
    * @return this
    */
-  @Nonnull
-  public AS2ClientRequest setContentType (@Nonnull @Nonempty final String sContentType)
+  @NonNull
+  public AS2ClientRequest setContentType (@NonNull @Nonempty final String sContentType)
   {
     m_sContentType = ValueEnforcer.notEmpty (sContentType, "ContentType");
     return this;
@@ -114,7 +115,7 @@ public class AS2ClientRequest
    * @return The content type to be used. Defaults to {@link #DEFAULT_CONTENT_TYPE}. Is overridden
    *         in the <code>setData</code> methods.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getContentType ()
   {
@@ -133,8 +134,8 @@ public class AS2ClientRequest
    *        <code>null</code> the content is set as a String.
    * @return this
    */
-  @Nonnull
-  public AS2ClientRequest setData (@Nonnull final File aFile, @Nullable final Charset aCharset)
+  @NonNull
+  public AS2ClientRequest setData (@NonNull final File aFile, @Nullable final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     setData (FileHelper.getInputStream (aFile), aCharset);
@@ -152,8 +153,8 @@ public class AS2ClientRequest
    *        {@link InputStream} to read the content from. Never <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public AS2ClientRequest setData (@Nonnull @WillClose final InputStream aIS)
+  @NonNull
+  public AS2ClientRequest setData (@NonNull @WillClose final InputStream aIS)
   {
     return setData (aIS, (Charset) null);
   }
@@ -169,8 +170,8 @@ public class AS2ClientRequest
    *        <code>null</code> the content is set as a String.
    * @return this
    */
-  @Nonnull
-  public AS2ClientRequest setData (@Nonnull @WillClose final InputStream aIS, @Nullable final Charset aCharset)
+  @NonNull
+  public AS2ClientRequest setData (@NonNull @WillClose final InputStream aIS, @Nullable final Charset aCharset)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     final byte [] aBytes = StreamHelper.getAllBytes (aIS);
@@ -191,8 +192,8 @@ public class AS2ClientRequest
    *        The data to be used. May not be <code>null</code>.
    * @return this for chaining.
    */
-  @Nonnull
-  public AS2ClientRequest setData (@Nonnull final byte [] aData)
+  @NonNull
+  public AS2ClientRequest setData (@NonNull final byte [] aData)
   {
     ValueEnforcer.notNull (aData, "Data");
 
@@ -213,8 +214,8 @@ public class AS2ClientRequest
    *        The charset to be used. May be <code>null</code>.
    * @return this for chaining.
    */
-  @Nonnull
-  public AS2ClientRequest setData (@Nonnull final String sText, @Nullable final Charset aCharset)
+  @NonNull
+  public AS2ClientRequest setData (@NonNull final String sText, @Nullable final Charset aCharset)
   {
     ValueEnforcer.notNull (sText, "Text");
 
@@ -234,8 +235,8 @@ public class AS2ClientRequest
    *        The data handler to be used. May not be <code>null</code>.
    * @return this for chaining.
    */
-  @Nonnull
-  public AS2ClientRequest setData (@Nonnull final DataHandler aDataHandler)
+  @NonNull
+  public AS2ClientRequest setData (@NonNull final DataHandler aDataHandler)
   {
     ValueEnforcer.notNull (aDataHandler, "DataHandler");
 
@@ -255,7 +256,7 @@ public class AS2ClientRequest
    *        Filename to use. May be <code>null</code> to indicate none (also the default)
    * @return this
    */
-  @Nonnull
+  @NonNull
   public AS2ClientRequest setFilename (@Nullable final String sFilename)
   {
     m_sFilename = sFilename;
@@ -271,7 +272,7 @@ public class AS2ClientRequest
    * @return this for chaining
    * @since 3.0.4
    */
-  @Nonnull
+  @NonNull
   public AS2ClientRequest setContentTransferEncoding (@Nullable final EContentTransferEncoding eCTE)
   {
     m_eCTE = eCTE;
@@ -296,14 +297,14 @@ public class AS2ClientRequest
    * @return this for chaining
    * @since 3.0.4
    */
-  @Nonnull
+  @NonNull
   public AS2ClientRequest setContentDescription (@Nullable final String sDescription)
   {
     m_sContentDescription = sDescription;
     return this;
   }
 
-  public void applyDataOntoMimeBodyPart (@Nonnull final MimeBodyPart aPart) throws MessagingException
+  public void applyDataOntoMimeBodyPart (@NonNull final MimeBodyPart aPart) throws MessagingException
   {
     if (m_aDataByteArray != null)
     {

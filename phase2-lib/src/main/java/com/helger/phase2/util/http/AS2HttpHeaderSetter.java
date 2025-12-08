@@ -32,13 +32,13 @@
  */
 package com.helger.phase2.util.http;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.header.HttpHeaderMap;
 import com.helger.phase2.util.dump.IHTTPOutgoingDumper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Set HTTP header including logging
@@ -65,7 +65,7 @@ public final class AS2HttpHeaderSetter
    *        <code>false</code> if not. This might be an interoperability issue. The receiving side
    *        must be able to unquote according to RFC 2616.
    */
-  public AS2HttpHeaderSetter (@Nonnull final AS2HttpClient aConn,
+  public AS2HttpHeaderSetter (@NonNull final AS2HttpClient aConn,
                               @Nullable final IHTTPOutgoingDumper aOutgoingDumper,
                               final boolean bQuoteHeaderValues)
   {
@@ -74,7 +74,7 @@ public final class AS2HttpHeaderSetter
     m_bQuoteHeaderValues = bQuoteHeaderValues;
   }
 
-  public void setHttpHeader (@Nonnull final String sName, @Nonnull final String sValue)
+  public void setHttpHeader (@NonNull final String sName, @NonNull final String sValue)
   {
     // Ensure automatic quoting is used.
     // The underlying HttpClient does not do this automatically

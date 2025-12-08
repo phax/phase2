@@ -34,6 +34,9 @@ package com.helger.phase2.partner;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -44,9 +47,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link IPartnershipMap}.
@@ -67,7 +67,7 @@ public final class PartnershipMap implements IPartnershipMap
    * @param aPartnerships
    *        The partnerships to be set. May not be <code>null</code>.
    */
-  public void setPartnerships (@Nonnull final PartnershipMap aPartnerships)
+  public void setPartnerships (@NonNull final PartnershipMap aPartnerships)
   {
     ValueEnforcer.notNull (aPartnerships, "Partnerships");
     m_aMap.setAll (aPartnerships.m_aMap);
@@ -81,8 +81,8 @@ public final class PartnershipMap implements IPartnershipMap
    * @return {@link EChange#CHANGED} if adding was successfully, {@link EChange#UNCHANGED} if a
    *         partnership with the given name is already present and nothing changed.
    */
-  @Nonnull
-  public EChange addPartnership (@Nonnull final Partnership aPartnership)
+  @NonNull
+  public EChange addPartnership (@NonNull final Partnership aPartnership)
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
     final String sName = aPartnership.getName ();
@@ -98,7 +98,7 @@ public final class PartnershipMap implements IPartnershipMap
    * @param aPartnership
    *        The partnership to be set (and potentially overwritten). May not be <code>null</code>.
    */
-  public void setPartnership (@Nonnull final Partnership aPartnership)
+  public void setPartnership (@NonNull final Partnership aPartnership)
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
     // overwrite if already present
@@ -113,8 +113,8 @@ public final class PartnershipMap implements IPartnershipMap
    * @return {@link EChange#CHANGED} if removal was successful, {@link EChange#UNCHANGED} if no such
    *         partnership is contained.
    */
-  @Nonnull
-  public EChange removePartnership (@Nonnull final Partnership aPartnership)
+  @NonNull
+  public EChange removePartnership (@NonNull final Partnership aPartnership)
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
     return EChange.valueOf (m_aMap.remove (aPartnership.getName ()) != null);
@@ -134,8 +134,8 @@ public final class PartnershipMap implements IPartnershipMap
    * @return <code>true</code> if searchIds is not empty and if all values in searchIds match values
    *         in partnerIds. This means that partnerIds can contain more elements than searchIds
    */
-  private static boolean _arePartnerIDsPresent (@Nonnull final IStringMap aSearchIDs,
-                                                @Nonnull final IStringMap aPartnerIDs)
+  private static boolean _arePartnerIDsPresent (@NonNull final IStringMap aSearchIDs,
+                                                @NonNull final IStringMap aPartnerIDs)
   {
     if (aSearchIDs.isEmpty ())
       return false;
@@ -151,7 +151,7 @@ public final class PartnershipMap implements IPartnershipMap
   }
 
   @Nullable
-  public Partnership getPartnershipByID (@Nonnull final IStringMap aSenderIDs, @Nonnull final IStringMap aReceiverIDs)
+  public Partnership getPartnershipByID (@NonNull final IStringMap aSenderIDs, @NonNull final IStringMap aReceiverIDs)
   {
     // For all partnerships
     for (final Partnership aPartnership : m_aMap.values ())
@@ -175,14 +175,14 @@ public final class PartnershipMap implements IPartnershipMap
     return null;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllPartnershipNames ()
   {
     return m_aMap.copyOfKeySet ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Partnership> getAllPartnerships ()
   {

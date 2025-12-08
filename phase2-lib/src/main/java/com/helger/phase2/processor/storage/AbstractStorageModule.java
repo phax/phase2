@@ -39,6 +39,9 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -55,9 +58,6 @@ import com.helger.phase2.session.IAS2Session;
 import com.helger.phase2.util.AS2IOHelper;
 import com.helger.typeconvert.collection.IStringMap;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public abstract class AbstractStorageModule extends AbstractProcessorModule implements IProcessorStorageModule
 {
   public static final String ATTR_FILENAME = "filename";
@@ -67,7 +67,7 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
 
   private final String m_sModuleAction;
 
-  protected AbstractStorageModule (@Nonnull @Nonempty final String sModuleAction)
+  protected AbstractStorageModule (@NonNull @Nonempty final String sModuleAction)
   {
     m_sModuleAction = ValueEnforcer.notEmpty (sModuleAction, "ModuleAction");
   }
@@ -124,7 +124,7 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
    * @return The charset configured via {@link #ATTR_CHARSET} parameter or the system default. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   protected Charset getCharset ()
   {
     final Charset aCharset = CharsetHelper.getCharsetFromNameOrNull (getCharsetName ());
@@ -139,8 +139,8 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
       attrs ().putIn (ATTR_CHARSET, sCharsetName);
   }
 
-  public final boolean canHandle (@Nonnull final String sAction,
-                                  @Nonnull final IMessage aMsg,
+  public final boolean canHandle (@NonNull final String sAction,
+                                  @NonNull final IMessage aMsg,
                                   @Nullable final Map <String, Object> aOptions)
   {
     if (!sAction.equals (m_sModuleAction))
@@ -154,7 +154,7 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
   }
 
   @Override
-  public final void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aOptions)
+  public final void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
                                                                                                                     throws AS2Exception
   {
     super.initDynamicComponent (aSession, aOptions);
@@ -177,9 +177,9 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
    * @throws AS2Exception
    *         In case of error
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected File getFile (@Nonnull final IMessage aMsg, @Nullable final String sFileParam) throws IOException,
+  protected File getFile (@NonNull final IMessage aMsg, @Nullable final String sFileParam) throws IOException,
                                                                                            AS2Exception
   {
     final String sFilename = getFilename (aMsg, sFileParam);
@@ -192,7 +192,7 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
                                       FilenameHelper.getAsSecureValidFilename (aFile.getName ()));
   }
 
-  private static void _writeStreamToFile (@Nonnull @WillClose final InputStream aIS, @Nonnull final File aDestination)
+  private static void _writeStreamToFile (@NonNull @WillClose final InputStream aIS, @NonNull final File aDestination)
                                                                                                                        throws IOException
   {
     final FileOutputStream aOS = new FileOutputStream (aDestination);
@@ -200,7 +200,7 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
       throw new IOException ("Failed to write content to " + aDestination.getAbsolutePath ());
   }
 
-  protected void store (@Nonnull final File aMsgFile, @Nonnull @WillClose final InputStream aIS) throws IOException
+  protected void store (@NonNull final File aMsgFile, @NonNull @WillClose final InputStream aIS) throws IOException
   {
     final String sTempDirname = getTempDir ();
     if (sTempDirname != null)

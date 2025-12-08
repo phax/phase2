@@ -35,13 +35,12 @@ package com.helger.phase2.util.http;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.WillCloseWhenClosed;
 import com.helger.base.io.stream.WrappedInputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Stream to read a chunked body stream. Input stream should be at the beginning of a chunk, i.e. at
@@ -59,7 +58,7 @@ public class ChunkedInputStream extends WrappedInputStream
   private int m_nLeft = 0;
   private boolean m_bAfterFirstChunk = false;
 
-  public ChunkedInputStream (@Nonnull @WillCloseWhenClosed final InputStream aIS)
+  public ChunkedInputStream (@NonNull @WillCloseWhenClosed final InputStream aIS)
   {
     super (aIS);
   }
@@ -101,7 +100,7 @@ public class ChunkedInputStream extends WrappedInputStream
   }
 
   @Override
-  public final int read (@Nonnull final byte [] aBuf, final int nOffset, final int nLength) throws IOException
+  public final int read (@NonNull final byte [] aBuf, final int nOffset, final int nLength) throws IOException
   {
     if (m_nLeft < 0)
       return -1;

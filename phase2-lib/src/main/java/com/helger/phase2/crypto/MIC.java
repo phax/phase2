@@ -35,6 +35,9 @@ package com.helger.phase2.crypto;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
@@ -44,9 +47,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The MIC (Message Integrity Check) value. Basically a hash value over the message.
@@ -59,7 +59,7 @@ public class MIC implements ICloneable <MIC>
   private final byte [] m_aMICBytes;
   private final ECryptoAlgorithmSign m_eDigestAlgorithm;
 
-  public MIC (@Nonnull final byte [] aMICBytes, @Nonnull final ECryptoAlgorithmSign eDigestAlgorithm)
+  public MIC (@NonNull final byte [] aMICBytes, @NonNull final ECryptoAlgorithmSign eDigestAlgorithm)
   {
     ValueEnforcer.notNull (aMICBytes, "MICBytes");
     ValueEnforcer.notNull (eDigestAlgorithm, "DigestAlgorithm");
@@ -71,7 +71,7 @@ public class MIC implements ICloneable <MIC>
   /**
    * @return The mutual MIC bytes. Handle with care. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public byte [] micBytes ()
   {
     return m_aMICBytes;
@@ -80,7 +80,7 @@ public class MIC implements ICloneable <MIC>
   /**
    * @return The algorithm that was used to create the MIC. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ECryptoAlgorithmSign getDigestAlgorithm ()
   {
     return m_eDigestAlgorithm;
@@ -90,14 +90,14 @@ public class MIC implements ICloneable <MIC>
    * @return This is the Base64-encoded message digest of the specified algorithm. The exact layout
    *         must be <code>&lt;Base64EncodedMIC&gt;, &lt;MICAlgorithmID&gt;</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsAS2String ()
   {
     return Base64.encodeBytes (m_aMICBytes) + ", " + m_eDigestAlgorithm.getID ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public MIC getClone ()
   {
@@ -112,8 +112,8 @@ public class MIC implements ICloneable <MIC>
    * @return The unified algorithm. Never <code>null</code>.
    */
   @SuppressWarnings ("deprecation")
-  @Nonnull
-  private static ECryptoAlgorithmSign _getUnified (@Nonnull final ECryptoAlgorithmSign eAlgorithm)
+  @NonNull
+  private static ECryptoAlgorithmSign _getUnified (@NonNull final ECryptoAlgorithmSign eAlgorithm)
   {
     return switch (eAlgorithm)
     {

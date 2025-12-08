@@ -32,11 +32,11 @@
  */
 package com.helger.phase2.exception;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 public class AS2UnsupportedException extends AS2Exception
 {
-  public AS2UnsupportedException (@Nonnull final String sMsg)
+  public AS2UnsupportedException (@NonNull final String sMsg)
   {
     super (sMsg);
   }

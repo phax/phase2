@@ -37,6 +37,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,9 +47,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.CHttp;
 import com.helger.io.file.FileHelper;
 import com.helger.phase2.message.IBaseMessage;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Directory based incoming HTTP dumper.
@@ -61,7 +60,7 @@ public class HTTPIncomingDumperDirectoryBased implements IHTTPIncomingDumper
 
   private final File m_aDumpDirectory;
 
-  public HTTPIncomingDumperDirectoryBased (@Nonnull final File aDumpDirectory)
+  public HTTPIncomingDumperDirectoryBased (@NonNull final File aDumpDirectory)
   {
     ValueEnforcer.notNull (aDumpDirectory, "DumpDirectory");
     ValueEnforcer.isTrue (FileHelper.existsDir (aDumpDirectory),
@@ -69,7 +68,7 @@ public class HTTPIncomingDumperDirectoryBased implements IHTTPIncomingDumper
     m_aDumpDirectory = aDumpDirectory;
   }
 
-  @Nonnull
+  @NonNull
   public File getDumpDirectory ()
   {
     return m_aDumpDirectory;
@@ -82,15 +81,15 @@ public class HTTPIncomingDumperDirectoryBased implements IHTTPIncomingDumper
    *        Unique index to avoid duplicate filenames
    * @return The local filename without any path
    */
-  @Nonnull
+  @NonNull
   protected String getStoreFilename (final int nIndex)
   {
     return "as2-incoming-" + Long.toString (System.currentTimeMillis ()) + "-" + nIndex + ".http";
   }
 
-  protected void writeToFile (@Nonnull final File aDestinationFile,
-                              @Nonnull final List <String> aHeaderLines,
-                              @Nonnull final byte [] aPayload,
+  protected void writeToFile (@NonNull final File aDestinationFile,
+                              @NonNull final List <String> aHeaderLines,
+                              @NonNull final byte [] aPayload,
                               @Nullable final IBaseMessage aMsg)
   {
     LOGGER.info ("Dumping incoming HTTP request to file " + aDestinationFile.getAbsolutePath ());
@@ -115,8 +114,8 @@ public class HTTPIncomingDumperDirectoryBased implements IHTTPIncomingDumper
     }
   }
 
-  public void dumpIncomingRequest (@Nonnull final List <String> aHeaderLines,
-                                   @Nonnull final byte [] aPayload,
+  public void dumpIncomingRequest (@NonNull final List <String> aHeaderLines,
+                                   @NonNull final byte [] aPayload,
                                    @Nullable final IBaseMessage aMsg)
   {
     // Ensure a unique filename

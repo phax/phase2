@@ -23,7 +23,7 @@
   <parent>
     <groupId>com.helger.phase2</groupId>
     <artifactId>phase2-parent-pom</artifactId>
-    <version>6.0.1-SNAPSHOT</version>
+    <version>6.1.1-SNAPSHOT</version>
   </parent>
   <artifactId>phase2-demo-spring-boot</artifactId>
   <packaging>jar</packaging>
@@ -41,7 +41,7 @@
   </licenses>
   
   <properties>
-    <spring-boot.version>3.5.6</spring-boot.version>
+    <spring-boot.version>3.5.7</spring-boot.version>
   </properties>
 
   <dependencies>
@@ -71,11 +71,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <version>${spring-boot.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

@@ -33,10 +33,9 @@
 package com.helger.phase2.crypto;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.jspecify.annotations.NonNull;
 
 import com.helger.base.id.IHasID;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for signing and crypting crypto algorithms.
@@ -48,6 +47,6 @@ public interface ICryptoAlgorithm extends IHasID <String>
   /**
    * @return The ASN.1 object identifier of the crypto/sign algorithm. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ASN1ObjectIdentifier getOID ();
 }

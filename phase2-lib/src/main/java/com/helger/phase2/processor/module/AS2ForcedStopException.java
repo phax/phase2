@@ -32,9 +32,9 @@
  */
 package com.helger.phase2.processor.module;
 
-import com.helger.phase2.exception.AS2Exception;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.phase2.exception.AS2Exception;
 
 public class AS2ForcedStopException extends AS2Exception
 {

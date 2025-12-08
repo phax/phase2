@@ -32,12 +32,12 @@
  */
 package com.helger.phase2.partner;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.phase2.crypto.ECryptoAlgorithmSign;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special in-memory partnership factory that adds a partnership if it is not existing yet.
@@ -58,7 +58,7 @@ public class SelfFillingPartnershipFactory extends AbstractPartnershipFactory
    * @param aPartnership
    *        The partnership to be used.
    */
-  public static void ensureUsablePartnership (@Nonnull final Partnership aPartnership)
+  public static void ensureUsablePartnership (@NonNull final Partnership aPartnership)
   {
     // Ensure the X509 key is contained for certificate store alias retrieval
     if (!aPartnership.containsSenderX509Alias ())
@@ -90,14 +90,14 @@ public class SelfFillingPartnershipFactory extends AbstractPartnershipFactory
    */
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected void onBeforeAddPartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  protected void onBeforeAddPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     ensureUsablePartnership (aPartnership);
   }
 
   @Override
-  @Nonnull
-  public final Partnership getPartnership (@Nonnull final Partnership aPartnership) throws AS2Exception
+  @NonNull
+  public final Partnership getPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
     try
     {

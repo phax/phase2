@@ -37,6 +37,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,9 +64,6 @@ import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * original author unknown this release added logic to store partnerships and provide methods for
  * partner/partnership command line processor
@@ -81,7 +80,7 @@ public class XMLPartnershipFactory extends AbstractPartnershipFactoryWithPartner
   private static final String ATTR_PARTNERSHIP_NAME = Partner.PARTNER_NAME;
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLPartnershipFactory.class);
 
-  @Nonnull
+  @NonNull
   public String getFilename () throws AS2InvalidParameterException
   {
     return getAttributeAsStringRequired (ATTR_FILENAME);
@@ -106,7 +105,7 @@ public class XMLPartnershipFactory extends AbstractPartnershipFactoryWithPartner
   }
 
   @Override
-  public void initDynamicComponent (@Nonnull final IAS2Session session, @Nullable final IStringMap parameters)
+  public void initDynamicComponent (@NonNull final IAS2Session session, @Nullable final IStringMap parameters)
                                                                                                                throws AS2Exception
   {
     super.initDynamicComponent (session, parameters);
@@ -170,7 +169,7 @@ public class XMLPartnershipFactory extends AbstractPartnershipFactoryWithPartner
     setPartnerships (aNewPartnerships);
   }
 
-  protected void loadPartnershipAttributes (@Nonnull final IMicroElement aNode, @Nonnull final Partnership aPartnership)
+  protected void loadPartnershipAttributes (@NonNull final IMicroElement aNode, @NonNull final Partnership aPartnership)
                                                                                                                          throws AS2Exception
   {
     final String sNodeName = "attribute";
@@ -183,17 +182,17 @@ public class XMLPartnershipFactory extends AbstractPartnershipFactoryWithPartner
     aPartnership.addAllAttributes (aAttributes);
   }
 
-  @Nonnull
-  public Partner loadPartner (@Nonnull final IMicroElement ePartner) throws AS2Exception
+  @NonNull
+  public Partner loadPartner (@NonNull final IMicroElement ePartner) throws AS2Exception
   {
     // Name is required
     final StringMap aAttrs = AS2XMLHelper.getAllAttrsWithLowercaseNameWithRequired (ePartner, ATTR_PARTNER_NAME);
     return new Partner (aAttrs);
   }
 
-  protected void loadPartnerIDs (@Nonnull final IMicroElement ePartnership,
-                                 @Nonnull final IPartnerMap aAllPartners,
-                                 @Nonnull final Partnership aPartnership,
+  protected void loadPartnerIDs (@NonNull final IMicroElement ePartnership,
+                                 @NonNull final IPartnerMap aAllPartners,
+                                 @NonNull final Partnership aPartnership,
                                  final boolean bIsSender) throws AS2Exception
   {
     final String sPartnerType = bIsSender ? "sender" : "receiver";
@@ -239,9 +238,9 @@ public class XMLPartnershipFactory extends AbstractPartnershipFactoryWithPartner
       aPartnership.addReceiverIDs (aPartnerAttrs);
   }
 
-  @Nonnull
-  public Partnership loadPartnership (@Nonnull final IMicroElement ePartnership,
-                                      @Nonnull final IPartnerMap aAllPartners) throws AS2Exception
+  @NonNull
+  public Partnership loadPartnership (@NonNull final IMicroElement ePartnership,
+                                      @NonNull final IPartnerMap aAllPartners) throws AS2Exception
   {
     // Name attribute is required
     final IStringMap aPartnershipAttrs = AS2XMLHelper.getAllAttrsWithLowercaseNameWithRequired (ePartnership,
@@ -259,8 +258,8 @@ public class XMLPartnershipFactory extends AbstractPartnershipFactoryWithPartner
     return aPartnership;
   }
 
-  @Nonnull
-  private static File _getUniqueBackupFile (@Nonnull final String sFilename)
+  @NonNull
+  private static File _getUniqueBackupFile (@NonNull final String sFilename)
   {
     long nIndex = 0;
     File aBackupFile;

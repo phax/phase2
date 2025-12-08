@@ -35,6 +35,8 @@ package com.helger.phase2.params;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,9 +44,6 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class CompositeParameters extends AbstractParameterParser
 {
@@ -59,13 +58,13 @@ public class CompositeParameters extends AbstractParameterParser
   }
 
   public CompositeParameters (final boolean bIgnoreMissingParsers,
-                              @Nonnull final Map <String, ? extends AbstractParameterParser> aParameterParsers)
+                              @NonNull final Map <String, ? extends AbstractParameterParser> aParameterParsers)
   {
     this (bIgnoreMissingParsers);
     getParameterParsers ().putAll (aParameterParsers);
   }
 
-  @Nonnull
+  @NonNull
   public CompositeParameters add (final String sKey, final AbstractParameterParser aParam)
   {
     getParameterParsers ().put (sKey, aParam);
@@ -142,7 +141,7 @@ public class CompositeParameters extends AbstractParameterParser
     m_aParameterParsers = aParameterParsers;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("by design")
   protected final ICommonsMap <String, AbstractParameterParser> getParameterParsers ()
   {

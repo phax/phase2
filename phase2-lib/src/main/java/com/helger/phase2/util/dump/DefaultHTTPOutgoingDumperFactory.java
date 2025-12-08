@@ -35,10 +35,10 @@ package com.helger.phase2.util.dump;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.phase2.message.IBaseMessage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of {@link IHTTPOutgoingDumperFactory}. Extracted as a public class in
@@ -52,14 +52,14 @@ public class DefaultHTTPOutgoingDumperFactory implements IHTTPOutgoingDumperFact
   private final AtomicInteger m_aCounter = new AtomicInteger (0);
   private final File m_aDumpDirectory;
 
-  public DefaultHTTPOutgoingDumperFactory (@Nonnull final File aDumpDirectory)
+  public DefaultHTTPOutgoingDumperFactory (@NonNull final File aDumpDirectory)
   {
     ValueEnforcer.notNull (aDumpDirectory, "DumpDirectory");
     m_aDumpDirectory = aDumpDirectory;
   }
 
-  @Nonnull
-  public IHTTPOutgoingDumper apply (@Nonnull final IBaseMessage aMsg)
+  @NonNull
+  public IHTTPOutgoingDumper apply (@NonNull final IBaseMessage aMsg)
   {
     return new HTTPOutgoingDumperFileBased (new File (m_aDumpDirectory,
                                                       "as2-outgoing-" +

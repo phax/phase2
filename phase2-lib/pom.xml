@@ -38,7 +38,7 @@
   <parent>
     <groupId>com.helger.phase2</groupId>
     <artifactId>phase2-parent-pom</artifactId>
-    <version>6.0.1-SNAPSHOT</version>
+    <version>6.1.1-SNAPSHOT</version>
   </parent>
   <artifactId>phase2-lib</artifactId>
   <packaging>bundle</packaging>
@@ -152,7 +152,7 @@
               com.helger.phase2.util.http,
               com.helger.phase2.util.javamail
             </Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
             <Include-Resource>{maven-resources},phase2-version.properties=target/classes/phase2-version.properties</Include-Resource>
           </instructions>
         </configuration>

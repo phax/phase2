@@ -39,6 +39,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.StringTokenizer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
@@ -48,7 +50,6 @@ import com.helger.base.io.stream.NonClosingInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.http.header.HttpHeaderMap;
 
-import jakarta.annotation.Nonnull;
 import jakarta.mail.Header;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetHeaders;
@@ -79,9 +80,9 @@ public class AS2HttpRequestDataProviderInputStream implements IAS2HttpRequestDat
    * @throws IOException
    *         In case of IO error
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  private static String [] _readRequestInfo (@Nonnull final InputStream aIS) throws IOException
+  private static String [] _readRequestInfo (@NonNull final InputStream aIS) throws IOException
   {
     int nByteBuf = aIS.read ();
     final StringBuilder aSB = new StringBuilder ();
@@ -129,7 +130,7 @@ public class AS2HttpRequestDataProviderInputStream implements IAS2HttpRequestDat
    * @throws MessagingException
    *         If reading the HTTP headers failed
    */
-  public AS2HttpRequestDataProviderInputStream (@Nonnull @WillNotClose final InputStream aIS) throws IOException,
+  public AS2HttpRequestDataProviderInputStream (@NonNull @WillNotClose final InputStream aIS) throws IOException,
                                                                                               MessagingException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
@@ -163,7 +164,7 @@ public class AS2HttpRequestDataProviderInputStream implements IAS2HttpRequestDat
    * @throws IOException
    *         in case of error
    */
-  @Nonnull
+  @NonNull
   public InputStream getHttpInputStream () throws IOException
   {
     // Use "NonClosing" internally to that the returned stream is easily
@@ -177,32 +178,32 @@ public class AS2HttpRequestDataProviderInputStream implements IAS2HttpRequestDat
     return false;
   }
 
-  @Nonnull
+  @NonNull
   public String getHttpRequestMethod ()
   {
     return m_sHttpRequestMethod;
   }
 
-  @Nonnull
+  @NonNull
   public String getHttpRequestUrl ()
   {
     return m_sHttpRequestUrl;
   }
 
-  @Nonnull
+  @NonNull
   public String getHttpRequestVersion ()
   {
     return m_sHttpRequestVersion;
   }
 
-  @Nonnull
+  @NonNull
   public HttpHeaderMap getHttpHeaderMap ()
   {
     return m_aHttpHeaders;
   }
 
-  @Nonnull
-  public static AS2HttpRequestDataProviderInputStream createForUtf8 (@Nonnull final String s) throws IOException,
+  @NonNull
+  public static AS2HttpRequestDataProviderInputStream createForUtf8 (@NonNull final String s) throws IOException,
                                                                                               MessagingException
   {
     final byte [] b = s.getBytes (StandardCharsets.UTF_8);

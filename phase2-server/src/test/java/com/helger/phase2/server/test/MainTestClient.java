@@ -35,6 +35,7 @@ package com.helger.phase2.server.test;
 import java.io.File;
 import java.util.Enumeration;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +62,6 @@ import com.helger.phase2.session.AS2Session;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.typeconvert.collection.StringMap;
 
-import jakarta.annotation.Nonnull;
 import jakarta.mail.Header;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -248,7 +248,7 @@ public class MainTestClient
     // logger.info(reply.getData().getRawInputStream().toString());
   }
 
-  protected static void checkRequired (@Nonnull final IMessage aMsg) throws AS2InvalidParameterException
+  protected static void checkRequired (@NonNull final IMessage aMsg) throws AS2InvalidParameterException
   {
     final Partnership aPartnership = aMsg.partnership ();
 

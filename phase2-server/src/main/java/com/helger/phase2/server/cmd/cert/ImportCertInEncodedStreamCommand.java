@@ -37,6 +37,8 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.phase2.cert.IAliasedCertificateFactory;
 import com.helger.phase2.exception.AS2Exception;
@@ -44,8 +46,6 @@ import com.helger.phase2.exception.WrappedAS2Exception;
 import com.helger.phase2.server.cmd.CommandResult;
 import com.helger.phase2.server.cmd.ECommandResultType;
 import com.helger.phase2.server.util.ByteCoder;
-
-import jakarta.annotation.Nonnull;
 
 public class ImportCertInEncodedStreamCommand extends AbstractAliasedCertCommand
 {
@@ -85,7 +85,7 @@ public class ImportCertInEncodedStreamCommand extends AbstractAliasedCertCommand
     }
   }
 
-  @Nonnull
+  @NonNull
   private static CommandResult _importCert (final IAliasedCertificateFactory certFx,
                                             final String alias,
                                             final String encodedCert) throws CertificateException, AS2Exception

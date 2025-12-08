@@ -34,6 +34,9 @@ package com.helger.phase2.session;
 
 import java.net.Proxy;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsMap;
@@ -41,9 +44,6 @@ import com.helger.phase2.IDynamicComponent;
 import com.helger.phase2.cert.ICertificateFactory;
 import com.helger.phase2.partner.IPartnershipFactory;
 import com.helger.phase2.processor.IMessageProcessor;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This interface provides configuration and resource information, and a means for components to
@@ -68,7 +68,7 @@ public interface IAS2Session
    * @throws AS2ComponentDuplicateException
    *         In case a component with the same ID is already present
    */
-  void addComponent (@Nonnull @Nonempty String sComponentID, @Nonnull IDynamicComponent aComponent)
+  void addComponent (@NonNull @Nonempty String sComponentID, @NonNull IDynamicComponent aComponent)
                                                                                                     throws AS2ComponentDuplicateException;
 
   /**
@@ -80,15 +80,15 @@ public interface IAS2Session
    * @throws AS2ComponentNotFoundException
    *         If a component is not registered with the ID
    */
-  @Nonnull
-  IDynamicComponent getComponent (@Nonnull @Nonempty String sComponentID) throws AS2ComponentNotFoundException;
+  @NonNull
+  IDynamicComponent getComponent (@NonNull @Nonempty String sComponentID) throws AS2ComponentNotFoundException;
 
   /**
    * Return a map of component ID's to <code>Component</code> objects.
    *
    * @return all registered components, mapped by ID
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <String, IDynamicComponent> getAllComponents ();
 
@@ -101,7 +101,7 @@ public interface IAS2Session
    * @see ICertificateFactory
    * @see IDynamicComponent
    */
-  @Nonnull
+  @NonNull
   ICertificateFactory getCertificateFactory () throws AS2ComponentNotFoundException;
 
   /**
@@ -113,7 +113,7 @@ public interface IAS2Session
    * @see IPartnershipFactory
    * @see IDynamicComponent
    */
-  @Nonnull
+  @NonNull
   IPartnershipFactory getPartnershipFactory () throws AS2ComponentNotFoundException;
 
   /**
@@ -125,7 +125,7 @@ public interface IAS2Session
    * @see IMessageProcessor
    * @see IDynamicComponent
    */
-  @Nonnull
+  @NonNull
   IMessageProcessor getMessageProcessor () throws AS2ComponentNotFoundException;
 
   /**
@@ -191,7 +191,7 @@ public interface IAS2Session
    *         <code>null</code> nor empty.
    * @since 4.6.1
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getAS2VersionID ();
 
@@ -200,5 +200,5 @@ public interface IAS2Session
    *        Set the AS2 version to use. May neither be <code>null</code> nor empty.
    * @since 4.6.1
    */
-  void setAS2VersionID (@Nonnull @Nonempty String sAS2Version);
+  void setAS2VersionID (@NonNull @Nonempty String sAS2Version);
 }

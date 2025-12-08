@@ -37,6 +37,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,9 +59,6 @@ import com.helger.phase2.util.AS2XMLHelper;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * original author unknown in this release added command registry methods
@@ -83,24 +82,24 @@ public class AS2ServerXMLSession extends AS2Session implements ICommandRegistryF
   private final CommandManager m_aCmdManager = CommandManager.getCmdManager ();
   private ICommandRegistry m_aCommandRegistry;
 
-  public AS2ServerXMLSession (@Nonnull final String sFilename) throws AS2Exception, IOException
+  public AS2ServerXMLSession (@NonNull final String sFilename) throws AS2Exception, IOException
   {
     this (new File (sFilename).getCanonicalFile ().getAbsoluteFile ());
   }
 
-  public AS2ServerXMLSession (@Nonnull final File aFile) throws AS2Exception
+  public AS2ServerXMLSession (@NonNull final File aFile) throws AS2Exception
   {
     m_sBaseDirectory = aFile.getParentFile ().getAbsolutePath ();
     load (FileHelper.getInputStream (aFile));
   }
 
-  @Nonnull
+  @NonNull
   public String getBaseDirectory ()
   {
     return m_sBaseDirectory;
   }
 
-  @Nonnull
+  @NonNull
   public CommandManager getCommandManager ()
   {
     return m_aCmdManager;
@@ -112,7 +111,7 @@ public class AS2ServerXMLSession extends AS2Session implements ICommandRegistryF
     return m_aCommandRegistry;
   }
 
-  protected void loadCertificates (@Nonnull final IMicroElement aElement) throws AS2Exception
+  protected void loadCertificates (@NonNull final IMicroElement aElement) throws AS2Exception
   {
     LOGGER.info ("  loading certificates");
     final ICertificateFactory certFx = AS2XMLHelper.createComponent (aElement,
@@ -122,7 +121,7 @@ public class AS2ServerXMLSession extends AS2Session implements ICommandRegistryF
     setCertificateFactory (certFx);
   }
 
-  protected void loadCommands (@Nonnull final IMicroElement aElement) throws AS2Exception
+  protected void loadCommands (@NonNull final IMicroElement aElement) throws AS2Exception
   {
     LOGGER.info ("  loading commands");
     final ICommandRegistry cmdReg = AS2XMLHelper.createComponent (aElement,
@@ -132,7 +131,7 @@ public class AS2ServerXMLSession extends AS2Session implements ICommandRegistryF
     m_aCommandRegistry = cmdReg;
   }
 
-  protected void loadCommandProcessors (@Nonnull final IMicroElement aElement) throws AS2Exception
+  protected void loadCommandProcessors (@NonNull final IMicroElement aElement) throws AS2Exception
   {
     final List <IMicroElement> aElements = aElement.getAllChildElements ("commandProcessor");
     LOGGER.info ("  loading " + aElements.size () + " command processors");
@@ -140,7 +139,7 @@ public class AS2ServerXMLSession extends AS2Session implements ICommandRegistryF
       loadCommandProcessor (m_aCmdManager, processor);
   }
 
-  protected void loadCommandProcessor (@Nonnull final CommandManager aCommandMgr, @Nonnull final IMicroElement aElement)
+  protected void loadCommandProcessor (@NonNull final CommandManager aCommandMgr, @NonNull final IMicroElement aElement)
                                                                                                                          throws AS2Exception
   {
     final AbstractCommandProcessor aCmdProcesor = AS2XMLHelper.createComponent (aElement,
@@ -174,8 +173,8 @@ public class AS2ServerXMLSession extends AS2Session implements ICommandRegistryF
       loadProcessorModule (aMsgProcessor, eModule);
   }
 
-  protected void loadProcessorModule (@Nonnull final IMessageProcessor aMsgProcessor,
-                                      @Nonnull final IMicroElement eModule) throws AS2Exception
+  protected void loadProcessorModule (@NonNull final IMessageProcessor aMsgProcessor,
+                                      @NonNull final IMicroElement eModule) throws AS2Exception
   {
     final IProcessorModule aProcessorModule = AS2XMLHelper.createComponent (eModule,
                                                                             IProcessorModule.class,
@@ -185,7 +184,7 @@ public class AS2ServerXMLSession extends AS2Session implements ICommandRegistryF
     LOGGER.info ("    loaded processor module " + aProcessorModule.getName ());
   }
 
-  protected void load (@Nonnull @WillClose final InputStream aIS) throws AS2Exception
+  protected void load (@NonNull @WillClose final InputStream aIS) throws AS2Exception
   {
     final IMicroDocument aDoc = MicroReader.readMicroXML (aIS);
     final IMicroElement eRoot = aDoc.getDocumentElement ();

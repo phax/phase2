@@ -32,6 +32,9 @@
  */
 package com.helger.phase2.partner.xml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
@@ -39,9 +42,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.partner.AbstractPartnershipFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract {@link IPartnershipFactoryWithPartners} implementation based on
@@ -56,7 +56,7 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
 {
   private final PartnerMap m_aPartners = new PartnerMap ();
 
-  protected final void setPartners (@Nonnull final PartnerMap aPartners) throws AS2Exception
+  protected final void setPartners (@NonNull final PartnerMap aPartners) throws AS2Exception
   {
     m_aRWLock.writeLockedThrowing ( () -> {
       m_aPartners.setPartners (aPartners);
@@ -64,7 +64,7 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
     });
   }
 
-  public void addPartner (@Nonnull final Partner aNewPartner) throws AS2Exception
+  public void addPartner (@NonNull final Partner aNewPartner) throws AS2Exception
   {
     m_aRWLock.writeLockedThrowing ( () -> {
       m_aPartners.addPartner (aNewPartner);
@@ -72,7 +72,7 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
     });
   }
 
-  @Nonnull
+  @NonNull
   public EChange removePartner (@Nullable final String sPartnerName) throws AS2Exception
   {
     return m_aRWLock.writeLockedGetThrowing ( () -> {
@@ -89,21 +89,21 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
     return m_aRWLock.readLockedGet ( () -> m_aPartners.getPartnerOfName (sPartnerName));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllPartnerNames ()
   {
     return m_aRWLock.readLockedGet (m_aPartners::getAllPartnerNames);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Partner> getAllPartners ()
   {
     return m_aRWLock.readLockedGet (m_aPartners::getAllPartners);
   }
 
-  @Nonnull
+  @NonNull
   public IPartnerMap getPartnerMap ()
   {
     return m_aRWLock.readLockedGet ( () -> m_aPartners);

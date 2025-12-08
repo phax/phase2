@@ -35,6 +35,9 @@ package com.helger.phase2.partner;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -47,9 +50,6 @@ import com.helger.phase2.crypto.ECryptoAlgorithmCrypt;
 import com.helger.phase2.crypto.ECryptoAlgorithmSign;
 import com.helger.typeconvert.collection.IStringMap;
 import com.helger.typeconvert.collection.StringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single partnership. It has a unique name, a set of sender and receiver
@@ -70,7 +70,7 @@ public class Partnership implements Serializable
   private final StringMap m_aReceiverAttrs = new StringMap ();
   private final StringMap m_aAttributes = new StringMap ();
 
-  public Partnership (@Nonnull final String sName)
+  public Partnership (@NonNull final String sName)
   {
     setName (sName);
   }
@@ -78,13 +78,13 @@ public class Partnership implements Serializable
   /**
    * @return The partnership name. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final String getName ()
   {
     return m_sName;
   }
 
-  public final void setName (@Nonnull final String sName)
+  public final void setName (@NonNull final String sName)
   {
     m_sName = ValueEnforcer.notNull (sName, "Name");
   }
@@ -97,7 +97,7 @@ public class Partnership implements Serializable
    * @param sValue
    *        The value to be set. It may be <code>null</code> in which case the attribute is removed.
    */
-  public void setSenderID (@Nonnull final String sKey, @Nullable final String sValue)
+  public void setSenderID (@NonNull final String sKey, @Nullable final String sValue)
   {
     m_aSenderAttrs.putIn (sKey, sValue);
   }
@@ -245,7 +245,7 @@ public class Partnership implements Serializable
   /**
    * @return All sender IDs. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public IStringMap getAllSenderIDs ()
   {
@@ -260,7 +260,7 @@ public class Partnership implements Serializable
    * @param sValue
    *        The value to be set. It may be <code>null</code> in which case the attribute is removed.
    */
-  public void setReceiverID (@Nonnull final String sKey, @Nullable final String sValue)
+  public void setReceiverID (@NonNull final String sKey, @Nullable final String sValue)
   {
     m_aReceiverAttrs.putIn (sKey, sValue);
   }
@@ -410,7 +410,7 @@ public class Partnership implements Serializable
   /**
    * @return All receiver IDs. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public IStringMap getAllReceiverIDs ()
   {
@@ -427,8 +427,8 @@ public class Partnership implements Serializable
    *        will be removed.
    * @return {@link EChange#CHANGED} if something changed. Never <code>null</code>.
    */
-  @Nonnull
-  public EChange setAttribute (@Nonnull final String sKey, @Nullable final String sValue)
+  @NonNull
+  public EChange setAttribute (@NonNull final String sKey, @Nullable final String sValue)
   {
     if (sValue == null)
       return m_aAttributes.removeObject (sKey);
@@ -473,7 +473,7 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_AS2_URL);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setAS2URL (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_AS2_URL, sValue);
@@ -498,7 +498,7 @@ public class Partnership implements Serializable
    * @return {@link EChange}.
    * @see #setAS2ReceiptDeliveryOption(String)
    */
-  @Nonnull
+  @NonNull
   public EChange setAS2MDNTo (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_AS2_MDN_TO, sValue);
@@ -521,7 +521,7 @@ public class Partnership implements Serializable
    *        The value to be set. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange setAS2MDNOptions (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_AS2_MDN_OPTIONS, sValue);
@@ -548,7 +548,7 @@ public class Partnership implements Serializable
    * @see #setAS2MDNTo(String)
    * @since 3.0.4
    */
-  @Nonnull
+  @NonNull
   public EChange setAS2ReceiptDeliveryOption (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_AS2_RECEIPT_DELIVERY_OPTION, sValue);
@@ -560,7 +560,7 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_MESSAGEID_FORMAT, sDefault);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setMessageIDFormat (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_MESSAGEID_FORMAT, sValue);
@@ -572,7 +572,7 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_MDN_SUBJECT);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setMDNSubject (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_MDN_SUBJECT, sValue);
@@ -583,7 +583,7 @@ public class Partnership implements Serializable
     return m_aAttributes.containsKey (CPartnershipIDs.PA_BLOCK_ERROR_MDN);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setBlockErrorMDN (final boolean bBlock)
   {
     return setAttribute (CPartnershipIDs.PA_BLOCK_ERROR_MDN, bBlock ? STRING_TRUE : null);
@@ -595,7 +595,7 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_DATE_FORMAT, sDefault);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setDateFormat (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_DATE_FORMAT, sValue);
@@ -607,13 +607,13 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_ENCRYPT);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setEncryptAlgorithm (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_ENCRYPT, sValue);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setEncryptAlgorithm (@Nullable final ECryptoAlgorithmCrypt eValue)
   {
     return setEncryptAlgorithm (eValue == null ? null : eValue.getID ());
@@ -625,13 +625,13 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_SIGN);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setSigningAlgorithm (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_SIGN, sValue);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setSigningAlgorithm (@Nullable final ECryptoAlgorithmSign eValue)
   {
     return setSigningAlgorithm (eValue == null ? null : eValue.getID ());
@@ -643,7 +643,7 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_PROTOCOL);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setProtocol (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_PROTOCOL, sValue);
@@ -655,7 +655,7 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_SUBJECT);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setSubject (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_SUBJECT, sValue);
@@ -681,7 +681,7 @@ public class Partnership implements Serializable
    *        The value for this partnership. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange setContentTransferEncodingSend (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_CONTENT_TRANSFER_ENCODING_SEND, sValue);
@@ -694,7 +694,7 @@ public class Partnership implements Serializable
    *        The value for this partnership. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange setContentTransferEncodingSend (@Nullable final EContentTransferEncoding eCTE)
   {
     return setContentTransferEncodingSend (eCTE != null ? eCTE.getID () : null);
@@ -720,7 +720,7 @@ public class Partnership implements Serializable
    *        The value for this partnership. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange setContentTransferEncodingReceive (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_CONTENT_TRANSFER_ENCODING_RECEIVE, sValue);
@@ -733,7 +733,7 @@ public class Partnership implements Serializable
    *        The value for this partnership. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange setContentTransferEncodingReceive (@Nullable final EContentTransferEncoding eCTE)
   {
     return setContentTransferEncodingReceive (eCTE != null ? eCTE.getID () : null);
@@ -745,13 +745,13 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_COMPRESSION_TYPE);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setCompressionType (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_COMPRESSION_TYPE, sValue);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setCompressionType (@Nullable final ECompressionType eValue)
   {
     return setCompressionType (eValue == null ? null : eValue.getID ());
@@ -763,7 +763,7 @@ public class Partnership implements Serializable
     return getAttribute (CPartnershipIDs.PA_COMPRESSION_MODE);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setCompressionMode (@Nullable final String sValue)
   {
     return setAttribute (CPartnershipIDs.PA_COMPRESSION_MODE, sValue);
@@ -774,13 +774,13 @@ public class Partnership implements Serializable
     return !CPartnershipIDs.COMPRESS_AFTER_SIGNING.equals (getCompressionMode ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange setCompressionModeCompressAfterSigning ()
   {
     return setCompressionMode (CPartnershipIDs.COMPRESS_AFTER_SIGNING);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setCompressionModeCompressBeforeSigning ()
   {
     return setCompressionMode (CPartnershipIDs.COMPRESS_BEFORE_SIGNING);
@@ -791,7 +791,7 @@ public class Partnership implements Serializable
     return STRING_TRUE.equals (getAttribute (CPartnershipIDs.PA_FORCE_DECRYPT));
   }
 
-  @Nonnull
+  @NonNull
   public EChange setForceDecrypt (final boolean bValue)
   {
     return setAttribute (CPartnershipIDs.PA_FORCE_DECRYPT, Boolean.toString (bValue));
@@ -802,7 +802,7 @@ public class Partnership implements Serializable
     return STRING_TRUE.equals (getAttribute (CPartnershipIDs.PA_DISABLE_DECRYPT));
   }
 
-  @Nonnull
+  @NonNull
   public EChange setDisableDecrypt (final boolean bValue)
   {
     return setAttribute (CPartnershipIDs.PA_DISABLE_DECRYPT, Boolean.toString (bValue));
@@ -813,7 +813,7 @@ public class Partnership implements Serializable
     return STRING_TRUE.equals (getAttribute (CPartnershipIDs.PA_FORCE_VERIFY));
   }
 
-  @Nonnull
+  @NonNull
   public EChange setForceVerify (final boolean bValue)
   {
     return setAttribute (CPartnershipIDs.PA_FORCE_VERIFY, Boolean.toString (bValue));
@@ -824,13 +824,13 @@ public class Partnership implements Serializable
     return STRING_TRUE.equals (getAttribute (CPartnershipIDs.PA_DISABLE_VERIFY));
   }
 
-  @Nonnull
+  @NonNull
   public EChange setDisableVerify (final boolean bValue)
   {
     return setAttribute (CPartnershipIDs.PA_DISABLE_VERIFY, Boolean.toString (bValue));
   }
 
-  @Nonnull
+  @NonNull
   private static ETriState _getAsTriState (@Nullable final String sValue)
   {
     if (STRING_TRUE.equals (sValue))
@@ -840,29 +840,29 @@ public class Partnership implements Serializable
     return ETriState.UNDEFINED;
   }
 
-  @Nonnull
+  @NonNull
   public ETriState getIncludeCertificateInSignedContent ()
   {
     final String sValue = getAttribute (CPartnershipIDs.PA_SIGN_INCLUDE_CERT_IN_BODY_PART);
     return _getAsTriState (sValue);
   }
 
-  @Nonnull
-  public EChange setIncludeCertificateInSignedContent (@Nonnull final ETriState eValue)
+  @NonNull
+  public EChange setIncludeCertificateInSignedContent (@NonNull final ETriState eValue)
   {
     return setAttribute (CPartnershipIDs.PA_SIGN_INCLUDE_CERT_IN_BODY_PART,
                          eValue.isUndefined () ? null : Boolean.toString (eValue.getAsBooleanValue ()));
   }
 
-  @Nonnull
+  @NonNull
   public ETriState getVerifyUseCertificateInBodyPart ()
   {
     final String sValue = getAttribute (CPartnershipIDs.PA_VERIFY_USE_CERT_IN_BODY_PART);
     return _getAsTriState (sValue);
   }
 
-  @Nonnull
-  public EChange setVerifyUseCertificateInBodyPart (@Nonnull final ETriState eValue)
+  @NonNull
+  public EChange setVerifyUseCertificateInBodyPart (@NonNull final ETriState eValue)
   {
     return setAttribute (CPartnershipIDs.PA_VERIFY_USE_CERT_IN_BODY_PART,
                          eValue.isUndefined () ? null : Boolean.toString (eValue.getAsBooleanValue ()));
@@ -873,7 +873,7 @@ public class Partnership implements Serializable
     return STRING_TRUE.equals (getAttribute (CPartnershipIDs.PA_DISABLE_DECOMPRESS));
   }
 
-  @Nonnull
+  @NonNull
   public EChange setDisableDecompress (final boolean bValue)
   {
     return setAttribute (CPartnershipIDs.PA_DISABLE_DECOMPRESS, Boolean.toString (bValue));
@@ -901,7 +901,7 @@ public class Partnership implements Serializable
    * @return {@link EChange}.
    * @since 2.2.7
    */
-  @Nonnull
+  @NonNull
   public EChange setRFC3851MICAlgs (final boolean bValue)
   {
     return setAttribute (CPartnershipIDs.PA_RFC3851_MICALGS, Boolean.toString (bValue));
@@ -928,7 +928,7 @@ public class Partnership implements Serializable
    * @return {@link EChange}.
    * @since 4.10.1
    */
-  @Nonnull
+  @NonNull
   public EChange setRemoveCmsAlgorithmProtect (final boolean bValue)
   {
     return setAttribute (CPartnershipIDs.PA_REMOVE_CMS_ALOGIRTHM_PROTECT, Boolean.toString (bValue));
@@ -937,7 +937,7 @@ public class Partnership implements Serializable
   /**
    * @return A copy of all contained attributes. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public IStringMap getAllAttributes ()
   {
@@ -965,7 +965,7 @@ public class Partnership implements Serializable
    * @return <code>true</code> if sender and receiver IDs of this partnership are present in the
    *         sender and receiver IDs of the provided partnership.
    */
-  public boolean matches (@Nonnull final Partnership aPartnership)
+  public boolean matches (@NonNull final Partnership aPartnership)
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
     return compareIDs (m_aSenderAttrs, aPartnership.m_aSenderAttrs) &&
@@ -983,7 +983,7 @@ public class Partnership implements Serializable
    * @return <code>true</code> if aIDs is not empty and all values from aIDs are also present in
    *         aCompareTo, <code>false</code> otherwise.
    */
-  protected boolean compareIDs (@Nonnull final IStringMap aIDs, @Nonnull final IStringMap aCompareTo)
+  protected boolean compareIDs (@NonNull final IStringMap aIDs, @NonNull final IStringMap aCompareTo)
   {
     if (aIDs.isEmpty ())
       return false;
@@ -1005,7 +1005,7 @@ public class Partnership implements Serializable
    * @param aPartnership
    *        The partnership to copy the data from. May not be <code>null</code>.
    */
-  public void copyFrom (@Nonnull final Partnership aPartnership)
+  public void copyFrom (@NonNull final Partnership aPartnership)
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
 
@@ -1029,7 +1029,7 @@ public class Partnership implements Serializable
                                        .getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static Partnership createPlaceholderPartnership ()
   {
     return new Partnership (DEFAULT_NAME);

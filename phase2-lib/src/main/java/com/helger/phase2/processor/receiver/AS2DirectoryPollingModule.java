@@ -32,10 +32,10 @@
  */
 package com.helger.phase2.processor.receiver;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.phase2.message.AS2Message;
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The module for sending AS2 messages by polling a file system directory.
@@ -45,7 +45,7 @@ import jakarta.annotation.Nonnull;
 public class AS2DirectoryPollingModule extends AbstractDirectoryPollingModule
 {
   @Override
-  @Nonnull
+  @NonNull
   protected IMessage createMessage ()
   {
     return new AS2Message ();

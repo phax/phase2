@@ -34,15 +34,14 @@ package com.helger.phase2.processor.resender;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.message.IMessage;
 import com.helger.phase2.processor.sender.IProcessorSenderModule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A synchronous, in-memory resender module that has no delay.
@@ -55,16 +54,16 @@ public class ImmediateResenderModule extends AbstractResenderModule
   private static final Logger LOGGER = LoggerFactory.getLogger (ImmediateResenderModule.class);
 
   @Override
-  public boolean canHandle (@Nonnull final String sAction,
-                            @Nonnull final IMessage aMsg,
+  public boolean canHandle (@NonNull final String sAction,
+                            @NonNull final IMessage aMsg,
                             @Nullable final Map <String, Object> aOptions)
   {
     return sAction.equals (IProcessorResenderModule.DO_RESEND);
   }
 
   @Override
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     LOGGER.info ("Immediately resending message" + aMsg.getLoggingText ());

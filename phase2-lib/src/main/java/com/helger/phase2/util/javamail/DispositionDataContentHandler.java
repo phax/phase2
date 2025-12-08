@@ -36,6 +36,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.io.stream.StreamHelper;
@@ -46,8 +49,6 @@ import com.helger.mime.parse.MimeTypeParser;
 import jakarta.activation.ActivationDataFlavor;
 import jakarta.activation.DataContentHandler;
 import jakarta.activation.DataSource;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMultipart;
@@ -69,20 +70,20 @@ public class DispositionDataContentHandler implements DataContentHandler
   {}
 
   @Nullable
-  public byte [] getContent (@Nonnull final DataSource aDS) throws IOException
+  public byte [] getContent (@NonNull final DataSource aDS) throws IOException
   {
     return StreamHelper.getAllBytes (StreamHelper.getBuffered (aDS.getInputStream ()));
   }
 
   @Nullable
-  public byte [] getTransferData (final ActivationDataFlavor df, @Nonnull final DataSource ds) throws IOException
+  public byte [] getTransferData (final ActivationDataFlavor df, @NonNull final DataSource ds) throws IOException
   {
     if (ADF1.equals (df))
       return getContent (ds);
     return null;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ActivationDataFlavor [] getTransferDataFlavors ()
   {
@@ -110,7 +111,7 @@ public class DispositionDataContentHandler implements DataContentHandler
     return null;
   }
 
-  public void writeTo (final Object obj, final String sMimeType, @Nonnull final OutputStream aOS) throws IOException
+  public void writeTo (final Object obj, final String sMimeType, @NonNull final OutputStream aOS) throws IOException
   {
     if (obj instanceof MimeBodyPart)
     {

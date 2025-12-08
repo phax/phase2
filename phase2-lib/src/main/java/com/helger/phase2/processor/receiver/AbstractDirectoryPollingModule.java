@@ -37,6 +37,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,8 +66,6 @@ import com.helger.phase2.session.IAS2Session;
 import com.helger.phase2.util.AS2IOHelper;
 import com.helger.typeconvert.collection.IStringMap;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -100,7 +100,7 @@ public abstract class AbstractDirectoryPollingModule extends AbstractActivePolli
   private ICommonsMap <String, Long> m_aTrackedFiles;
 
   @Override
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aOptions)
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
                                                                                                               throws AS2Exception
   {
     super.initDynamicComponent (aSession, aOptions);
@@ -108,7 +108,7 @@ public abstract class AbstractDirectoryPollingModule extends AbstractActivePolli
     getAttributeAsStringRequired (ATTR_ERROR_DIRECTORY);
   }
 
-  protected boolean checkFile (@Nonnull final File aFile)
+  protected boolean checkFile (@NonNull final File aFile)
   {
     if (aFile.exists () && aFile.isFile ())
     {
@@ -128,7 +128,7 @@ public abstract class AbstractDirectoryPollingModule extends AbstractActivePolli
   /**
    * @return A map from absolute file path to the size of the file. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsMap <String, Long> trackedFiles ()
   {
@@ -137,7 +137,7 @@ public abstract class AbstractDirectoryPollingModule extends AbstractActivePolli
     return m_aTrackedFiles;
   }
 
-  protected void trackFile (@Nonnull final File aFile)
+  protected void trackFile (@NonNull final File aFile)
   {
     final ICommonsMap <String, Long> aTrackedFiles = trackedFiles ();
     aTrackedFiles.computeIfAbsent (aFile.getAbsolutePath (), k -> Long.valueOf (aFile.length ()));
@@ -170,10 +170,10 @@ public abstract class AbstractDirectoryPollingModule extends AbstractActivePolli
         }
   }
 
-  @Nonnull
+  @NonNull
   protected abstract IMessage createMessage ();
 
-  protected void processFile (@Nonnull final File aFile) throws AS2Exception
+  protected void processFile (@NonNull final File aFile) throws AS2Exception
   {
     LOGGER.info ("processing " + aFile.getAbsolutePath ());
 
@@ -334,7 +334,7 @@ public abstract class AbstractDirectoryPollingModule extends AbstractActivePolli
     }
   }
 
-  public void updateMessage (@Nonnull final IMessage aMsg, @Nonnull final File aFile) throws AS2Exception
+  public void updateMessage (@NonNull final IMessage aMsg, @NonNull final File aFile) throws AS2Exception
   {
     final MessageParameters aParams = new MessageParameters (aMsg);
 

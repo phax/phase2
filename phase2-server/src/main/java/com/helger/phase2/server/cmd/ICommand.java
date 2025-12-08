@@ -32,11 +32,11 @@
  */
 package com.helger.phase2.server.cmd;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.phase2.IDynamicComponent;
 import com.helger.phase2.session.IAS2Session;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public interface ICommand extends IDynamicComponent
 {
@@ -50,7 +50,7 @@ public interface ICommand extends IDynamicComponent
 
   void setName (@Nullable String name);
 
-  @Nonnull
+  @NonNull
   IAS2Session getSession ();
 
   @Nullable

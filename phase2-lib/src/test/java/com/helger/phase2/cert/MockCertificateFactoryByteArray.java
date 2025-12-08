@@ -30,19 +30,27 @@
  * are those of the authors and should not be interpreted as representing
  * official policies, either expressed or implied, of the FreeBSD Project.
  */
-package com.helger.phase2.util.cert;
+package com.helger.phase2.cert;
 
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.phase2.exception.AS2Exception;
+import com.helger.phase2.session.IAS2Session;
+import com.helger.typeconvert.collection.IStringMap;
 
-/**
- * Exceptions for certificate handling
- *
- * @author Philip Helger
- */
-public class AS2CertificateException extends AS2Exception
+public class MockCertificateFactoryByteArray extends CertificateFactory
 {
-  public AS2CertificateException (final String sMsg, final Throwable aCause)
+  @Override
+  public void initDynamicComponent (final IAS2Session aSession, final IStringMap aOptions) throws AS2Exception
   {
-    super (sMsg, aCause);
+    // Ensure no filename is present
+    aOptions.remove (ATTR_FILENAME);
+
+    // Init base class
+    super.initDynamicComponent (aSession, aOptions);
+
+    // What is the intention here...?
+    // FIXME
+    final byte [] myKeyStoreBytes = {};
+    load (new NonBlockingByteArrayInputStream (myKeyStoreBytes), "myPw".toCharArray ());
   }
 }

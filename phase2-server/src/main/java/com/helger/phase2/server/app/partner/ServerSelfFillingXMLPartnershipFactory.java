@@ -34,6 +34,8 @@ package com.helger.phase2.server.app.partner;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,9 +47,6 @@ import com.helger.phase2.partner.xml.SelfFillingXMLPartnershipFactory;
 import com.helger.phase2.server.util.EFileMonitorEvent;
 import com.helger.phase2.server.util.FileMonitor;
 import com.helger.phase2.server.util.IFileMonitorListener;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Same as {@link ServerXMLPartnershipFactory} but based on the
@@ -69,7 +68,7 @@ public class ServerSelfFillingXMLPartnershipFactory extends SelfFillingXMLPartne
     m_aFileMonitor = aFileMonitor;
   }
 
-  @Nonnull
+  @NonNull
   public FileMonitor getFileMonitor () throws AS2InvalidParameterException
   {
     boolean bCreateMonitor = m_aFileMonitor == null && attrs ().containsKey (ATTR_INTERVAL);
@@ -94,7 +93,7 @@ public class ServerSelfFillingXMLPartnershipFactory extends SelfFillingXMLPartne
     return m_aFileMonitor;
   }
 
-  public void onFileMonitorEvent (final FileMonitor monitor, final File file, @Nonnull final EFileMonitorEvent eEvent)
+  public void onFileMonitorEvent (final FileMonitor monitor, final File file, @NonNull final EFileMonitorEvent eEvent)
   {
     switch (eEvent)
     {

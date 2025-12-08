@@ -34,6 +34,8 @@ package com.helger.phase2.processor;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -43,8 +45,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.http.CHttp;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An exception thrown the an {@link IMessageProcessor} has caught exceptions.
@@ -56,8 +56,8 @@ public class AS2ProcessorException extends AS2Exception
   private final transient IMessageProcessor m_aProcessor;
   private final ICommonsList <AS2Exception> m_aCauses;
 
-  public AS2ProcessorException (@Nonnull final IMessageProcessor aProcessor,
-                                @Nonnull @Nonempty final List <? extends AS2Exception> aCauses)
+  public AS2ProcessorException (@NonNull final IMessageProcessor aProcessor,
+                                @NonNull @Nonempty final List <? extends AS2Exception> aCauses)
   {
     super ("Processor '" +
            ClassHelper.getClassLocalName (aProcessor) +
@@ -70,14 +70,14 @@ public class AS2ProcessorException extends AS2Exception
     m_aCauses = new CommonsArrayList <> (aCauses);
   }
 
-  @Nonnull
+  @NonNull
   public final IMessageProcessor getProcessor ()
   {
     return m_aProcessor;
   }
 
-  @Nonnull
-  private static String _getMessage (@Nonnull @Nonempty final Iterable <? extends Throwable> aCauses,
+  @NonNull
+  private static String _getMessage (@NonNull @Nonempty final Iterable <? extends Throwable> aCauses,
                                      final boolean bAddStackTrace)
   {
     final StringBuilder aSB = new StringBuilder ();
@@ -102,7 +102,7 @@ public class AS2ProcessorException extends AS2Exception
     return getMessage (true);
   }
 
-  @Nonnull
+  @NonNull
   public String getMessage (final boolean bAddStackTrace)
   {
     return super.getMessage () + _getMessage (m_aCauses, bAddStackTrace);
@@ -114,7 +114,7 @@ public class AS2ProcessorException extends AS2Exception
    *
    * @return A list of all causing exceptions. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public final ICommonsList <AS2Exception> getAllCauses ()
@@ -125,7 +125,7 @@ public class AS2ProcessorException extends AS2Exception
   /**
    * @return A short version of "toString" without exception stack traces. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public String getShortToString ()
   {
     return getClass ().getName () + ": " + getMessage (false);

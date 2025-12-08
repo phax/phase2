@@ -32,15 +32,15 @@
  */
 package com.helger.phase2.partner.xml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.partner.IPartnershipFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This partnership factory extends {@link IPartnershipFactory} by adding "partners". This can be
@@ -59,7 +59,7 @@ public interface IPartnershipFactoryWithPartners extends IPartnershipFactory
    * @throws AS2Exception
    *         Generic error
    */
-  void addPartner (@Nonnull Partner aNewPartner) throws AS2Exception;
+  void addPartner (@NonNull Partner aNewPartner) throws AS2Exception;
 
   /**
    * Remove a partner.
@@ -71,7 +71,7 @@ public interface IPartnershipFactoryWithPartners extends IPartnershipFactory
    * @throws AS2Exception
    *         Generic error
    */
-  @Nonnull
+  @NonNull
   EChange removePartner (@Nullable String sPartnerName) throws AS2Exception;
 
   /**
@@ -87,14 +87,14 @@ public interface IPartnershipFactoryWithPartners extends IPartnershipFactory
   /**
    * @return A set with all contained partner names. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSet <String> getAllPartnerNames ();
 
   /**
    * @return An (unordered) list of all contained partner data.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <? extends IPartner> getAllPartners ();
 }

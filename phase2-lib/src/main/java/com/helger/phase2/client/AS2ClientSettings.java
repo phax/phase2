@@ -37,6 +37,8 @@ import java.security.cert.X509Certificate;
 import java.util.function.Consumer;
 
 import org.apache.hc.core5.util.Timeout;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
@@ -55,9 +57,6 @@ import com.helger.phase2.util.dump.IHTTPIncomingDumper;
 import com.helger.phase2.util.dump.IHTTPOutgoingDumperFactory;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.IKeyStoreType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Settings object for a message delivery.
@@ -144,7 +143,7 @@ public class AS2ClientSettings
    * @see #setKeyStore(IKeyStoreType, File, String)
    * @see #setKeyStore(IKeyStoreType, byte[], String)
    */
-  @Nonnull
+  @NonNull
   public final IKeyStoreType getKeyStoreType ()
   {
     return m_aKeyStoreType;
@@ -195,10 +194,10 @@ public class AS2ClientSettings
    *        The password used to open the key store. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final AS2ClientSettings setKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
-                                              @Nonnull final File aFile,
-                                              @Nonnull final String sPassword)
+  @NonNull
+  public final AS2ClientSettings setKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
+                                              @NonNull final File aFile,
+                                              @NonNull final String sPassword)
   {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
     ValueEnforcer.notNull (aFile, "File");
@@ -223,10 +222,10 @@ public class AS2ClientSettings
    * @return this for chaining
    * @since 4.3.1
    */
-  @Nonnull
-  public final AS2ClientSettings setKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
-                                              @Nonnull final byte [] aBytes,
-                                              @Nonnull final String sPassword)
+  @NonNull
+  public final AS2ClientSettings setKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
+                                              @NonNull final byte [] aBytes,
+                                              @NonNull final String sPassword)
   {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
     ValueEnforcer.notNull (aBytes, "Bytes");
@@ -256,7 +255,7 @@ public class AS2ClientSettings
    *        <code>false</code> if not.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setSaveKeyStoreChangesToFile (final boolean bSaveKeyStoreChangesToFile)
   {
     m_bSaveKeyStoreChangesToFile = bSaveKeyStoreChangesToFile;
@@ -305,10 +304,10 @@ public class AS2ClientSettings
    *        Alias into the keystore for identifying the sender's key. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final AS2ClientSettings setSenderData (@Nonnull final String sAS2ID,
-                                                @Nonnull final String sEmailAddress,
-                                                @Nonnull final String sKeyAlias)
+  @NonNull
+  public final AS2ClientSettings setSenderData (@NonNull final String sAS2ID,
+                                                @NonNull final String sEmailAddress,
+                                                @NonNull final String sKeyAlias)
   {
     m_sSenderAS2ID = ValueEnforcer.notNull (sAS2ID, "AS2ID");
     m_sSenderEmailAddress = ValueEnforcer.notNull (sEmailAddress, "EmailAddress");
@@ -359,10 +358,10 @@ public class AS2ClientSettings
    *        Destination URL to send the request to. May not be <code>null</code> .
    * @return this for chaining
    */
-  @Nonnull
-  public final AS2ClientSettings setReceiverData (@Nonnull final String sAS2ID,
-                                                  @Nonnull final String sKeyAlias,
-                                                  @Nonnull final String sAS2URL)
+  @NonNull
+  public final AS2ClientSettings setReceiverData (@NonNull final String sAS2ID,
+                                                  @NonNull final String sKeyAlias,
+                                                  @NonNull final String sAS2URL)
   {
     m_sReceiverAS2ID = ValueEnforcer.notNull (sAS2ID, "AS2ID");
     m_sReceiverKeyAlias = ValueEnforcer.notNull (sKeyAlias, "KeyAlias");
@@ -390,7 +389,7 @@ public class AS2ClientSettings
    *        The receiver certificate. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setReceiverCertificate (@Nullable final X509Certificate aReceiverCertificate)
   {
     m_aReceiverCert = aReceiverCertificate;
@@ -449,7 +448,7 @@ public class AS2ClientSettings
    *        be signed.
    * @return this for chaining.
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setEncryptAndSign (@Nullable final ECryptoAlgorithmCrypt eCryptAlgo,
                                                     @Nullable final ECryptoAlgorithmSign eSignAlgo)
   {
@@ -494,7 +493,7 @@ public class AS2ClientSettings
    *        first and than compress the message. The default is <code>true</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setCompress (@Nullable final ECompressionType eCompressionType,
                                               final boolean bCompressBeforeSigning)
   {
@@ -520,8 +519,8 @@ public class AS2ClientSettings
    *        The partnership name. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final AS2ClientSettings setPartnershipName (@Nonnull final String sPartnershipName)
+  @NonNull
+  public final AS2ClientSettings setPartnershipName (@NonNull final String sPartnershipName)
   {
     m_sPartnershipName = ValueEnforcer.notNull (sPartnershipName, "PartnershipName");
     return this;
@@ -546,7 +545,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @since 4.2.0
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setMDNRequested (final boolean bMDNRequested)
   {
     m_bMDNRequested = bMDNRequested;
@@ -588,7 +587,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @see #setMDNOptions(DispositionOptions)
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setMDNOptions (@Nullable final String sMDNOptions)
   {
     m_sMDNOptions = sMDNOptions;
@@ -604,8 +603,8 @@ public class AS2ClientSettings
    * @return this for chaining
    * @see #setMDNOptions(String)
    */
-  @Nonnull
-  public final AS2ClientSettings setMDNOptions (@Nonnull final DispositionOptions aDispositionOptions)
+  @NonNull
+  public final AS2ClientSettings setMDNOptions (@NonNull final DispositionOptions aDispositionOptions)
   {
     ValueEnforcer.notNull (aDispositionOptions, "DispositionOptions");
     return setMDNOptions (aDispositionOptions.getAsString ());
@@ -642,7 +641,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @since 3.0.4
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setAsyncMDNUrl (@Nullable final String sAsyncMDNUrl)
   {
     m_sAsyncMDNUrl = sAsyncMDNUrl;
@@ -655,7 +654,7 @@ public class AS2ClientSettings
    * @see #DEFAULT_MESSAGE_ID_FORMAT
    * @see #setMessageIDFormat(String)
    */
-  @Nonnull
+  @NonNull
   public final String getMessageIDFormat ()
   {
     return m_sMessageIDFormat;
@@ -669,8 +668,8 @@ public class AS2ClientSettings
    *        The message ID format to use. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final AS2ClientSettings setMessageIDFormat (@Nonnull final String sMessageIDFormat)
+  @NonNull
+  public final AS2ClientSettings setMessageIDFormat (@NonNull final String sMessageIDFormat)
   {
     m_sMessageIDFormat = ValueEnforcer.notNull (sMessageIDFormat, "MessageIDFormat");
     return this;
@@ -694,7 +693,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @see #getRetryCount()
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setRetryCount (final int nRetryCount)
   {
     m_nRetryCount = nRetryCount;
@@ -719,8 +718,8 @@ public class AS2ClientSettings
    * @see #getConnectTimeout()
    * @since 3.0.2
    */
-  @Nonnull
-  public final AS2ClientSettings setConnectTimeout (@Nonnull final Timeout aConnectTimeout)
+  @NonNull
+  public final AS2ClientSettings setConnectTimeout (@NonNull final Timeout aConnectTimeout)
   {
     ValueEnforcer.notNull (aConnectTimeout, "ConnectTimeout");
     m_aConnectTimeout = aConnectTimeout;
@@ -731,7 +730,7 @@ public class AS2ClientSettings
    * @return The response/read timeout. The default value is {@link #DEFAULT_RESPONSE_TIMEOUT}.
    * @since 3.0.2
    */
-  @Nonnull
+  @NonNull
   public final Timeout getResponseTimeout ()
   {
     return m_aResponseTimeout;
@@ -746,8 +745,8 @@ public class AS2ClientSettings
    * @see #getResponseTimeout()
    * @since 3.0.2
    */
-  @Nonnull
-  public final AS2ClientSettings setResponseTimeout (@Nonnull final Timeout aResponseTimeout)
+  @NonNull
+  public final AS2ClientSettings setResponseTimeout (@NonNull final Timeout aResponseTimeout)
   {
     ValueEnforcer.notNull (aResponseTimeout, "ResponseTimeout");
     m_aResponseTimeout = aResponseTimeout;
@@ -773,7 +772,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @since 4.4.2
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setQuoteHeaderValues (final boolean bQuoteHeaderValues)
   {
     m_bQuoteHeaderValues = bQuoteHeaderValues;
@@ -798,7 +797,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @since 4.4.0
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setHttpOutgoingDumperFactory (@Nullable final IHTTPOutgoingDumperFactory aHttpOutgoingDumperFactory)
   {
     m_aHttpOutgoingDumperFactory = aHttpOutgoingDumperFactory;
@@ -823,7 +822,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @since 4.4.5
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setHttpIncomingDumper (@Nullable final IHTTPIncomingDumper aHttpIncomingDumper)
   {
     m_aHttpIncomingDumper = aHttpIncomingDumper;
@@ -834,7 +833,7 @@ public class AS2ClientSettings
    * @return The mutable custom header map. Never <code>null</code>.
    * @since 3.0.5
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final HttpHeaderMap customHeaders ()
   {
@@ -859,7 +858,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @since 4.4.5
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setMICMatchingHandler (@Nullable final IMICMatchingHandler aMICMatchingHandler)
   {
     m_aMICMatchingHandler = aMICMatchingHandler;
@@ -884,7 +883,7 @@ public class AS2ClientSettings
    * @return this for chaining
    * @since 4.4.5
    */
-  @Nonnull
+  @NonNull
   public final AS2ClientSettings setVerificationCertificateConsumer (@Nullable final Consumer <? super X509Certificate> aVerificationCertificateConsumer)
   {
     m_aVerificationCertificateConsumer = aVerificationCertificateConsumer;

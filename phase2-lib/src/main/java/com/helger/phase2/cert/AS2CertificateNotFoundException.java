@@ -34,11 +34,11 @@ package com.helger.phase2.cert;
 
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.partner.Partnership;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class AS2CertificateNotFoundException extends AS2Exception
 {
@@ -46,7 +46,7 @@ public class AS2CertificateNotFoundException extends AS2Exception
   private final String m_sAlias;
 
   public AS2CertificateNotFoundException (@Nullable final ECertificatePartnershipType ePartnershipType,
-                                          @Nonnull final Partnership aPartnership)
+                                          @NonNull final Partnership aPartnership)
   {
     super ("Type " + ePartnershipType + ": no alias found for partnership " + aPartnership);
     m_ePartnershipType = ePartnershipType;

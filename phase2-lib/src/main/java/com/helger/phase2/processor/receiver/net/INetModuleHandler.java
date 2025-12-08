@@ -34,9 +34,9 @@ package com.helger.phase2.processor.receiver.net;
 
 import java.net.Socket;
 
-import com.helger.phase2.processor.receiver.AbstractActiveNetModule;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.phase2.processor.receiver.AbstractActiveNetModule;
 
 /**
  * Base interface for a module handler for Net interactions.
@@ -46,5 +46,5 @@ import jakarta.annotation.Nonnull;
  */
 public interface INetModuleHandler
 {
-  void handle (@Nonnull AbstractActiveNetModule aOwner, @Nonnull Socket aSocket);
+  void handle (@NonNull AbstractActiveNetModule aOwner, @NonNull Socket aSocket);
 }

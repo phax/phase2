@@ -32,6 +32,9 @@
  */
 package com.helger.phase2.partner.xml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -42,9 +45,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.phase2.exception.AS2Exception;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Defines a map with all known partners.
@@ -59,7 +59,7 @@ public final class PartnerMap implements IPartnerMap
   public PartnerMap ()
   {}
 
-  public void addPartner (@Nonnull final Partner aNewPartner) throws AS2Exception
+  public void addPartner (@NonNull final Partner aNewPartner) throws AS2Exception
   {
     ValueEnforcer.notNull (aNewPartner, "NewPartner");
 
@@ -70,13 +70,13 @@ public final class PartnerMap implements IPartnerMap
     m_aMap.put (sName, aNewPartner);
   }
 
-  public void setPartners (@Nonnull final PartnerMap aPartners)
+  public void setPartners (@NonNull final PartnerMap aPartners)
   {
     ValueEnforcer.notNull (aPartners, "Partners");
     m_aMap.setAll (aPartners.m_aMap);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removePartner (@Nullable final String sPartnerName)
   {
     return m_aMap.removeObject (sPartnerName);
@@ -88,14 +88,14 @@ public final class PartnerMap implements IPartnerMap
     return m_aMap.get (sPartnerName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllPartnerNames ()
   {
     return m_aMap.copyOfKeySet ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Partner> getAllPartners ()
   {

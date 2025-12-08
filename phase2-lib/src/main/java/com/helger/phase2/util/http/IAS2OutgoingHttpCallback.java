@@ -32,11 +32,11 @@
  */
 package com.helger.phase2.util.http;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.mail.cte.EContentTransferEncoding;
 import com.helger.phase2.crypto.MIC;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Remote communication callback for easy logging of remove interactions.
@@ -75,6 +75,6 @@ public interface IAS2OutgoingHttpCallback
                               @Nullable String sAS2MessageID,
                               @Nullable MIC aMIC,
                               @Nullable EContentTransferEncoding eCTE,
-                              @Nonnull String aURL,
+                              @NonNull String aURL,
                               int nHttpResponseCode);
 }

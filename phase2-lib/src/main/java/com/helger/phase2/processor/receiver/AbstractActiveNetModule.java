@@ -39,6 +39,8 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,9 +63,6 @@ import com.helger.phase2.partner.CPartnershipIDs;
 import com.helger.phase2.processor.CNetAttribute;
 import com.helger.phase2.processor.receiver.net.INetModuleHandler;
 import com.helger.phase2.util.AS2IOHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public abstract class AbstractActiveNetModule extends AbstractActiveReceiverModule
 {
@@ -174,7 +173,7 @@ public abstract class AbstractActiveNetModule extends AbstractActiveReceiverModu
       attrs ().putIn (ATTR_ERROR_DIRECTORY, sErrorDirectory);
   }
 
-  @Nonnull
+  @NonNull
   public final String getErrorFormat ()
   {
     return attrs ().getAsString (ATTR_ERROR_FORMAT, DEFAULT_ERROR_FORMAT);
@@ -235,10 +234,10 @@ public abstract class AbstractActiveNetModule extends AbstractActiveReceiverModu
     }
   }
 
-  @Nonnull
+  @NonNull
   public abstract INetModuleHandler createHandler ();
 
-  public void handleError (@Nonnull final IMessage aMsg, @Nonnull final AS2Exception aSrcEx)
+  public void handleError (@NonNull final IMessage aMsg, @NonNull final AS2Exception aSrcEx)
   {
     if (LOGGER.isTraceEnabled ())
       LOGGER.trace ("Handling error in " +
@@ -309,7 +308,7 @@ public abstract class AbstractActiveNetModule extends AbstractActiveReceiverModu
     private final AbstractActiveNetModule m_aOwner;
     private final Socket m_aSocket;
 
-    public ConnectionThread (@Nonnull final AbstractActiveNetModule aOwner, @Nonnull @WillClose final Socket aSocket)
+    public ConnectionThread (@NonNull final AbstractActiveNetModule aOwner, @NonNull @WillClose final Socket aSocket)
     {
       super ("AS2ConnectionThread-" + ClassHelper.getClassLocalName (aOwner));
       m_aOwner = aOwner;
@@ -344,7 +343,7 @@ public abstract class AbstractActiveNetModule extends AbstractActiveReceiverModu
     private final ServerSocket m_aServerSocket;
     private volatile boolean m_bTerminated;
 
-    public MainThread (@Nonnull final AbstractActiveNetModule aOwner,
+    public MainThread (@NonNull final AbstractActiveNetModule aOwner,
                        @Nullable final String sAddress,
                        @Nonnegative final int nPort) throws IOException
     {

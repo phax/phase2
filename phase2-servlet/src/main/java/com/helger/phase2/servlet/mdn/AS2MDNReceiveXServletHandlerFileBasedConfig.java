@@ -19,6 +19,8 @@ package com.helger.phase2.servlet.mdn;
 import java.io.File;
 import java.io.IOException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.ICommonsMap;
@@ -26,7 +28,6 @@ import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.servlet.util.AS2ServletXMLSession;
 import com.helger.phase2.session.AS2Session;
 
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 
 /**
@@ -54,8 +55,8 @@ public class AS2MDNReceiveXServletHandlerFileBasedConfig extends AbstractAS2MDNR
    *         If no or an invalid configuration file was provided.
    */
   @OverrideOnDemand
-  @Nonnull
-  protected File getConfigurationFile (@Nonnull final ICommonsMap <String, String> aInitParams) throws ServletException
+  @NonNull
+  protected File getConfigurationFile (@NonNull final ICommonsMap <String, String> aInitParams) throws ServletException
   {
     final String sConfigurationFilename = aInitParams.get (SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME);
     if (StringHelper.isEmpty (sConfigurationFilename))
@@ -72,8 +73,8 @@ public class AS2MDNReceiveXServletHandlerFileBasedConfig extends AbstractAS2MDNR
   }
 
   @Override
-  @Nonnull
-  protected AS2Session createAS2Session (@Nonnull final ICommonsMap <String, String> aInitParams) throws AS2Exception, ServletException
+  @NonNull
+  protected AS2Session createAS2Session (@NonNull final ICommonsMap <String, String> aInitParams) throws AS2Exception, ServletException
   {
     // Get configuration file
     final File aConfigurationFile = getConfigurationFile (aInitParams);

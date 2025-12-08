@@ -42,6 +42,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 
 import org.apache.hc.core5.util.Timeout;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,9 +66,6 @@ import com.helger.phase2.util.http.AS2HttpClient;
 import com.helger.phase2.util.http.HTTPHelper;
 import com.helger.phase2.util.http.IAS2OutgoingHttpCallback;
 import com.helger.url.protocol.EURLProtocol;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract HTTP based sender module
@@ -129,7 +128,7 @@ public abstract class AbstractHttpSenderModule extends AbstractSenderModule
   }
 
   @Nullable
-  public final IHTTPOutgoingDumper getHttpOutgoingDumper (@Nonnull final IBaseMessage aMsg)
+  public final IHTTPOutgoingDumper getHttpOutgoingDumper (@NonNull final IBaseMessage aMsg)
   {
     return m_aHttpOutgoingDumperFactory == null ? null : m_aHttpOutgoingDumperFactory.apply (aMsg);
   }
@@ -200,7 +199,7 @@ public abstract class AbstractHttpSenderModule extends AbstractSenderModule
     m_aOugoingHttpCallback = aRCC;
   }
 
-  @Nonnull
+  @NonNull
   public final Timeout getConnectTimeout ()
   {
     final long nMS = attrs ().getAsLong (ATTR_CONNECT_TIMEOUT, -1);
@@ -217,7 +216,7 @@ public abstract class AbstractHttpSenderModule extends AbstractSenderModule
       attrs ().putIn (ATTR_CONNECT_TIMEOUT, nMS);
   }
 
-  @Nonnull
+  @NonNull
   public final Timeout getResponseTimeout ()
   {
     final long nMS = attrs ().getAsLong (ATTR_RESPONSE_TIMEOUT, -1);
@@ -253,7 +252,7 @@ public abstract class AbstractHttpSenderModule extends AbstractSenderModule
    * @throws GeneralSecurityException
    *         If something internally goes wrong.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   public SSLContext createSSLContext () throws GeneralSecurityException
   {
@@ -287,7 +286,7 @@ public abstract class AbstractHttpSenderModule extends AbstractSenderModule
    * @return <code>true</code> to use SSL/TLS, <code>false</code> if not needed.
    */
   @OverrideOnDemand
-  public boolean isUseSSL (@Nonnull @Nonempty final String sUrl)
+  public boolean isUseSSL (@NonNull @Nonempty final String sUrl)
   {
     return EURLProtocol.HTTPS.isUsedInURL (sUrl.toLowerCase (Locale.ROOT));
   }
@@ -306,9 +305,9 @@ public abstract class AbstractHttpSenderModule extends AbstractSenderModule
    * @throws AS2Exception
    *         If something goes wrong
    */
-  @Nonnull
-  public AS2HttpClient getHttpClient (@Nonnull @Nonempty final String sUrl,
-                                      @Nonnull final EHttpMethod eRequestMethod,
+  @NonNull
+  public AS2HttpClient getHttpClient (@NonNull @Nonempty final String sUrl,
+                                      @NonNull final EHttpMethod eRequestMethod,
                                       @Nullable final Proxy aProxy) throws AS2Exception
   {
     ValueEnforcer.notEmpty (sUrl, "URL");

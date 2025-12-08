@@ -32,12 +32,11 @@
  */
 package com.helger.phase2.crypto;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.phase2.message.IMessage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Logging implementation of {@link IMICMatchingHandler}
@@ -49,7 +48,7 @@ public class LoggingMICMatchingHandler implements IMICMatchingHandler
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingMICMatchingHandler.class);
 
-  public void onMICMatch (@Nonnull final IMessage aMsg, @Nonnull final String sMIC)
+  public void onMICMatch (@NonNull final IMessage aMsg, @NonNull final String sMIC)
   {
     LOGGER.info ("MIC is matched, MIC: " + sMIC + aMsg.getLoggingText ());
   }

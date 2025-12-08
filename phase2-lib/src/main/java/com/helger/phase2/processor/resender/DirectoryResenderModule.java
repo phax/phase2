@@ -43,6 +43,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,9 +66,6 @@ import com.helger.phase2.session.IAS2Session;
 import com.helger.phase2.util.AS2DateHelper;
 import com.helger.phase2.util.AS2IOHelper;
 import com.helger.typeconvert.collection.IStringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An asynchronous, persisting, file based, polling resender module. Upon
@@ -94,7 +93,7 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
   private static final Logger LOGGER = LoggerFactory.getLogger (DirectoryResenderModule.class);
 
   @Override
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aOptions)
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
                                                                                                               throws AS2Exception
   {
     super.initDynamicComponent (aSession, aOptions);
@@ -103,8 +102,8 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
   }
 
   @Override
-  public boolean canHandle (@Nonnull final String sAction,
-                            @Nonnull final IMessage aMsg,
+  public boolean canHandle (@NonNull final String sAction,
+                            @NonNull final IMessage aMsg,
                             @Nullable final Map <String, Object> aOptions)
   {
     return sAction.equals (IProcessorResenderModule.DO_RESEND);
@@ -118,7 +117,7 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
    * @throws AS2InvalidParameterException
    *         Only theoretically
    */
-  @Nonnull
+  @NonNull
   protected String getFilename () throws AS2InvalidParameterException
   {
     final long nResendDelayMS = getResendDelayMS ();
@@ -127,8 +126,8 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
   }
 
   @Override
-  public void handle (@Nonnull final String sAction,
-                      @Nonnull final IMessage aMsg,
+  public void handle (@NonNull final String sAction,
+                      @NonNull final IMessage aMsg,
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     try
@@ -168,7 +167,7 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
     }
   }
 
-  protected boolean isTimeToSend (@Nonnull final File aCurrentFile)
+  protected boolean isTimeToSend (@NonNull final File aCurrentFile)
   {
     try
     {
@@ -182,7 +181,7 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
     }
   }
 
-  protected void resendFile (@Nonnull final File aFile) throws AS2Exception
+  protected void resendFile (@NonNull final File aFile) throws AS2Exception
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Processing " + aFile.getAbsolutePath ());
@@ -245,7 +244,7 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
    * @throws AS2InvalidParameterException
    *         In case the directory listing fails
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   protected ICommonsList <File> scanDirectory () throws AS2InvalidParameterException
   {

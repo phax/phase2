@@ -35,11 +35,11 @@ package com.helger.phase2.util.dump;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.io.stream.WrappedOutputStream;
 import com.helger.phase2.message.AS2Message;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface to dump outgoing HTTP requests
@@ -58,7 +58,7 @@ public interface IHTTPOutgoingDumper extends AutoCloseable
    *        The message to be dumped. Never <code>null</code>.
    * @since 4.4.0
    */
-  default void start (@Nonnull final String sUrl, @Nonnull final AS2Message aMsg)
+  default void start (@NonNull final String sUrl, @NonNull final AS2Message aMsg)
   {}
 
   /**
@@ -70,7 +70,7 @@ public interface IHTTPOutgoingDumper extends AutoCloseable
    * @param sValue
    *        HTTP header value. Never <code>null</code>.
    */
-  void dumpHeader (@Nonnull String sName, @Nonnull String sValue);
+  void dumpHeader (@NonNull String sName, @NonNull String sValue);
 
   /**
    * Called after all headers were emitted.
@@ -97,7 +97,7 @@ public interface IHTTPOutgoingDumper extends AutoCloseable
    *        Number of bytes to write
    * @since 4.2.0
    */
-  void dumpPayload (@Nonnull byte [] aBytes, @Nonnegative int nOfs, @Nonnegative int nLen);
+  void dumpPayload (@NonNull byte [] aBytes, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * Called after the payload was emitted.
@@ -111,8 +111,8 @@ public interface IHTTPOutgoingDumper extends AutoCloseable
   default void close () throws IOException
   {}
 
-  @Nonnull
-  default WrappedOutputStream getDumpOS (@Nonnull final OutputStream aBaseOS)
+  @NonNull
+  default WrappedOutputStream getDumpOS (@NonNull final OutputStream aBaseOS)
   {
     return new WrappedOutputStream (aBaseOS)
     {

@@ -40,6 +40,8 @@ import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,9 +63,6 @@ import com.helger.phase2.server.util.CommandTokenizer;
 import com.helger.phase2.session.IAS2Session;
 import com.helger.typeconvert.collection.IStringMap;
 import com.helger.typeconvert.collection.StringMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * actual socket command processor takes commands from socket/port and passes them to the
@@ -94,8 +93,8 @@ public class SocketCommandProcessor extends AbstractCommandProcessor
 
   @OverrideOnDemand
   @Nullable
-  protected String [] getEnabledAnonymousCipherSuites (@Nonnull final String [] aEnabled,
-                                                       @Nonnull final String [] aSupported)
+  protected String [] getEnabledAnonymousCipherSuites (@NonNull final String [] aEnabled,
+                                                       @NonNull final String [] aSupported)
   {
     final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     for (final String sSupported : aSupported)
@@ -117,7 +116,7 @@ public class SocketCommandProcessor extends AbstractCommandProcessor
   }
 
   @Override
-  public void initDynamicComponent (@Nonnull final IAS2Session aSession, @Nullable final IStringMap aParams)
+  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParams)
                                                                                                              throws AS2Exception
   {
     final StringMap aParameters = aParams == null ? new StringMap () : new StringMap (aParams);

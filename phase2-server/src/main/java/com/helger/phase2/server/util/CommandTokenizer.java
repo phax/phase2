@@ -32,10 +32,10 @@
  */
 package com.helger.phase2.server.util;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.exception.WrappedAS2Exception;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * emulates StringTokenizer
@@ -54,7 +54,7 @@ public class CommandTokenizer
    * @param inString
    *        in string
    */
-  public CommandTokenizer (@Nonnull final String inString)
+  public CommandTokenizer (@NonNull final String inString)
   {
     m_sWorkString = inString;
     m_nLen = m_sWorkString.length ();

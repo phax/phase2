@@ -32,13 +32,13 @@
  */
 package com.helger.phase2.server.cmd.partner;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.partner.Partnership;
 import com.helger.phase2.partner.xml.IPartnershipFactoryWithPartners;
 import com.helger.phase2.server.cmd.CommandResult;
 import com.helger.phase2.server.cmd.ECommandResultType;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * removes a partner entry in partnership store
@@ -66,7 +66,7 @@ public class DeletePartnerCommand extends AbstractAliasedPartnershipsCommand
   }
 
   @Override
-  public CommandResult execute (@Nonnull final IPartnershipFactoryWithPartners partFx, final Object [] aParams) throws AS2Exception
+  public CommandResult execute (@NonNull final IPartnershipFactoryWithPartners partFx, final Object [] aParams) throws AS2Exception
   {
     if (aParams.length < 1)
       return new CommandResult (ECommandResultType.TYPE_INVALID_PARAM_COUNT, getUsage ());

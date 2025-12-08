@@ -16,6 +16,8 @@
  */
 package com.helger.phase2.servlet.example;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.phase2.cert.CertificateFactory;
 import com.helger.phase2.exception.AS2Exception;
@@ -29,7 +31,6 @@ import com.helger.phase2.servlet.util.AS2ServletReceiverModule;
 import com.helger.phase2.session.AS2Session;
 import com.helger.security.keystore.EKeyStoreType;
 
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 
 /**
@@ -42,8 +43,8 @@ public class AS2ReceiveXServletHandlerCodeConfig extends AbstractAS2ReceiveXServ
 {
 
   @Override
-  @Nonnull
-  protected AS2Session createAS2Session (@Nonnull final ICommonsMap <String, String> aInitParams) throws AS2Exception, ServletException
+  @NonNull
+  protected AS2Session createAS2Session (@NonNull final ICommonsMap <String, String> aInitParams) throws AS2Exception, ServletException
   {
     final AS2Session aSession = new AS2Session ();
     {

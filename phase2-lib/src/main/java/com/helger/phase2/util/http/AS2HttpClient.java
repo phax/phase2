@@ -66,6 +66,8 @@ import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.io.entity.AbstractHttpEntity;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.apache.hc.core5.util.Timeout;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,8 +87,6 @@ import com.helger.phase2.util.AS2IOHelper;
 import com.helger.phase2.util.AS2ResourceHelper;
 import com.helger.phase2.util.dump.IHTTPOutgoingDumper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.mail.MessagingException;
 
 /**
@@ -111,7 +111,7 @@ public class AS2HttpClient
    * @return The http host to use as proxy. May be <code>null</code>.
    */
   @Nullable
-  private static HttpHost _getProxyHost (@Nonnull final Proxy aProxy)
+  private static HttpHost _getProxyHost (@NonNull final Proxy aProxy)
   {
     try
     {
@@ -143,10 +143,10 @@ public class AS2HttpClient
     return null;
   }
 
-  public AS2HttpClient (@Nonnull @Nonempty final String sUrl,
-                        @Nonnull final Timeout aConnectTimeout,
-                        @Nonnull final Timeout aResponseTimeout,
-                        @Nonnull final EHttpMethod eRequestMethod,
+  public AS2HttpClient (@NonNull @Nonempty final String sUrl,
+                        @NonNull final Timeout aConnectTimeout,
+                        @NonNull final Timeout aResponseTimeout,
+                        @NonNull final EHttpMethod eRequestMethod,
                         @Nullable final Proxy aProxy,
                         @Nullable final SSLContext aSSLContext,
                         @Nullable final HostnameVerifier aHostnameVerifier)
@@ -198,7 +198,7 @@ public class AS2HttpClient
    * @param sValue
    *        Header value. May not be <code>null</code>.
    */
-  public void setHttpHeader (@Nonnull final String sName, @Nonnull final String sValue)
+  public void setHttpHeader (@NonNull final String sName, @NonNull final String sValue)
   {
     ValueEnforcer.notNull (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
@@ -212,7 +212,7 @@ public class AS2HttpClient
    * @throws AS2Exception
    *         in case of error (e.g. if the URI could not be converted to a URL).
    */
-  @Nonnull
+  @NonNull
   public URL getURL () throws AS2Exception
   {
     final URI aURI = m_aRequestBuilder.getUri ();
@@ -241,10 +241,10 @@ public class AS2HttpClient
    *         In case of error
    */
   @Nonnegative
-  public long send (@Nonnull @WillClose final InputStream aISToSend,
+  public long send (@NonNull @WillClose final InputStream aISToSend,
                     @Nullable final EContentTransferEncoding eCTE,
                     @Nullable final IHTTPOutgoingDumper aOutgoingDumper,
-                    @Nonnull final AS2ResourceHelper aResHelper) throws IOException
+                    @NonNull final AS2ResourceHelper aResHelper) throws IOException
   {
     try (final CountingInputStream aCIS = new CountingInputStream (aISToSend))
     {
@@ -273,7 +273,7 @@ public class AS2HttpClient
         }
 
         @Override
-        public void writeTo (@Nonnull final OutputStream aOS) throws IOException
+        public void writeTo (@NonNull final OutputStream aOS) throws IOException
         {
           // Use MIME encoding here
           try (final OutputStream aDebugOS = aOutgoingDumper != null ? aOutgoingDumper.getDumpOS (aOS) : aOS)
@@ -351,7 +351,7 @@ public class AS2HttpClient
     return m_aCloseableHttpResponse.getReasonPhrase ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public HttpHeaderMap getResponseHeaderFields () throws AS2Exception
   {
