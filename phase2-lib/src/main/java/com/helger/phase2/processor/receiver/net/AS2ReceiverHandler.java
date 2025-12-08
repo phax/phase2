@@ -302,17 +302,23 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
           }
 
           final Wrapper <X509Certificate> aCertHolder = new Wrapper <> ();
+          final Wrapper <MimeBodyPart> aMICSourceHolder = new Wrapper <> ();
           final MimeBodyPart aVerifiedData = aCryptoHelper.verify (aMsg.getData (),
                                                                    aSenderCert,
                                                                    bUseCertificateInBodyPart,
                                                                    bForceVerify,
                                                                    aCertHolder::set,
+                                                                   aMICSourceHolder::set,
                                                                    aResHelper);
           final Consumer <X509Certificate> aExternalConsumer = getVerificationCertificateConsumer ();
           if (aExternalConsumer != null)
             aExternalConsumer.accept (aCertHolder.get ());
 
           aMsg.setData (aVerifiedData);
+
+          // Store the MIC source for later calculation (mirrors sender's callback pattern)
+          if (aMICSourceHolder.isSet ())
+            aMsg.setMICSource (aMICSourceHolder.get ());
 
           // Remember that message was signed and verified
           aMsg.attrs ().putIn (AS2Message.ATTRIBUTE_RECEIVED_SIGNED, true);

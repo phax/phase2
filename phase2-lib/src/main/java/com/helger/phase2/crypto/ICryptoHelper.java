@@ -223,5 +223,6 @@ public interface ICryptoHelper
                        boolean bUseCertificateInBodyPart,
                        boolean bForceVerifySigned,
                        @Nullable Consumer <X509Certificate> aEffectiveCertificateConsumer,
+                       @Nullable Consumer <MimeBodyPart> aMICSourceConsumer,
                        @Nonnull AS2ResourceHelper aResHelper) throws Exception;
 }

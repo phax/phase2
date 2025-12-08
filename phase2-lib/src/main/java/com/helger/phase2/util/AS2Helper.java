@@ -268,43 +268,21 @@ public final class AS2Helper
                                          aPartnership.getEncryptAlgorithm () != null ||
                                          aPartnership.getCompressionType () != null;
 
-    // For signed messages (multipart/signed), calculate MIC on the first body part (the actual content),
-    // not on the multipart wrapper which includes a random boundary parameter
-    MimeBodyPart aPartToHash = aMsg.getData ();
-    LOGGER.info ("createMICOnReception: signingAlgorithm=" + aPartnership.getSigningAlgorithm () + ", contentType=" + aPartToHash.getContentType ());
-    if (aPartnership.getSigningAlgorithm () != null)
+    // Use the MIC source captured during signature verification (via callback)
+    // This mirrors the sender's callback pattern where MIC is calculated on pre-signature content
+    MimeBodyPart aPartToHash = aMsg.getMICSource ();
+    if (aPartToHash == null)
     {
-      try
-      {
-        final Object aContent = aPartToHash.getContent ();
-        LOGGER.info ("createMICOnReception: content class=" + (aContent != null ? aContent.getClass ().getName () : "null"));
-        if (aContent instanceof com.helger.mail.cte.EContentTransferEncoding)
-        {
-          // Already the right part
-          LOGGER.info ("createMICOnReception: Content is EContentTransferEncoding");
-        }
-        else if (aContent instanceof jakarta.mail.Multipart)
-        {
-          // This is multipart/signed - extract the first body part (the signed content)
-          final jakarta.mail.Multipart aMultipart = (jakarta.mail.Multipart) aContent;
-          LOGGER.info ("createMICOnReception: Content is Multipart with " + aMultipart.getCount () + " parts");
-          if (aMultipart.getCount () > 0)
-          {
-            aPartToHash = (MimeBodyPart) aMultipart.getBodyPart (0);
-            LOGGER.info ("Calculating MIC on first body part of multipart/signed, not on the multipart wrapper");
-          }
-        }
-        else
-        {
-          LOGGER.info ("createMICOnReception: Content is unknown type");
-        }
-      }
-      catch (final Exception ex)
-      {
-        LOGGER.warn ("Failed to extract first body part from multipart/signed: " + ex.getMessage (), ex);
-        // Fall back to using the whole part
-      }
+      // Fallback for unsigned messages - use the message data directly
+      aPartToHash = aMsg.getData ();
+      LOGGER.info ("createMICOnReception: No MIC source captured (unsigned message), using message data directly");
     }
+    else
+    {
+      LOGGER.info ("createMICOnReception: Using captured MIC source from signature verification");
+    }
+
+    LOGGER.info ("createMICOnReception: signingAlgorithm=" + aPartnership.getSigningAlgorithm () + ", contentType=" + aPartToHash.getContentType ());
 
     return getCryptoHelper ().calculateMIC (aPartToHash, eSigningAlgorithm, bIncludeHeadersInMIC);
   }
@@ -482,6 +460,7 @@ public final class AS2Helper
                                           bUseCertificateInBodyPart,
                                           bForceVerify,
                                           aCertHolder::set,
+                                          null,
                                           aResHelper);
         if (aEffectiveCertificateConsumer != null)
           aEffectiveCertificateConsumer.accept (aCertHolder.get ());
