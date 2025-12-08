@@ -55,8 +55,6 @@ public class AS2Message extends AbstractMessage
   public static final String ATTRIBUTE_RECEIVED_COMPRESSED = "as2msg.received.compressed";
   /** Optional attribute storing the created MIC (see #74) */
   public static final String ATTRIBUTE_MIC = "MIC";
-  /** MimeBodyPart to use for MIC calculation - captured during signature verification */
-  public static final String ATTRIBUTE_MIC_SOURCE = "as2msg.mic.source";
 
   public static final String PROTOCOL_AS2 = "as2";
   public static final String DEFAULT_ID_FORMAT = CPhase2Info.NAME +
