@@ -58,7 +58,7 @@ import com.helger.phase2.message.IMessageMDN;
 import com.helger.phase2.util.AS2Helper;
 import com.helger.phase2.util.AS2HttpHelper;
 import com.helger.phase2.util.AS2ResourceHelper;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -67,7 +67,7 @@ public final class ReadMDNFuncTest
   @Test
   public void testReadMDN02 () throws Exception
   {
-    String sPrefix = "external/mdn/20190925-david";
+    final String sPrefix = "external/mdn/20190925-david";
     final IReadableResource aHeaderRes = new ClassPathResource (sPrefix + ".header");
     assertTrue (aHeaderRes.exists ());
     final IReadableResource aPayloadRes = new ClassPathResource (sPrefix + ".payload");
@@ -92,8 +92,9 @@ public final class ReadMDNFuncTest
       assertEquals ("<MOKOsi42435716cf621589dnode1POP000046@sfgt1.unix.fina.hr>",
                     aHeaders.getFirstHeaderValue ("Message-ID"));
 
-    final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (StreamHelper.getAllBytesAsString (aCertRes,
-                                                                                                                       StandardCharsets.ISO_8859_1));
+    final X509Certificate aCert = new CertificateDecodeHelper ().source (StreamHelper.getAllBytes (aCertRes))
+                                                                .pemEncoded (true)
+                                                                .getDecodedOrNull ();
     assertNotNull (aCert);
 
     final AS2Message aMsg = new AS2Message ();

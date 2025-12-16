@@ -65,7 +65,7 @@ import com.helger.phase2.processor.resender.ImmediateResenderModule;
 import com.helger.phase2.processor.sender.AS2SenderModule;
 import com.helger.phase2.processor.sender.IProcessorSenderModule;
 import com.helger.phase2.session.AS2Session;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.typeconvert.collection.StringMap;
 
 import jakarta.mail.MessagingException;
@@ -486,7 +486,9 @@ public class AS2Client
         final String sReceivedCert = aMsg.attrs ().getAsString (AS2Message.ATTRIBUTE_RECEIVED_SIGNATURE_CERTIFICATE);
         if (sReceivedCert != null)
         {
-          final X509Certificate aReceivedCert = CertificateHelper.convertStringToCertficateOrNull (sReceivedCert);
+          final X509Certificate aReceivedCert = new CertificateDecodeHelper ().source (sReceivedCert)
+                                                                              .pemEncoded (true)
+                                                                              .getDecodedOrNull ();
           aResponse.setMDNVerificationCertificate (aReceivedCert);
         }
       }
