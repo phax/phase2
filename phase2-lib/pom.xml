@@ -46,6 +46,7 @@
   <description>phase2 library part</description>
   <url>https://github.com/phax/phase2/phase2-lib</url>
   <inceptionYear>2013</inceptionYear>
+  
   <licenses>
     <license>
       <name>BSD</name>
@@ -53,6 +54,7 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -85,6 +87,7 @@
       <artifactId>httpclient5</artifactId>
       <version>${httpclient.version}</version>
     </dependency>
+    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -101,6 +104,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <resources>
       <!-- Don't specify the targetPath because this leads to a broken JAR file 
