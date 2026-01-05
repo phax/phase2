@@ -149,10 +149,13 @@ public final class AS2Helper
 
     // Create the text part
     final MimeBodyPart aTextPart = new MimeBodyPart ();
-    final String sText = aMdn.getText () + CHttp.EOL;
-    aTextPart.setContent (sText, CMimeType.TEXT_PLAIN.getAsString ());
-    aTextPart.setHeader (CHttpHeader.CONTENT_TYPE, CMimeType.TEXT_PLAIN.getAsString ());
-    aReportParts.addBodyPart (aTextPart);
+    {
+      final String sText = aMdn.getText () + CHttp.EOL;
+      aTextPart.setContent (sText, CMimeType.TEXT_PLAIN.getAsString ());
+
+      aTextPart.setHeader (CHttpHeader.CONTENT_TYPE, CMimeType.TEXT_PLAIN.getAsString ());
+      aReportParts.addBodyPart (aTextPart);
+    }
 
     // Create the report part
     final MimeBodyPart aReportPart = new MimeBodyPart ();
@@ -168,15 +171,15 @@ public final class AS2Helper
       aReportValues.setHeader (HEADER_RECEIVED_CONTENT_MIC, aMdn.attrs ().getAsString (AS2MessageMDN.MDNA_MIC));
 
       final StringBuilder aReportData = new StringBuilder ();
-      final Enumeration <?> aReportEn = aReportValues.getAllHeaderLines ();
+      final Enumeration <String> aReportEn = aReportValues.getAllHeaderLines ();
       while (aReportEn.hasMoreElements ())
-        aReportData.append ((String) aReportEn.nextElement ()).append (CHttp.EOL);
+        aReportData.append (aReportEn.nextElement ()).append (CHttp.EOL);
       aReportData.append (CHttp.EOL);
       aReportPart.setContent (aReportData.toString (), "message/disposition-notification");
-    }
 
-    aReportPart.setHeader (CHttpHeader.CONTENT_TYPE, "message/disposition-notification");
-    aReportParts.addBodyPart (aReportPart);
+      aReportPart.setHeader (CHttpHeader.CONTENT_TYPE, "message/disposition-notification");
+      aReportParts.addBodyPart (aReportPart);
+    }
 
     // Convert report parts to MimeBodyPart
     final MimeBodyPart aReport = new MimeBodyPart ();
