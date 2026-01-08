@@ -146,7 +146,7 @@ public final class BCCryptoHelperTest
 
           // Verify as well
           LOGGER.info ("  Now verifying result of signing algo " + eAlgo);
-          aCryptoHelper.verify (aSigned, (X509Certificate) PKE.getCertificate (), bIncludeCert, true, null, aResHelper);
+          aCryptoHelper.verify (aSigned, (X509Certificate) PKE.getCertificate (), bIncludeCert, true, null, null, aResHelper);
         }
     }
   }
