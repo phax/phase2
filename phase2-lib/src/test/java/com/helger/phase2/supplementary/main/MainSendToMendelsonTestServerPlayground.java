@@ -122,7 +122,7 @@ public final class MainSendToMendelsonTestServerPlayground
 
     // When a signed message is used, the algorithm for MIC and message must be
     // identical
-    final ECryptoAlgorithmSign eSignAlgo = ECryptoAlgorithmSign.DIGEST_MD5;
+    final ECryptoAlgorithmSign eSignAlgo = ECryptoAlgorithmSign.DIGEST_SHA_256;
 
     // Encryption is required for Mendelson
     // CRYPT_AES256_GCM is not supported

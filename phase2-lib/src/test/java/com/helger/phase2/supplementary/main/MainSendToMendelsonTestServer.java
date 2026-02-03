@@ -93,8 +93,8 @@ public final class MainSendToMendelsonTestServer
     // Fixed receiver - key alias must be "mendelsontestAS2"
     aSettings.setReceiverData ("mendelsontestAS2",
                                "mendelsontestAS2",
-                               true ? "https://testas2.mendelson-e-c.com:8444/as2/HttpReceiver"
-                                    : "http://testas2.mendelson-e-c.com:8080/as2/HttpReceiver");
+                               false ? "https://testas2.mendelson-e-c.com:8444/as2/HttpReceiver"
+                                     : "http://testas2.mendelson-e-c.com:8080/as2/HttpReceiver");
     final X509Certificate aReceiverCertificate = AS2KeyStoreHelper.readX509Certificate ("src/test/resources/external/mendelson/key4.cer");
     aSettings.setReceiverCertificate (aReceiverCertificate);
 
