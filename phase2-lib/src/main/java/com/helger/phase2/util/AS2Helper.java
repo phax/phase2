@@ -271,7 +271,23 @@ public final class AS2Helper
                                          aPartnership.getEncryptAlgorithm () != null ||
                                          aPartnership.getCompressionType () != null;
 
-    return getCryptoHelper ().calculateMIC (aMsg.getData (), eSigningAlgorithm, bIncludeHeadersInMIC);
+    // Use the MIC source captured during signature verification (via callback)
+    // This mirrors the sender's callback pattern where MIC is calculated on pre-signature content
+    MimeBodyPart aPartToHash = aMsg.getMICSource ();
+    if (aPartToHash == null)
+    {
+      // Fallback for unsigned messages - use the message data directly
+      aPartToHash = aMsg.getData ();
+      LOGGER.info ("createMICOnReception: No MIC source captured (unsigned message), using message data directly");
+    }
+    else
+    {
+      LOGGER.info ("createMICOnReception: Using captured MIC source from signature verification");
+    }
+
+    LOGGER.info ("createMICOnReception: signingAlgorithm=" + aPartnership.getSigningAlgorithm () + ", contentType=" + aPartToHash.getContentType ());
+
+    return getCryptoHelper ().calculateMIC (aPartToHash, eSigningAlgorithm, bIncludeHeadersInMIC);
   }
 
   /**
@@ -447,6 +463,7 @@ public final class AS2Helper
                                           bUseCertificateInBodyPart,
                                           bForceVerify,
                                           aCertHolder::set,
+                                          null,
                                           aResHelper);
         if (aEffectiveCertificateConsumer != null)
           aEffectiveCertificateConsumer.accept (aCertHolder.get ());

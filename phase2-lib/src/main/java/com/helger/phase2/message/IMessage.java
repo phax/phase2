@@ -108,6 +108,11 @@ public interface IMessage extends IBaseMessage
   void setData (@NonNull MimeBodyPart aData);
 
   @Nullable
+  MimeBodyPart getMICSource ();
+
+  void setMICSource (@Nullable MimeBodyPart aMICSource);
+
+  @Nullable
   IMessageMDN getMDN ();
 
   void setMDN (@Nullable IMessageMDN aMDN);

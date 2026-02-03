@@ -33,6 +33,7 @@
 package com.helger.phase2.processor.receiver.net;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
@@ -302,17 +303,23 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
           }
 
           final Wrapper <X509Certificate> aCertHolder = new Wrapper <> ();
+          final Wrapper <MimeBodyPart> aMICSourceHolder = new Wrapper <> ();
           final MimeBodyPart aVerifiedData = aCryptoHelper.verify (aMsg.getData (),
                                                                    aSenderCert,
                                                                    bUseCertificateInBodyPart,
                                                                    bForceVerify,
                                                                    aCertHolder::set,
+                                                                   aMICSourceHolder::set,
                                                                    aResHelper);
           final Consumer <X509Certificate> aExternalConsumer = getVerificationCertificateConsumer ();
           if (aExternalConsumer != null)
             aExternalConsumer.accept (aCertHolder.get ());
 
           aMsg.setData (aVerifiedData);
+
+          // Store the MIC source for later calculation (mirrors sender's callback pattern)
+          if (aMICSourceHolder.isSet ())
+            aMsg.setMICSource (aMICSourceHolder.get ());
 
           // Remember that message was signed and verified
           aMsg.attrs ().putIn (AS2Message.ATTRIBUTE_RECEIVED_SIGNED, true);
@@ -531,11 +538,27 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
           // Put received data in a MIME body part
           final String sReceivedContentType = AS2HttpHelper.getCleanContentType (aMsg.getHeader (CHttpHeader.CONTENT_TYPE));
 
+          // Read raw bytes from DataSource to preserve original content for MIC calculation
+          final byte [] aRawBytes;
+          try (final InputStream aIS = aMsgData.getInputStream ())
+          {
+            aRawBytes = StreamHelper.getAllBytes (aIS);
+          }
+
+          // Create MimeBodyPart with raw bytes using ByteArrayDataSource
+          // This ensures MIC calculation uses exact bytes as received, without JavaMail modifications
+          final ByteArrayDataSource aByteArrayDS = new ByteArrayDataSource (aRawBytes, sReceivedContentType, null);
           final MimeBodyPart aReceivedPart = new MimeBodyPart ();
-          aReceivedPart.setDataHandler (new DataHandler (aMsgData));
+          aReceivedPart.setDataHandler (new DataHandler (aByteArrayDS));
 
           // Header must be set AFTER the DataHandler!
           aReceivedPart.setHeader (CHttpHeader.CONTENT_TYPE, sReceivedContentType);
+
+          // Copy Content-Disposition from HTTP headers if present (important for MIC calculation on unsigned messages)
+          final String sContentDisposition = aMsg.getHeader (CHttpHeader.CONTENT_DISPOSITION);
+          if (sContentDisposition != null)
+            aReceivedPart.setHeader (CHttpHeader.CONTENT_DISPOSITION, sContentDisposition);
+
           aMsg.setData (aReceivedPart);
         }
         catch (final Exception ex)
@@ -565,17 +588,6 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
                                               () -> AbstractActiveNetModule.DISP_PARTNERSHIP_NOT_FOUND);
         }
 
-        // Calculate MIC before decrypt and decompress (see #140)
-        try
-        {
-          aIncomingMIC = AS2Helper.createMICOnReception (aMsg);
-        }
-        catch (final Exception ex)
-        {
-          // Ignore error
-          throw WrappedAS2Exception.wrap (ex);
-        }
-
         // Per RFC5402 compression is always before encryption but can be before
         // or after signing of message but only in one place
         final ICryptoHelper aCryptoHelper = AS2Helper.getCryptoHelper ();
@@ -595,6 +607,26 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
 
         // Verify may fail, if our certificate is expired
         verify (aMsg, aResHelper);
+
+        // For unsigned messages, set MIC source to current data (after decrypt/decompress)
+        // For signed messages, this was already set by the verify() callback
+        if (aMsg.getMICSource () == null)
+        {
+          aMsg.setMICSource (aMsg.getData ());
+        }
+
+        // Calculate MIC AFTER decryption and signature verification (RFC 4130)
+        // The MIC must be calculated on the same data that the sender calculated it on,
+        // which is the decrypted signed content, not the encrypted envelope
+        try
+        {
+          aIncomingMIC = AS2Helper.createMICOnReception (aMsg);
+        }
+        catch (final Exception ex)
+        {
+          // Ignore error
+          throw WrappedAS2Exception.wrap (ex);
+        }
 
         if (aCryptoHelper.isCompressed (aMsg.getContentType ()))
         {

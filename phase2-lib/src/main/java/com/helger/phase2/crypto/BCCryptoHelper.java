@@ -697,6 +697,7 @@ public class BCCryptoHelper implements ICryptoHelper
                               final boolean bUseCertificateInBodyPart,
                               final boolean bForceVerifySigned,
                               @Nullable final Consumer <X509Certificate> aEffectiveCertificateConsumer,
+                              @Nullable final Consumer <MimeBodyPart> aMICSourceConsumer,
                               @NonNull final AS2ResourceHelper aResHelper) throws GeneralSecurityException,
                                                                            IOException,
                                                                            MessagingException,
@@ -754,6 +755,13 @@ public class BCCryptoHelper implements ICryptoHelper
         throw new SignatureException ("Verification failed for SignerInfo " + aSignerInfo);
     }
 
-    return aSignedParser.getContent ();
+    final MimeBodyPart aSignedContent = aSignedParser.getContent ();
+
+    // Invoke callback with the signed content for MIC calculation
+    // This mirrors the sender's callback pattern where MIC is calculated on pre-signature content
+    if (aMICSourceConsumer != null)
+      aMICSourceConsumer.accept (aSignedContent);
+
+    return aSignedContent;
   }
 }
