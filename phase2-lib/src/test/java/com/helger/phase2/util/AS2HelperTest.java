@@ -52,9 +52,12 @@ import com.helger.phase2.session.AS2Session;
 public final class AS2HelperTest
 {
   /**
-   * Regression test: createSyncMDN must not throw when aIncomingMIC is null.
-   * MIC may legitimately be null for unsigned messages or when an error occurs
-   * before MIC computation (AS2DispositionException path).
+   * Regression test: createSyncMDN must not throw when aIncomingMIC is null. MIC may legitimately
+   * be null for unsigned messages or when an error occurs before MIC computation
+   * (AS2DispositionException path).
+   *
+   * @throws Exception
+   *         In case of error
    */
   @Test
   public void testCreateSyncMDNWithNullMIC () throws Exception
@@ -73,10 +76,10 @@ public final class AS2HelperTest
 
     // Must not throw NPE
     final IMessageMDN aMDN = AS2Helper.createSyncMDN (aSession,
-                                                       aMsg,
-                                                       null,
-                                                       DispositionType.createSuccess (),
-                                                       "Test MDN");
+                                                      aMsg,
+                                                      null,
+                                                      DispositionType.createSuccess (),
+                                                      "Test MDN");
     assertNotNull (aMDN);
     // No MIC algorithm configured and no Disposition-Notification-Options header
     // -> MDNA_MIC attribute must be absent
