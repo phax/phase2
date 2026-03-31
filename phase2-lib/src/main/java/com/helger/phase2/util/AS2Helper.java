@@ -298,7 +298,8 @@ public final class AS2Helper
    * @param aMsg
    *        The source AS2 message for which the MDN is to be created. May not be <code>null</code>.
    * @param aIncomingMIC
-   *        The MIC of the incoming message. May not be <code>null</code>.
+   *        The MIC of the incoming message. May be <code>null</code> for unsigned messages or when
+   *        an error occurs before MIC computation.
    * @param aDisposition
    *        The disposition - either success or error. May not be <code>null</code>.
    * @param sText
@@ -316,7 +317,6 @@ public final class AS2Helper
   {
     ValueEnforcer.notNull (aSession, "AS2Session");
     ValueEnforcer.notNull (aMsg, "AS2Message");
-    ValueEnforcer.notNull (aIncomingMIC, "IncomingMIC");
     ValueEnforcer.notNull (aDisposition, "Disposition");
     ValueEnforcer.notNull (sText, "Text");
 
