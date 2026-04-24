@@ -24,12 +24,11 @@
     <version>6.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>phase2-partnership-mongodb</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>phase2-partnership-mongodb</name>
   <description>A MongoDB based partnership factory implementation</description>
   <url>https://github.com/phax/phase2/phase2-partnership-mongodb</url>
   <inceptionYear>2015</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,7 +36,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <developers>
     <developer>
       <id>jochenberger</id>
@@ -50,13 +48,11 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-  
   <!-- Include here to not bloat the global scope -->
   <properties>
     <mongodb-client.version>5.6.5</mongodb-client.version>
     <flapdoodle.version>4.24.0</flapdoodle.version>
-  </properties>  
-  
+  </properties>
   <dependencies>
     <dependency>
       <groupId>com.helger.phase2</groupId>
@@ -67,7 +63,6 @@
       <artifactId>mongodb-driver-sync</artifactId>
       <version>${mongodb-client.version}</version>
     </dependency>
-  
     <!-- test stuff -->
     <dependency>
       <groupId>junit</groupId>
@@ -86,23 +81,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.phase2.partner.mongodb</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.phase2.partner.mongodb
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

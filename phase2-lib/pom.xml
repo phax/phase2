@@ -41,12 +41,11 @@
     <version>6.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>phase2-lib</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>phase2-lib</name>
   <description>phase2 library part</description>
   <url>https://github.com/phax/phase2/phase2-lib</url>
   <inceptionYear>2013</inceptionYear>
-  
   <licenses>
     <license>
       <name>BSD</name>
@@ -54,7 +53,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -87,7 +85,6 @@
       <artifactId>httpclient5</artifactId>
       <version>${httpclient.version}</version>
     </dependency>
-    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -104,7 +101,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
   <build>
     <resources>
       <!-- Don't specify the targetPath because this leads to a broken JAR file 
@@ -124,43 +120,5 @@
         </excludes>
       </resource>
     </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.phase2</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.phase2,
-              com.helger.phase2.cert,
-              com.helger.phase2.client,
-              com.helger.phase2.crypto,
-              com.helger.phase2.disposition,
-              com.helger.phase2.exception,
-              com.helger.phase2.message,
-              com.helger.phase2.params,
-              com.helger.phase2.partner,
-              com.helger.phase2.partner.xml,
-              com.helger.phase2.processor,
-              com.helger.phase2.processor.module,
-              com.helger.phase2.processor.receiver,
-              com.helger.phase2.processor.receiver.net,
-              com.helger.phase2.processor.resender,
-              com.helger.phase2.processor.sender,
-              com.helger.phase2.processor.storage,
-              com.helger.phase2.session,
-              com.helger.phase2.util,
-              com.helger.phase2.util.dump,
-              com.helger.phase2.util.http,
-              com.helger.phase2.util.javamail
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-            <Include-Resource>{maven-resources},phase2-version.properties=target/classes/phase2-version.properties</Include-Resource>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
 </project>

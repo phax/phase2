@@ -29,7 +29,6 @@
   <name>phase2-demo-webapp</name>
   <url>https://github.com/phax/phase2/phase2-demo-webapp</url>
   <inceptionYear>2018</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,7 +36,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <dependencies>
     <dependency>
       <groupId>com.helger.phase2</groupId>
@@ -47,18 +45,15 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
     </dependency>
-
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -80,7 +75,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <resources>
       <resource>
@@ -92,64 +86,7 @@
         <targetPath>${project.build.directory}/webapp-classes</targetPath>
       </resource>
     </resources>
-    
     <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>bundle-manifest</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>manifest</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <supportedProjectTypes>
-            <supportedProjectType>war</supportedProjectType>
-          </supportedProjectTypes>
-          <instructions>
-            <_wab>src/main/webapp</_wab>
-            <Import-Package>
-              jakarta.servlet,jakarta.servlet.http,org.w3c.dom,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers,
-              javax.xml.namespace,javax.crypto,javax.crypto.spec,javax.security.auth,
-              javax.security.auth.x500,javax.xml.bind,org.slf4j,!*</Import-Package>
-            <Bundle-ClassPath>
-              WEB-INF/classes,
-              WEB-INF/lib/activation-1.1.1.jar,
-              WEB-INF/lib/phase2-lib-4.4.3-SNAPSHOT.jar,
-              WEB-INF/lib/phase2-servlet-4.4.3-SNAPSHOT.jar,
-              WEB-INF/lib/bcmail-jdk15on-1.62.jar,
-              WEB-INF/lib/bcpkix-jdk15on-1.62.jar,
-              WEB-INF/lib/bcprov-jdk15on-1.62.jar,
-              WEB-INF/lib/commons-codec-1.10.jar,
-              WEB-INF/lib/commons-logging-1.2.jar,
-              WEB-INF/lib/httpclient-4.5.8.jar,
-              WEB-INF/lib/httpcore-4.4.11.jar,
-              WEB-INF/lib/javax.mail-1.6.2.jar,
-              WEB-INF/lib/jsr305-3.0.2.jar,
-              WEB-INF/lib/ph-bc-9.3.6.jar,
-              WEB-INF/lib/ph-collection-9.3.6.jar,
-              WEB-INF/lib/ph-commons-9.3.6.jar,
-              WEB-INF/lib/ph-datetime-9.3.6.jar,
-              WEB-INF/lib/ph-http-9.1.2.jar,
-              WEB-INF/lib/ph-mail-9.1.2.jar,
-              WEB-INF/lib/ph-network-9.1.2.jar,
-              WEB-INF/lib/ph-scopes-9.3.6.jar,
-              WEB-INF/lib/ph-security-9.3.6.jar,
-              WEB-INF/lib/ph-servlet-9.1.2.jar,
-              WEB-INF/lib/ph-useragent-9.1.2.jar,
-              WEB-INF/lib/ph-web-9.1.2.jar,
-              WEB-INF/lib/ph-xml-9.3.6.jar,
-              WEB-INF/lib/ph-xservlet-9.1.2.jar,
-              WEB-INF/lib/slf4j-api-1.7.26.jar
-            </Bundle-ClassPath>
-            <Web-ContextPath>/demo</Web-ContextPath>
-          </instructions>
-        </configuration>
-      </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <executions>

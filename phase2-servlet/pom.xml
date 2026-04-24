@@ -25,12 +25,11 @@
     <version>6.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>phase2-servlet</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>phase2-servlet</name>
   <description>AS2 receival servlet</description>
   <url>https://github.com/phax/phase2/phase2-servlet</url>
   <inceptionYear>2015</inceptionYear>
-
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,7 +37,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <dependencies>
     <dependency>
       <groupId>com.helger.phase2</groupId>
@@ -52,13 +50,11 @@
       <groupId>com.helger.web</groupId>
       <artifactId>ph-xservlet</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -75,25 +71,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.phase2.servlet</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.phase2.servlet,
-              com.helger.phase2.servlet.mdn,
-              com.helger.phase2.servlet.util
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
