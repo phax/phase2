@@ -44,12 +44,13 @@ import jakarta.servlet.ServletException;
 @Configuration
 public class ServletConfig
 {
-  private static final AS2ServletXMLSession AS2_SESSION;
+  static final AS2ServletXMLSession AS2_SESSION;
   static
   {
     try
     {
-      AS2_SESSION = new AS2ServletXMLSession (new File ("config/config.xml"));
+      final String configPath = System.getenv ().getOrDefault ("PHASE2_CONFIG_FILE", "config/config.xml");
+      AS2_SESSION = new AS2ServletXMLSession (new File (configPath));
       // Start them once
       AS2_SESSION.getMessageProcessor ().startActiveModules ();
     }
