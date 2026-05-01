@@ -51,7 +51,6 @@ import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.cookie.StandardCookieSpec;
 import org.apache.hc.client5.http.impl.DefaultSchemePortResolver;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.apache.hc.client5.http.impl.routing.DefaultProxyRoutePlanner;
@@ -59,6 +58,7 @@ import org.apache.hc.client5.http.routing.HttpRoutePlanner;
 import org.apache.hc.client5.http.ssl.DefaultClientTlsStrategy;
 import org.apache.hc.client5.http.ssl.TlsSocketStrategy;
 import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
@@ -101,7 +101,7 @@ public class AS2HttpClient
 
   private final ClassicRequestBuilder m_aRequestBuilder;
   private final CloseableHttpClient m_aCloseableHttpClient;
-  private CloseableHttpResponse m_aCloseableHttpResponse;
+  private ClassicHttpResponse m_aHttpResponse;
 
   /**
    * Set {@link Proxy} into {@link RequestConfig.Builder}
@@ -300,7 +300,9 @@ public class AS2HttpClient
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Performing HttpRequest to '" + aHttpUriRequest.toString () + "'");
 
-      m_aCloseableHttpResponse = m_aCloseableHttpClient.execute (aHttpUriRequest);
+      // executeOpen replaces the deprecated execute(request) overload from HttpClient 5.2+;
+      // target host and context are derived from the request URI when null.
+      m_aHttpResponse = m_aCloseableHttpClient.executeOpen (null, aHttpUriRequest, null);
       return aCIS.getBytesRead ();
     }
   }
@@ -317,10 +319,10 @@ public class AS2HttpClient
   public InputStream getInputStream () throws AS2Exception, IOException
   {
     // message was not sent yet, not response
-    if (m_aCloseableHttpResponse == null)
+    if (m_aHttpResponse == null)
       throw new AS2Exception ("No response as message was yet sent");
 
-    return m_aCloseableHttpResponse.getEntity ().getContent ();
+    return m_aHttpResponse.getEntity ().getContent ();
   }
 
   /**
@@ -331,10 +333,10 @@ public class AS2HttpClient
   public int getResponseCode () throws AS2Exception
   {
     // message was not sent yet, not response
-    if (m_aCloseableHttpResponse == null)
+    if (m_aHttpResponse == null)
       throw new AS2Exception ("No response as message was yet sent");
 
-    return m_aCloseableHttpResponse.getCode ();
+    return m_aHttpResponse.getCode ();
   }
 
   /**
@@ -345,10 +347,10 @@ public class AS2HttpClient
   public String getResponseMessage () throws AS2Exception
   {
     // message was not sent yet, not response
-    if (m_aCloseableHttpResponse == null)
+    if (m_aHttpResponse == null)
       throw new AS2Exception ("No response as message was yet sent");
 
-    return m_aCloseableHttpResponse.getReasonPhrase ();
+    return m_aHttpResponse.getReasonPhrase ();
   }
 
   @NonNull
@@ -356,11 +358,11 @@ public class AS2HttpClient
   public HttpHeaderMap getResponseHeaderFields () throws AS2Exception
   {
     // message was not sent yet, not response
-    if (m_aCloseableHttpResponse == null)
+    if (m_aHttpResponse == null)
       throw new AS2Exception ("No response as message was yet sent");
 
     final HttpHeaderMap ret = new HttpHeaderMap ();
-    final Header [] aHeaders = m_aCloseableHttpResponse.getHeaders ();
+    final Header [] aHeaders = m_aHttpResponse.getHeaders ();
     if (aHeaders != null)
       for (final Header aHeader : aHeaders)
         ret.addHeader (aHeader.getName (), aHeader.getValue ());
@@ -374,8 +376,8 @@ public class AS2HttpClient
   {
     try
     {
-      if (m_aCloseableHttpResponse != null)
-        m_aCloseableHttpResponse.close ();
+      if (m_aHttpResponse != null)
+        m_aHttpResponse.close ();
       if (m_aCloseableHttpClient != null)
         m_aCloseableHttpClient.close ();
     }
