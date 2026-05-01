@@ -75,6 +75,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <resources>
       <resource>
@@ -86,35 +87,5 @@
         <targetPath>${project.build.directory}/webapp-classes</targetPath>
       </resource>
     </resources>
-    <plugins>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>default-war</id>
-            <phase>package</phase>
-            <goals>
-              <goal>war</goal>
-            </goals>
-            <configuration>
-              <archive>
-                <manifestFile>${project.build.directory}/classes/META-INF/MANIFEST.MF</manifestFile>
-                <manifest>
-                  <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                </manifest>
-              </archive>
-            </configuration>
-          </execution>
-        </executions>
-        <configuration>
-          <archive>
-            <manifestFile>${project.build.directory}/classes/META-INF/MANIFEST.MF</manifestFile>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
 </project>
