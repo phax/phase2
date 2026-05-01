@@ -33,20 +33,14 @@
 package com.helger.phase2.util.http;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.WillClose;
-import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.numeric.mutable.MutableLong;
-import com.helger.base.string.StringHelper;
-import com.helger.io.file.FilenameHelper;
 import com.helger.phase2.util.AS2IOHelper;
 
 import jakarta.mail.util.SharedFileInputStream;
@@ -55,7 +49,13 @@ import jakarta.mail.util.SharedFileInputStream;
  * Stores the content of the input {@link InputStream} in a temporary file, and opens
  * {@link SharedFileInputStream} on that file. When the stream is closed, the file will be deleted,
  * and the input stream will be closed.
+ *
+ * @deprecated Use {@link TempSharedFileBackedStream} instead. The new class is a proper
+ *             {@link java.io.Closeable} and integrates cleanly with try-with-resources, removing
+ *             the need for the old no-op {@link #close()} / explicit {@link #closeAndDelete()}
+ *             split that this class required.
  */
+@Deprecated (forRemoval = true, since = "6.2.0")
 public class TempSharedFileInputStream extends SharedFileInputStream
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TempSharedFileInputStream.class);
@@ -66,37 +66,21 @@ public class TempSharedFileInputStream extends SharedFileInputStream
   {
     super (aFile);
     m_aTempFile = aFile;
+    // JVM-shutdown safety net for callers that forget closeAndDelete().
+    // (The old finalize()-based net was deprecated and unreliable.)
+    aFile.deleteOnExit ();
   }
 
   /**
    * close - Do nothing, to prevent early close, as the cryptographic processing stages closes their
    * input stream
    */
+  @Deprecated (forRemoval = true, since = "6.2.0")
   @Override
   public void close () throws IOException
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("close() called, doing nothing.");
-  }
-
-  /**
-   * finalize - closes also the input stream, and deletes the backing file
-   */
-  @Override
-  // TODO get rid of this
-  protected void finalize () throws Throwable
-  {
-    try
-    {
-      closeAndDelete ();
-    }
-    catch (final Exception ex)
-    {
-      LOGGER.error ("Exception in finalize()", ex);
-    }
-
-    // Call at the end
-    super.finalize ();
   }
 
   /**
@@ -106,6 +90,7 @@ public class TempSharedFileInputStream extends SharedFileInputStream
    *         in case of error
    * @since 4.10.2
    */
+  @Deprecated (forRemoval = true, since = "6.2.0")
   public void closeAndDelete () throws IOException
   {
     try
@@ -131,30 +116,11 @@ public class TempSharedFileInputStream extends SharedFileInputStream
    *         in case of IO error
    */
   @NonNull
+  @Deprecated (forRemoval = true, since = "6.2.0")
   protected static File storeContentToTempFile (@NonNull @WillClose final InputStream aIS, @NonNull final String sName)
                                                                                                                         throws IOException
   {
-    // create temp file and write steam content to it
-    // name may contain ":" on Windows and that would fail the tests!
-    final String sSuffix = FilenameHelper.getAsSecureValidASCIIFilename (StringHelper.isNotEmpty (sName) ? sName
-                                                                                                         : "tmp");
-    final File aDestFile = Files.createTempFile ("AS2TempSharedFileIS", sSuffix).toFile ();
-
-    try (final FileOutputStream aOS = new FileOutputStream (aDestFile))
-    {
-      final MutableLong aCount = new MutableLong (0);
-      StreamHelper.copyByteStream ()
-                  .from (aIS)
-                  .closeFrom (true)
-                  .to (aOS)
-                  .closeTo (false)
-                  .copyByteCount (aCount)
-                  .build ();
-      // Avoid logging in tests
-      if (aCount.longValue () > 1024L)
-        LOGGER.info (aCount.longValue () + " bytes copied to " + aDestFile.getAbsolutePath ());
-    }
-    return aDestFile;
+    return TempSharedFileBackedStream.storeContentToTempFile (aIS, sName);
   }
 
   /**
@@ -168,7 +134,9 @@ public class TempSharedFileInputStream extends SharedFileInputStream
    * @return {@link TempSharedFileInputStream} on the created temporary file.
    * @throws IOException
    *         in case of IO error
+   * @deprecated Use {@link TempSharedFileBackedStream#create(InputStream, String)} instead.
    */
+  @Deprecated (forRemoval = true, since = "6.2.0")
   @NonNull
   public static TempSharedFileInputStream getTempSharedFileInputStream (@NonNull @WillClose final InputStream aIS,
                                                                         @NonNull final String sName) throws IOException

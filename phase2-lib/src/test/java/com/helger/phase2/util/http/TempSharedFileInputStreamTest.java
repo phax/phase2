@@ -53,6 +53,7 @@ import jakarta.mail.util.SharedFileInputStream;
  *
  * @author Ziv Harpaz
  */
+@SuppressWarnings ("removal")
 public final class TempSharedFileInputStreamTest
 {
   @Test

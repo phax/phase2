@@ -93,7 +93,7 @@ import com.helger.phase2.util.http.AS2HttpRequestDataProviderInputStream;
 import com.helger.phase2.util.http.AS2HttpResponseHandlerSocket;
 import com.helger.phase2.util.http.HTTPHelper;
 import com.helger.phase2.util.http.IAS2HttpResponseHandler;
-import com.helger.phase2.util.http.TempSharedFileInputStream;
+import com.helger.phase2.util.http.TempSharedFileBackedStream;
 import com.helger.security.certificate.CertificateHelper;
 
 import jakarta.activation.DataHandler;
@@ -546,7 +546,8 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
           }
 
           // Create MimeBodyPart with raw bytes using ByteArrayDataSource
-          // This ensures MIC calculation uses exact bytes as received, without JavaMail modifications
+          // This ensures MIC calculation uses exact bytes as received, without JavaMail
+          // modifications
           final ByteArrayDataSource aByteArrayDS = new ByteArrayDataSource (aRawBytes, sReceivedContentType, null);
           final MimeBodyPart aReceivedPart = new MimeBodyPart ();
           aReceivedPart.setDataHandler (new DataHandler (aByteArrayDS));
@@ -554,7 +555,8 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
           // Header must be set AFTER the DataHandler!
           aReceivedPart.setHeader (CHttpHeader.CONTENT_TYPE, sReceivedContentType);
 
-          // Copy Content-Disposition from HTTP headers if present (important for MIC calculation on unsigned messages)
+          // Copy Content-Disposition from HTTP headers if present (important for MIC calculation on
+          // unsigned messages)
           final String sContentDisposition = aMsg.getHeader (CHttpHeader.CONTENT_DISPOSITION);
           if (sContentDisposition != null)
             aReceivedPart.setHeader (CHttpHeader.CONTENT_DISPOSITION, sContentDisposition);
@@ -771,16 +773,17 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
       finally
       {
         // close and delete the temporary shared stream if it exists
-        final TempSharedFileInputStream sis = aMsg.getTempSharedFileInputStream ();
-        if (sis != null)
+        @SuppressWarnings ("resource")
+        final TempSharedFileBackedStream aHolder = aMsg.getTempBackedStream ();
+        if (aHolder != null)
         {
           try
           {
-            sis.closeAndDelete ();
+            aHolder.close ();
           }
           catch (final IOException e)
           {
-            LOGGER.error ("Exception while closing TempSharedFileInputStream", e);
+            LOGGER.error ("Exception while closing TempSharedFileBackedStream", e);
           }
         }
       }

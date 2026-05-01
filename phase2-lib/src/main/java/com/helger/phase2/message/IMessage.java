@@ -36,7 +36,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.http.CHttpHeader;
-import com.helger.phase2.util.http.TempSharedFileInputStream;
+import com.helger.phase2.util.http.TempSharedFileBackedStream;
 
 import jakarta.mail.internet.MimeBodyPart;
 
@@ -124,7 +124,7 @@ public interface IMessage extends IBaseMessage
   boolean isRequestingAsynchMDN ();
 
   @Nullable
-  TempSharedFileInputStream getTempSharedFileInputStream ();
+  TempSharedFileBackedStream getTempBackedStream ();
 
-  void setTempSharedFileInputStream (@Nullable TempSharedFileInputStream m_TempSharedFileInputStream);
+  void setTempBackedStream (@Nullable TempSharedFileBackedStream aTempBackedStream);
 }

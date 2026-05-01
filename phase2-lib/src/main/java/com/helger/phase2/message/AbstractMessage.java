@@ -45,7 +45,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.CHttpHeader;
-import com.helger.phase2.util.http.TempSharedFileInputStream;
+import com.helger.phase2.util.http.TempSharedFileBackedStream;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeBodyPart;
@@ -62,7 +62,7 @@ public abstract class AbstractMessage extends AbstractBaseMessage implements IMe
   private MimeBodyPart m_aData;
   private MimeBodyPart m_aMICSource;
   private IMessageMDN m_aMDN;
-  private TempSharedFileInputStream m_aTempSharedFileInputStream;
+  private TempSharedFileBackedStream m_aTempBackedStream;
 
   public AbstractMessage ()
   {}
@@ -176,14 +176,14 @@ public abstract class AbstractMessage extends AbstractBaseMessage implements IMe
   }
 
   @Nullable
-  public final TempSharedFileInputStream getTempSharedFileInputStream ()
+  public final TempSharedFileBackedStream getTempBackedStream ()
   {
-    return m_aTempSharedFileInputStream;
+    return m_aTempBackedStream;
   }
 
-  public final void setTempSharedFileInputStream (@Nullable final TempSharedFileInputStream aTempSharedFileInputStream)
+  public final void setTempBackedStream (@Nullable final TempSharedFileBackedStream aTempBackedStream)
   {
-    m_aTempSharedFileInputStream = aTempSharedFileInputStream;
+    m_aTempBackedStream = aTempBackedStream;
   }
 
   @NonNull

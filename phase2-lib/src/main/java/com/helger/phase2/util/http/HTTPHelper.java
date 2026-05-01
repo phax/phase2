@@ -238,11 +238,12 @@ public final class HTTPHelper
                           (bHandleChunkedEncodingHere ? "in here as chunked encoding" : "as already processed"));
 
           @WillNotClose
-          final TempSharedFileInputStream aSharedIS = TempSharedFileInputStream.getTempSharedFileInputStream (bHandleChunkedEncodingHere ? new ChunkedInputStream (aIS)
-                                                                                                                                         : aIS,
-                                                                                                              aMsg.getMessageID ());
-          aRealIS = aSharedIS;
-          aMsg.setTempSharedFileInputStream (aSharedIS);
+          final TempSharedFileBackedStream aHolder = TempSharedFileBackedStream.create (bHandleChunkedEncodingHere ? new ChunkedInputStream (aIS)
+                                                                                                                   : aIS,
+                                                                                        aMsg.getMessageID ());
+          // The MIME parser may close this view; the holder keeps the file alive.
+          aRealIS = aHolder.openStream ();
+          aMsg.setTempBackedStream (aHolder);
         }
         else
         {
