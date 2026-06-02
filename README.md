@@ -3,6 +3,8 @@
 <!-- ph-badge-start -->
 [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/com.helger.phase2/phase2-parent-pom/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.helger.phase2/phase2-parent-pom/)
 [![javadoc](https://javadoc.io/badge2/com.helger.phase2/phase2-lib/javadoc.svg)](https://javadoc.io/doc/com.helger.phase2/phase2-lib)
+
+> If this project saved you some time or made your day a little easier, a star would mean a lot — it helps others find it too.
 <!-- ph-badge-end -->
 
 AS2 is a transport protocol specified in [RFC 4130](http://www.ietf.org/rfc/rfc4130.txt).
