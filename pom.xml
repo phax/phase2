@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.0.5</version>
+    <version>3.1.0</version>
   </parent>
   <groupId>com.helger.phase2</groupId>
   <artifactId>phase2-parent-pom</artifactId>
@@ -172,58 +172,4 @@
     <module>phase2-server</module>
     <module>phase2-demo-spring-boot</module>
   </modules>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.cyclonedx</groupId>
-        <artifactId>cyclonedx-maven-plugin</artifactId>
-        <version>2.9.1</version>
-        <executions>
-          <execution>
-            <id>embed-bom</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>makeBom</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.outputDirectory}/META-INF/sbom</outputDirectory>
-              <skipAttach>true</skipAttach>
-              <outputFormat>xml</outputFormat>
-            </configuration>
-          </execution>          
-        </executions>
-        <configuration>
-          <!-- Pin the CycloneDX spec version so it doesn't silently move with plugin upgrades -->
-          <schemaVersion>1.6</schemaVersion>
-      
-          <!-- Default for the parent. Override to "application" in child modules that build deployable apps -->
-          <projectType>library</projectType>
-      
-          <outputFormat>xml</outputFormat>
-          <outputName>bom</outputName>
-      
-          <!-- Traceability -->
-          <includeBomSerialNumber>true</includeBomSerialNumber>
-          <outputReactorProjects>true</outputReactorProjects>
-      
-          <!-- Scopes: include everything that ends up on the runtime classpath -->
-          <includeCompileScope>true</includeCompileScope>
-          <includeProvidedScope>true</includeProvidedScope>
-          <includeRuntimeScope>true</includeRuntimeScope>
-          <includeSystemScope>true</includeSystemScope>
-          <includeTestScope>false</includeTestScope>
-      
-          <!-- Keep SBOM compact; flip to true only if legal review requires embedded license texts -->
-          <includeLicenseText>false</includeLicenseText>
-      
-          <!-- Skip modules that aren't deployed (parent POMs, internal test fixtures, etc.) -->
-          <skipNotDeployed>true</skipNotDeployed>
-      
-          <!-- Detect runtime-only / classpath-bound dependencies the analyzer can't see by bytecode scan -->
-          <detectUnusedForOptionalScope>true</detectUnusedForOptionalScope>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
