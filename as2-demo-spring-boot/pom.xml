@@ -23,7 +23,7 @@
   <parent>
     <groupId>com.helger.as2</groupId>
     <artifactId>as2-lib-parent-pom</artifactId>
-    <version>5.1.7</version>
+    <version>5.1.8-SNAPSHOT</version>
   </parent>
   <artifactId>as2-demo-spring-boot</artifactId>
   <packaging>jar</packaging>
