@@ -39,7 +39,7 @@ import com.helger.phase2.util.AS2IOHelper;
 import com.helger.phase2.util.dump.IHTTPIncomingDumper;
 import com.helger.phase2.util.http.HTTPHelper;
 import com.helger.phase2.util.http.IAS2HttpResponseHandler;
-import com.helger.servlet.ServletHelper;
+import com.helger.servlet.SafeHttpServletRequest;
 import com.helger.web.scope.IRequestWebScope;
 import com.helger.xservlet.handler.IXServletHandler;
 
@@ -50,8 +50,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * This is the base XServlet handler that takes AS2 messages and MDNs. This
- * class contains a lot of methods that may be overridden.
+ * This is the base XServlet handler that takes AS2 messages and MDNs. This class contains a lot of
+ * methods that may be overridden.
  *
  * @author Philip Helger
  * @since 4.6.4
@@ -96,8 +96,7 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
   }
 
   /**
-   * @return The AS2 session that was created in initialization. Never
-   *         <code>null</code>.
+   * @return The AS2 session that was created in initialization. Never <code>null</code>.
    * @throws IllegalStateException
    *         In case initialization failed
    */
@@ -110,8 +109,7 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
   }
 
   /**
-   * @return The specific incoming dumper of this servlet. May be
-   *         <code>null</code>.
+   * @return The specific incoming dumper of this servlet. May be <code>null</code>.
    * @since v4.4.5
    */
   @Nullable
@@ -121,8 +119,8 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
   }
 
   /**
-   * Get the customized incoming dumper, falling back to the global incoming
-   * dumper if no specific dumper is set.
+   * Get the customized incoming dumper, falling back to the global incoming dumper if no specific
+   * dumper is set.
    *
    * @return The effective incoming dumper. May be <code>null</code>.
    * @since v4.4.5
@@ -141,8 +139,8 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
   }
 
   /**
-   * Set the specific incoming dumper of this servlet. If this is set, it
-   * overrides the global dumper.
+   * Set the specific incoming dumper of this servlet. If this is set, it overrides the global
+   * dumper.
    *
    * @param aHttpIncomingDumper
    *        The specific incoming dumper to be used. May be <code>null</code>.
@@ -180,22 +178,24 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
                                @NonNull final EHttpMethod eHttpMethod,
                                @NonNull final IRequestWebScope aRequestScope) throws ServletException, IOException
   {
+    final SafeHttpServletRequest aSafeHttpRequest = SafeHttpServletRequest.wrap (aHttpRequest);
+
     // Handle the incoming message, and return the MDN if necessary
-    final String sClientInfo = aHttpRequest.getRemoteAddr () + ":" + aHttpRequest.getRemotePort ();
+    final String sClientInfo = aSafeHttpRequest.getRemoteAddr () + ":" + aSafeHttpRequest.getRemotePort ();
 
     LOGGER.info ("Starting to handle incoming AS2 request - " + sClientInfo);
 
     // Create empty message
     final AS2Message aMsg = new AS2Message ();
-    aMsg.attrs ().putIn (CNetAttribute.MA_SOURCE_IP, aHttpRequest.getRemoteAddr ());
-    aMsg.attrs ().putIn (CNetAttribute.MA_SOURCE_PORT, aHttpRequest.getRemotePort ());
-    aMsg.attrs ().putIn (CNetAttribute.MA_DESTINATION_IP, aHttpRequest.getLocalAddr ());
-    aMsg.attrs ().putIn (CNetAttribute.MA_DESTINATION_PORT, aHttpRequest.getLocalPort ());
+    aMsg.attrs ().putIn (CNetAttribute.MA_SOURCE_IP, aSafeHttpRequest.getRemoteAddr ());
+    aMsg.attrs ().putIn (CNetAttribute.MA_SOURCE_PORT, aSafeHttpRequest.getRemotePort ());
+    aMsg.attrs ().putIn (CNetAttribute.MA_DESTINATION_IP, aSafeHttpRequest.getLocalAddr ());
+    aMsg.attrs ().putIn (CNetAttribute.MA_DESTINATION_PORT, aSafeHttpRequest.getLocalPort ());
 
     // Request type (e.g. "POST")
-    aMsg.attrs ().putIn (HTTPHelper.MA_HTTP_REQ_TYPE, aHttpRequest.getMethod ());
+    aMsg.attrs ().putIn (HTTPHelper.MA_HTTP_REQ_TYPE, aSafeHttpRequest.getMethod ());
     // Request URL (e.g. "/as2")
-    aMsg.attrs ().putIn (HTTPHelper.MA_HTTP_REQ_URL, ServletHelper.getRequestRequestURI (aHttpRequest));
+    aMsg.attrs ().putIn (HTTPHelper.MA_HTTP_REQ_URL, aSafeHttpRequest.getRequestURI ());
 
     // Add all request headers to the AS2 message
     aMsg.headers ().setAllHeaders (aRequestScope.headers ());
@@ -207,14 +207,14 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
 
     // Read the S/MIME content in a byte array - memory!
     // Chunked encoding was already handled, so read "as-is"
-    final long nContentLength = aHttpRequest.getContentLengthLong ();
+    final long nContentLength = aSafeHttpRequest.getContentLengthLong ();
     if (nContentLength > Integer.MAX_VALUE)
       throw new IllegalStateException ("Currently only payload with up to 2GB can be handled! This request has " +
                                        nContentLength +
                                        " bytes.");
 
     // Open it once, and close it at the end
-    try (final ServletInputStream aRequestIS = aHttpRequest.getInputStream ())
+    try (final ServletInputStream aRequestIS = aSafeHttpRequest.getInputStream ())
     {
       // Time the transmission
       final StopWatch aSW = StopWatch.createdStarted ();
@@ -250,9 +250,8 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
       }
       else
       {
-        if (aMsgDataSource instanceof ByteArrayDataSource)
+        if (aMsgDataSource instanceof final ByteArrayDataSource aBADS)
         {
-          final ByteArrayDataSource aBADS = (ByteArrayDataSource) aMsgDataSource;
           LOGGER.info ("received " +
                        AS2IOHelper.getTransferRate (aBADS.directGetBytes ().length, aSW) +
                        " from " +
