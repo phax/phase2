@@ -65,10 +65,10 @@ public class PredefinedCertificateFactory extends AbstractCertificateFactory
 
   public void reinitKeyStore () throws AS2Exception
   {
-    debugLog ( () -> "reinitKeyStore ()");
+    debugLog (() -> "reinitKeyStore ()");
 
     setKeyStore (m_aCtorKeyStore);
 
-    debugLog ( () -> "reinitKeyStore -> done");
+    debugLog (() -> "reinitKeyStore -> done");
   }
 }

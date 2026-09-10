@@ -350,9 +350,8 @@ public abstract class AbstractActiveNetModule extends AbstractActiveReceiverModu
       super ("AS2MainThread-" + ClassHelper.getClassLocalName (aOwner));
       m_aOwner = aOwner;
       m_aServerSocket = new ServerSocket ();
-      final InetSocketAddress aAddr = sAddress == null ? new InetSocketAddress (nPort) : new InetSocketAddress (
-                                                                                                                sAddress,
-                                                                                                                nPort);
+      final InetSocketAddress aAddr = sAddress == null ? new InetSocketAddress (nPort)
+                                                       : new InetSocketAddress (sAddress, nPort);
       m_aServerSocket.bind (aAddr);
 
       LOGGER.info ("Inited " + getName () + " at " + aAddr);

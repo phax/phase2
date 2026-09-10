@@ -309,9 +309,7 @@ public class BCCryptoHelper implements ICryptoHelper
   @NonNull
   public MIC calculateMIC (@NonNull final MimeBodyPart aPart,
                            @NonNull final ECryptoAlgorithmSign eDigestAlgorithm,
-                           final boolean bIncludeHeaders) throws GeneralSecurityException,
-                                                          MessagingException,
-                                                          IOException
+                           final boolean bIncludeHeaders) throws GeneralSecurityException, MessagingException, IOException
   {
     ValueEnforcer.notNull (aPart, "MimeBodyPart");
     ValueEnforcer.notNull (eDigestAlgorithm, "DigestAlgorithm");
@@ -413,11 +411,7 @@ public class BCCryptoHelper implements ICryptoHelper
                                @NonNull final X509Certificate aX509Cert,
                                @NonNull final PrivateKey aPrivateKey,
                                final boolean bForceDecrypt,
-                               @NonNull final AS2ResourceHelper aResHelper) throws GeneralSecurityException,
-                                                                            MessagingException,
-                                                                            CMSException,
-                                                                            SMIMEException,
-                                                                            IOException
+                               @NonNull final AS2ResourceHelper aResHelper) throws GeneralSecurityException, MessagingException, CMSException, SMIMEException, IOException
   {
     ValueEnforcer.notNull (aPart, "MimeBodyPart");
     ValueEnforcer.notNull (aX509Cert, "X509Cert");
@@ -476,9 +470,7 @@ public class BCCryptoHelper implements ICryptoHelper
   public MimeBodyPart encrypt (@NonNull final MimeBodyPart aPart,
                                @NonNull final X509Certificate aX509Cert,
                                @NonNull final ECryptoAlgorithmCrypt eAlgorithm,
-                               @NonNull final EContentTransferEncoding eCTE) throws GeneralSecurityException,
-                                                                             SMIMEException,
-                                                                             CMSException
+                               @NonNull final EContentTransferEncoding eCTE) throws GeneralSecurityException, SMIMEException, CMSException
   {
     ValueEnforcer.notNull (aPart, "MimeBodyPart");
     ValueEnforcer.notNull (aX509Cert, "X509Cert");
@@ -540,10 +532,7 @@ public class BCCryptoHelper implements ICryptoHelper
                             final boolean bIncludeCertificateInSignedContent,
                             final boolean bUseOldRFC3851MicAlgs,
                             final boolean bRemoveCmsAlgorithmProtect,
-                            @NonNull final EContentTransferEncoding eCTE) throws GeneralSecurityException,
-                                                                          SMIMEException,
-                                                                          MessagingException,
-                                                                          OperatorCreationException
+                            @NonNull final EContentTransferEncoding eCTE) throws GeneralSecurityException, SMIMEException, MessagingException, OperatorCreationException
   {
     ValueEnforcer.notNull (aPart, "MimeBodyPart");
     ValueEnforcer.notNull (aX509Cert, "X509Cert");
@@ -642,8 +631,7 @@ public class BCCryptoHelper implements ICryptoHelper
   @NonNull
   private X509Certificate _verifyFindCertificate (@Nullable final X509Certificate aX509Cert,
                                                   final boolean bUseCertificateInBodyPart,
-                                                  @NonNull final SMIMESignedParser aSignedParser) throws CMSException,
-                                                                                                  GeneralSecurityException
+                                                  @NonNull final SMIMESignedParser aSignedParser) throws CMSException, GeneralSecurityException
   {
     X509Certificate aRealX509Cert = aX509Cert;
     if (bUseCertificateInBodyPart)
@@ -698,11 +686,7 @@ public class BCCryptoHelper implements ICryptoHelper
                               final boolean bForceVerifySigned,
                               @Nullable final Consumer <X509Certificate> aEffectiveCertificateConsumer,
                               @Nullable final Consumer <MimeBodyPart> aMICSourceConsumer,
-                              @NonNull final AS2ResourceHelper aResHelper) throws GeneralSecurityException,
-                                                                           IOException,
-                                                                           MessagingException,
-                                                                           CMSException,
-                                                                           OperatorCreationException
+                              @NonNull final AS2ResourceHelper aResHelper) throws GeneralSecurityException, IOException, MessagingException, CMSException, OperatorCreationException
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BCCryptoHelper.verify; X509 subject=" +

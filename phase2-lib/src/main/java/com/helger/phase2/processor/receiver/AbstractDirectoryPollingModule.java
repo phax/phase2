@@ -100,8 +100,8 @@ public abstract class AbstractDirectoryPollingModule extends AbstractActivePolli
   private ICommonsMap <String, Long> m_aTrackedFiles;
 
   @Override
-  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
-                                                                                                              throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                    @Nullable final IStringMap aOptions) throws AS2Exception
   {
     super.initDynamicComponent (aSession, aOptions);
     getAttributeAsStringRequired (ATTR_OUTBOX_DIRECTORY);

@@ -92,8 +92,8 @@ public class MockAS2KeyStore implements ICertificateStore
     }
   }
 
-  public void setCertificate (@NonNull final String sAlias, @NonNull final Certificate aCert)
-                                                                                              throws MockAS2CertificateException
+  public void setCertificate (@NonNull final String sAlias,
+                              @NonNull final Certificate aCert) throws MockAS2CertificateException
   {
     ValueEnforcer.notNull (sAlias, "Alias");
     ValueEnforcer.notNull (aCert, "Certificate");
@@ -155,7 +155,8 @@ public class MockAS2KeyStore implements ICertificateStore
   }
 
   @Nullable
-  public Key getKey (@Nullable final String sAlias, @Nullable final char [] aPassword) throws MockAS2CertificateException
+  public Key getKey (@Nullable final String sAlias,
+                     @Nullable final char [] aPassword) throws MockAS2CertificateException
   {
     if (sAlias == null)
       return null;
@@ -170,8 +171,9 @@ public class MockAS2KeyStore implements ICertificateStore
     }
   }
 
-  public void setKey (@NonNull final String sAlias, @NonNull final Key aKey, @Nullable final char [] aPassword)
-                                                                                                                throws MockAS2CertificateException
+  public void setKey (@NonNull final String sAlias,
+                      @NonNull final Key aKey,
+                      @Nullable final char [] aPassword) throws MockAS2CertificateException
   {
     ValueEnforcer.notNull (sAlias, "Alias");
     ValueEnforcer.notNull (aKey, "Key");

@@ -68,8 +68,8 @@ public class ImmediateResenderModule extends AbstractResenderModule
   {
     LOGGER.info ("Immediately resending message" + aMsg.getLoggingText ());
 
-    String sResendAction = aOptions == null ? null : (String) aOptions.get (
-                                                                            IProcessorResenderModule.OPTION_RESEND_ACTION);
+    String sResendAction = aOptions == null ? null
+                                            : (String) aOptions.get (IProcessorResenderModule.OPTION_RESEND_ACTION);
     if (sResendAction == null)
     {
       LOGGER.warn ("The resending action is missing - default to message sending!");

@@ -124,7 +124,7 @@ public final class HTTPHelper
     {
       final File aDumpDirectory = new File (sHttpDumpIncomingDirectory);
       AS2IOHelper.getFileOperationManager ().createDirIfNotExisting (aDumpDirectory);
-      setHTTPIncomingDumperFactory ( () -> new HTTPIncomingDumperDirectoryBased (aDumpDirectory));
+      setHTTPIncomingDumperFactory (() -> new HTTPIncomingDumperDirectoryBased (aDumpDirectory));
     }
   }
 
@@ -147,7 +147,7 @@ public final class HTTPHelper
   @Nullable
   public static IHTTPIncomingDumper getHTTPIncomingDumper ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aHTTPIncomingDumperFactory.get ());
+    return RW_LOCK.readLockedGet (() -> s_aHTTPIncomingDumperFactory.get ());
   }
 
   /**
@@ -157,7 +157,7 @@ public final class HTTPHelper
   @NonNull
   public static Supplier <? extends IHTTPIncomingDumper> getHTTPIncomingDumperFactory ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aHTTPIncomingDumperFactory);
+    return RW_LOCK.readLockedGet (() -> s_aHTTPIncomingDumperFactory);
   }
 
   /**
@@ -170,7 +170,7 @@ public final class HTTPHelper
   public static void setHTTPIncomingDumperFactory (@NonNull final Supplier <? extends IHTTPIncomingDumper> aHttpDumperFactory)
   {
     ValueEnforcer.notNull (aHttpDumperFactory, "HttpDumperFactory");
-    RW_LOCK.writeLocked ( () -> s_aHTTPIncomingDumperFactory = aHttpDumperFactory);
+    RW_LOCK.writeLocked (() -> s_aHTTPIncomingDumperFactory = aHttpDumperFactory);
   }
 
   /**
@@ -195,8 +195,7 @@ public final class HTTPHelper
   public static IExtendedDataSource readHttpRequest (@NonNull final IAS2HttpRequestDataProvider aRDP,
                                                      @NonNull final IAS2HttpResponseHandler aResponseHandler,
                                                      @NonNull final IMessage aMsg,
-                                                     @Nullable final IHTTPIncomingDumper aIncomingDumper) throws IOException,
-                                                                                                          MessagingException
+                                                     @Nullable final IHTTPIncomingDumper aIncomingDumper) throws IOException, MessagingException
   {
     // Request method (e.g. "POST")
     aMsg.attrs ().putIn (MA_HTTP_REQ_TYPE, aRDP.getHttpRequestMethod ());
@@ -311,8 +310,7 @@ public final class HTTPHelper
   public static DataSource readAndDecodeHttpRequest (@NonNull final IAS2HttpRequestDataProvider aRDP,
                                                      @NonNull final IAS2HttpResponseHandler aResponseHandler,
                                                      @NonNull final IMessage aMsg,
-                                                     @Nullable final IHTTPIncomingDumper aIncomingDumper) throws IOException,
-                                                                                                          MessagingException
+                                                     @Nullable final IHTTPIncomingDumper aIncomingDumper) throws IOException, MessagingException
   {
     // Main read
     DataSource aPayload = HTTPHelper.readHttpRequest (aRDP, aResponseHandler, aMsg, aIncomingDumper);

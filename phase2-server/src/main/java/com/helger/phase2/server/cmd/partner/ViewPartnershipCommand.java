@@ -64,7 +64,8 @@ public class ViewPartnershipCommand extends AbstractAliasedPartnershipsCommand
   }
 
   @Override
-  protected CommandResult execute (final IPartnershipFactoryWithPartners partFx, final Object [] params) throws AS2Exception
+  protected CommandResult execute (final IPartnershipFactoryWithPartners partFx,
+                                   final Object [] params) throws AS2Exception
   {
     if (params.length < 1)
     {

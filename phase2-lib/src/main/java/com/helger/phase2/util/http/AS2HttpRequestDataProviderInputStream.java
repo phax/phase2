@@ -130,8 +130,7 @@ public class AS2HttpRequestDataProviderInputStream implements IAS2HttpRequestDat
    * @throws MessagingException
    *         If reading the HTTP headers failed
    */
-  public AS2HttpRequestDataProviderInputStream (@NonNull @WillNotClose final InputStream aIS) throws IOException,
-                                                                                              MessagingException
+  public AS2HttpRequestDataProviderInputStream (@NonNull @WillNotClose final InputStream aIS) throws IOException, MessagingException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -203,8 +202,7 @@ public class AS2HttpRequestDataProviderInputStream implements IAS2HttpRequestDat
   }
 
   @NonNull
-  public static AS2HttpRequestDataProviderInputStream createForUtf8 (@NonNull final String s) throws IOException,
-                                                                                              MessagingException
+  public static AS2HttpRequestDataProviderInputStream createForUtf8 (@NonNull final String s) throws IOException, MessagingException
   {
     final byte [] b = s.getBytes (StandardCharsets.UTF_8);
     return new AS2HttpRequestDataProviderInputStream (new NonBlockingByteArrayInputStream (b));

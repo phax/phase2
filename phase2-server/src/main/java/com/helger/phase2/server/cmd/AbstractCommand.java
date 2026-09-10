@@ -47,7 +47,8 @@ public abstract class AbstractCommand extends AbstractDynamicComponent implement
   public static final String ATTR_USAGE = "usage";
 
   @Override
-  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParameters) throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                    @Nullable final IStringMap aParameters) throws AS2Exception
   {
     super.initDynamicComponent (aSession, aParameters);
     if (getName () == null)

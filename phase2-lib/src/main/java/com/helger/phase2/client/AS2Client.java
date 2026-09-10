@@ -203,8 +203,8 @@ public class AS2Client
   @NonNull
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected AS2Message createMessage (@NonNull final Partnership aPartnership, @NonNull final AS2ClientRequest aRequest)
-                                                                                                                         throws MessagingException
+  protected AS2Message createMessage (@NonNull final Partnership aPartnership,
+                                      @NonNull final AS2ClientRequest aRequest) throws MessagingException
   {
     final AS2Message aMsg = createAS2MessageObj ();
     aMsg.setContentType (aRequest.getContentType ());
@@ -246,8 +246,8 @@ public class AS2Client
    *         In case of error
    */
   @OverrideOnDemand
-  protected void initCertificateFactory (@NonNull final AS2ClientSettings aSettings, @NonNull final AS2Session aSession)
-                                                                                                                         throws AS2Exception
+  protected void initCertificateFactory (@NonNull final AS2ClientSettings aSettings,
+                                         @NonNull final AS2Session aSession) throws AS2Exception
   {
     final StringMap aParams = new StringMap ();
     // TYPE is the only parameter that must be present in initDynamicComponents

@@ -66,7 +66,8 @@ public class DeletePartnerCommand extends AbstractAliasedPartnershipsCommand
   }
 
   @Override
-  public CommandResult execute (@NonNull final IPartnershipFactoryWithPartners partFx, final Object [] aParams) throws AS2Exception
+  public CommandResult execute (@NonNull final IPartnershipFactoryWithPartners partFx,
+                                final Object [] aParams) throws AS2Exception
   {
     if (aParams.length < 1)
       return new CommandResult (ECommandResultType.TYPE_INVALID_PARAM_COUNT, getUsage ());
@@ -79,7 +80,8 @@ public class DeletePartnerCommand extends AbstractAliasedPartnershipsCommand
     for (final Partnership aPartnership : partFx.getAllPartnerships ())
       if (aPartnership.containsReceiverID (sName) || aPartnership.containsSenderID (sName))
       {
-        return new CommandResult (ECommandResultType.TYPE_ERROR, "Can not delete partner '" + sName + "'; it is tied to some partnerships");
+        return new CommandResult (ECommandResultType.TYPE_ERROR,
+                                  "Can not delete partner '" + sName + "'; it is tied to some partnerships");
       }
 
     partFx.removePartner (sName);

@@ -111,8 +111,9 @@ public interface IMessageProcessor extends IDynamicComponent
     attrs ().putIn (ATTR_PENDINGMDNINFO, sPendingMDNInfoFolder);
   }
 
-  void handle (@NonNull String sAction, @NonNull IMessage aMsg, @Nullable Map <String, Object> aOptions)
-                                                                                                         throws AS2Exception;
+  void handle (@NonNull String sAction,
+               @NonNull IMessage aMsg,
+               @Nullable Map <String, Object> aOptions) throws AS2Exception;
 
   void addModule (@NonNull IProcessorModule aModule);
 

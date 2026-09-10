@@ -106,12 +106,12 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
 
   public final boolean isDebugLogEnabled ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bDebugLog);
+    return m_aRWLock.readLockedBoolean (() -> m_bDebugLog);
   }
 
   public final void setDebugLogEnaled (final boolean bDebugLog)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_bDebugLog = bDebugLog);
+    m_aRWLock.writeLockedBoolean (() -> m_bDebugLog = bDebugLog);
   }
 
   protected final void debugLog (@NonNull final Supplier <String> aSupplier)
@@ -123,9 +123,9 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   @Nullable
   public final String getKeyStoreType ()
   {
-    debugLog ( () -> "getKeyStoreType ()");
-    final String ret = m_aRWLock.readLockedGet ( () -> attrs ().getAsString (ATTR_TYPE));
-    debugLog ( () -> "getKeyStoreType -> " + ret);
+    debugLog (() -> "getKeyStoreType ()");
+    final String ret = m_aRWLock.readLockedGet (() -> attrs ().getAsString (ATTR_TYPE));
+    debugLog (() -> "getKeyStoreType -> " + ret);
     return ret;
   }
 
@@ -136,9 +136,9 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
 
   public final void setKeyStoreType (@Nullable final String sKeyStoreType)
   {
-    debugLog ( () -> "setKeyStoreType (" + sKeyStoreType + ")");
+    debugLog (() -> "setKeyStoreType (" + sKeyStoreType + ")");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       if (sKeyStoreType == null)
         attrs ().remove (ATTR_TYPE);
       else
@@ -148,16 +148,16 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
 
   public void setPassword (@Nullable final String sPassword)
   {
-    debugLog ( () -> "setPassword (***)");
-    m_aRWLock.writeLockedGet ( () -> attrs ().putIn (ATTR_PASSWORD, sPassword));
+    debugLog (() -> "setPassword (***)");
+    m_aRWLock.writeLockedGet (() -> attrs ().putIn (ATTR_PASSWORD, sPassword));
   }
 
   @Nullable
   public char [] getPassword ()
   {
-    debugLog ( () -> "getPassword ()");
-    final char [] ret = m_aRWLock.readLockedGet ( () -> attrs ().getAsCharArray (ATTR_PASSWORD));
-    debugLog ( () -> "getPassword -> ***");
+    debugLog (() -> "getPassword ()");
+    final char [] ret = m_aRWLock.readLockedGet (() -> attrs ().getAsCharArray (ATTR_PASSWORD));
+    debugLog (() -> "getPassword -> ***");
     return ret;
   }
 
@@ -165,9 +165,8 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   @Nonempty
   private static String _debug (@Nullable final X509Certificate aCert)
   {
-    return aCert == null ? "null" : aCert.getSubjectX500Principal ().getName () +
-                                    "/" +
-                                    aCert.getSerialNumber ().toString ();
+    return aCert == null ? "null"
+                         : aCert.getSubjectX500Principal ().getName () + "/" + aCert.getSerialNumber ().toString ();
   }
 
   @NonNull
@@ -183,28 +182,28 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   {
     ValueEnforcer.notNull (eKeyStoreType, "KeystoreType");
 
-    debugLog ( () -> "createNewKeyStore (" + eKeyStoreType + ")");
+    debugLog (() -> "createNewKeyStore (" + eKeyStoreType + ")");
 
     return AS2Helper.getCryptoHelper ().createNewKeyStore (eKeyStoreType);
   }
 
   @Override
-  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
-                                                                                                              throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                    @Nullable final IStringMap aOptions) throws AS2Exception
   {
-    debugLog ( () -> "initDynamicComponent (" + aSession + ", " + aOptions + ")");
+    debugLog (() -> "initDynamicComponent (" + aSession + ", " + aOptions + ")");
 
     super.initDynamicComponent (aSession, aOptions);
 
     reinitKeyStore ();
 
-    debugLog ( () -> "initDynamicComponent -> done");
+    debugLog (() -> "initDynamicComponent -> done");
   }
 
   @NonNull
   public KeyStore getKeyStore ()
   {
-    final KeyStore ret = m_aRWLock.readLockedGet ( () -> m_aKeyStore);
+    final KeyStore ret = m_aRWLock.readLockedGet (() -> m_aKeyStore);
     if (ret == null)
       throw new IllegalStateException ("No keystore present");
     return ret;
@@ -220,9 +219,9 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   {
     ValueEnforcer.notNull (aKeyStore, "KeyStore");
 
-    debugLog ( () -> "setKeyStore (" + aKeyStore + ")");
-    m_aRWLock.writeLockedGet ( () -> m_aKeyStore = aKeyStore);
-    debugLog ( () -> "setKeyStore -> done");
+    debugLog (() -> "setKeyStore (" + aKeyStore + ")");
+    m_aRWLock.writeLockedGet (() -> m_aKeyStore = aKeyStore);
+    debugLog (() -> "setKeyStore -> done");
   }
 
   /**
@@ -247,14 +246,14 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
       final KeyStore aKeyStore = createNewKeyStore (eKeyStoreType);
       if (aKeyStore == null)
       {
-        debugLog ( () -> "initDynamicComponent -> no keystore");
+        debugLog (() -> "initDynamicComponent -> no keystore");
         throw new InitializationException ("Failed to create new keystore with type " + eKeyStoreType);
       }
       setKeyStore (aKeyStore);
     }
     catch (final GeneralSecurityException ex)
     {
-      debugLog ( () -> "initDynamicComponent -> " + _debug (ex));
+      debugLog (() -> "initDynamicComponent -> " + _debug (ex));
       throw WrappedAS2Exception.wrap (ex);
     }
   }
@@ -282,7 +281,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     ValueEnforcer.notNull (aPartnership, "Partnership");
     ValueEnforcer.notNull (ePartnershipType, "PartnershipType");
 
-    debugLog ( () -> "getAlias (" + aPartnership + ", " + ePartnershipType + ")");
+    debugLog (() -> "getAlias (" + aPartnership + ", " + ePartnershipType + ")");
 
     final String sAlias;
     switch (ePartnershipType)
@@ -298,12 +297,12 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
     if (sAlias == null)
     {
-      debugLog ( () -> "getAlias -> null");
+      debugLog (() -> "getAlias -> null");
       throw new AS2CertificateNotFoundException (ePartnershipType, aPartnership);
     }
 
     final String ret = getUnifiedAlias (sAlias);
-    debugLog ( () -> "getAlias -> " + ret);
+    debugLog (() -> "getAlias -> " + ret);
     return ret;
   }
 
@@ -311,7 +310,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   protected X509Certificate internalGetCertificate (@Nullable final String sAlias,
                                                     @Nullable final ECertificatePartnershipType ePartnershipType) throws AS2Exception
   {
-    debugLog ( () -> "internalGetCertificate (" + sAlias + ", " + ePartnershipType + ")");
+    debugLog (() -> "internalGetCertificate (" + sAlias + ", " + ePartnershipType + ")");
 
     final String sRealAlias = getUnifiedAlias (sAlias);
 
@@ -321,12 +320,12 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
       final X509Certificate aCert = (X509Certificate) m_aKeyStore.getCertificate (sRealAlias);
       if (aCert == null)
         throw new AS2CertificateNotFoundException (ePartnershipType, sRealAlias);
-      debugLog ( () -> "internalGetCertificate -> " + _debug (aCert));
+      debugLog (() -> "internalGetCertificate -> " + _debug (aCert));
       return aCert;
     }
     catch (final KeyStoreException ex)
     {
-      debugLog ( () -> "internalGetCertificate -> " + _debug (ex));
+      debugLog (() -> "internalGetCertificate -> " + _debug (ex));
       throw WrappedAS2Exception.wrap (ex);
     }
     finally
@@ -338,9 +337,9 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   @NonNull
   public X509Certificate getCertificate (@Nullable final String sAlias) throws AS2Exception
   {
-    debugLog ( () -> "getCertificate (" + sAlias + ")");
+    debugLog (() -> "getCertificate (" + sAlias + ")");
     final X509Certificate ret = internalGetCertificate (sAlias, null);
-    debugLog ( () -> "getCertificate -> " + _debug (ret));
+    debugLog (() -> "getCertificate -> " + _debug (ret));
     return ret;
   }
 
@@ -348,11 +347,11 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   public X509Certificate getCertificate (@NonNull final IBaseMessage aMsg,
                                          @NonNull final ECertificatePartnershipType ePartnershipType) throws AS2Exception
   {
-    debugLog ( () -> "getCertificate (" + aMsg.getMessageID () + ", " + ePartnershipType + ")");
+    debugLog (() -> "getCertificate (" + aMsg.getMessageID () + ", " + ePartnershipType + ")");
 
     final String sAlias = getAlias (aMsg.partnership (), ePartnershipType);
     final X509Certificate ret = internalGetCertificate (sAlias, ePartnershipType);
-    debugLog ( () -> "getCertificate -> " + _debug (ret));
+    debugLog (() -> "getCertificate -> " + _debug (ret));
     return ret;
   }
 
@@ -360,7 +359,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, X509Certificate> getCertificates () throws AS2Exception
   {
-    debugLog ( () -> "getCertificates ()");
+    debugLog (() -> "getCertificates ()");
 
     final ICommonsOrderedMap <String, X509Certificate> ret = new CommonsLinkedHashMap <> ();
     m_aRWLock.readLock ().lock ();
@@ -375,15 +374,15 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
     catch (final GeneralSecurityException ex)
     {
-      debugLog ( () -> "getCertificates -> " + _debug (ex));
+      debugLog (() -> "getCertificates -> " + _debug (ex));
       throw WrappedAS2Exception.wrap (ex);
     }
     finally
     {
       m_aRWLock.readLock ().unlock ();
     }
-    debugLog ( () -> "getCertificates -> " +
-                     new CommonsLinkedHashMap <> (ret, x -> x, AbstractCertificateFactory::_debug).toString ());
+    debugLog (() -> "getCertificates -> " +
+                    new CommonsLinkedHashMap <> (ret, x -> x, AbstractCertificateFactory::_debug).toString ());
     return ret;
   }
 
@@ -401,7 +400,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
   @NonNull
   private ICommonsList <String> _getAllAliases ()
   {
-    debugLog ( () -> "_getAllAliases ()");
+    debugLog (() -> "_getAllAliases ()");
 
     // Get all aliases
     final ICommonsList <String> ret = new CommonsArrayList <> ();
@@ -418,14 +417,14 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     {
       m_aRWLock.readLock ().unlock ();
     }
-    debugLog ( () -> "_getAllAliases -> " + ret);
+    debugLog (() -> "_getAllAliases -> " + ret);
     return ret;
   }
 
   @NonNull
   public PrivateKey getPrivateKey (@Nullable final X509Certificate aCert) throws AS2Exception
   {
-    debugLog ( () -> "getPrivateKey (" + _debug (aCert) + ")");
+    debugLog (() -> "getPrivateKey (" + _debug (aCert) + ")");
 
     if (aCert == null)
       throw new AS2CertificateNotFoundException (aCert);
@@ -456,17 +455,17 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
 
       if (aKey == null)
       {
-        debugLog ( () -> "getPrivateKey -> null");
+        debugLog (() -> "getPrivateKey -> null");
         throw new AS2KeyNotFoundException (aCert, sRealAlias, aAllAliases, null);
       }
 
       final PrivateKey aFinalKey = aKey;
-      debugLog ( () -> "getPrivateKey -> " + aFinalKey);
+      debugLog (() -> "getPrivateKey -> " + aFinalKey);
       return aKey;
     }
     catch (final GeneralSecurityException ex)
     {
-      debugLog ( () -> "getPrivateKey -> " + _debug (ex));
+      debugLog (() -> "getPrivateKey -> " + _debug (ex));
       throw new AS2KeyNotFoundException (aCert, sRealAlias, aAllAliases, ex);
     }
     finally
@@ -482,7 +481,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     ValueEnforcer.notEmpty (sAlias, "Alias");
     ValueEnforcer.notNull (aCert, "Cert");
 
-    debugLog ( () -> "addCertificate (" + sAlias + ", " + _debug (aCert) + ", " + bOverwrite + ")");
+    debugLog (() -> "addCertificate (" + sAlias + ", " + _debug (aCert) + ", " + bOverwrite + ")");
 
     final String sRealAlias = getUnifiedAlias (sAlias);
 
@@ -496,7 +495,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
     catch (final GeneralSecurityException ex)
     {
-      debugLog ( () -> "addCertificate -> " + _debug (ex));
+      debugLog (() -> "addCertificate -> " + _debug (ex));
       throw WrappedAS2Exception.wrap (ex);
     }
     finally
@@ -507,7 +506,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     onChange ();
 
     LOGGER.info ("Added certificate alias '" + sRealAlias + "' of certificate '" + _debug (aCert) + "'");
-    debugLog ( () -> "addCertificate -> done");
+    debugLog (() -> "addCertificate -> done");
   }
 
   public void addPrivateKey (@NonNull @Nonempty final String sAlias,
@@ -518,7 +517,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     ValueEnforcer.notNull (aKey, "Key");
     ValueEnforcer.notNull (sPassword, "Password");
 
-    debugLog ( () -> "addPrivateKey (" + sAlias + ", " + aKey + ", ***)");
+    debugLog (() -> "addPrivateKey (" + sAlias + ", " + aKey + ", ***)");
 
     final String sRealAlias = getUnifiedAlias (sAlias);
 
@@ -533,7 +532,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
     catch (final GeneralSecurityException ex)
     {
-      debugLog ( () -> "addPrivateKey -> " + _debug (ex));
+      debugLog (() -> "addPrivateKey -> " + _debug (ex));
       throw WrappedAS2Exception.wrap (ex);
     }
     finally
@@ -544,12 +543,12 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     onChange ();
 
     LOGGER.info ("Added private key alias '" + sRealAlias + "'");
-    debugLog ( () -> "addPrivateKey -> done");
+    debugLog (() -> "addPrivateKey -> done");
   }
 
   public void clearCertificates () throws AS2Exception
   {
-    debugLog ( () -> "clearCertificates ()");
+    debugLog (() -> "clearCertificates ()");
 
     int nDeleted = 0;
 
@@ -565,7 +564,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
     catch (final GeneralSecurityException ex)
     {
-      debugLog ( () -> "clearCertificates -> " + _debug (ex));
+      debugLog (() -> "clearCertificates -> " + _debug (ex));
       throw WrappedAS2Exception.wrap (ex);
     }
     finally
@@ -582,14 +581,14 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
 
     final int nFinalDeleted = nDeleted;
-    debugLog ( () -> "clearCertificates -> removed " + nFinalDeleted);
+    debugLog (() -> "clearCertificates -> removed " + nFinalDeleted);
   }
 
   public void removeCertificate (@NonNull final X509Certificate aCert) throws AS2Exception
   {
     ValueEnforcer.notNull (aCert, "Cert");
 
-    debugLog ( () -> "removeCertificate (" + _debug (aCert) + ")");
+    debugLog (() -> "removeCertificate (" + _debug (aCert) + ")");
 
     final String sAlias;
 
@@ -602,7 +601,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
     catch (final GeneralSecurityException ex)
     {
-      debugLog ( () -> "removeCertificate -> " + _debug (ex));
+      debugLog (() -> "removeCertificate -> " + _debug (ex));
       throw WrappedAS2Exception.wrap (ex);
     }
     finally
@@ -611,12 +610,12 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
 
     removeCertificate (sAlias);
-    debugLog ( () -> "removeCertificate -> done");
+    debugLog (() -> "removeCertificate -> done");
   }
 
   public void removeCertificate (@Nullable final String sAlias) throws AS2Exception
   {
-    debugLog ( () -> "removeCertificate (" + sAlias + ")");
+    debugLog (() -> "removeCertificate (" + sAlias + ")");
 
     final String sRealAlias = getUnifiedAlias (sAlias);
 
@@ -632,7 +631,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     }
     catch (final GeneralSecurityException ex)
     {
-      debugLog ( () -> "removeCertificate -> " + _debug (ex));
+      debugLog (() -> "removeCertificate -> " + _debug (ex));
       throw WrappedAS2Exception.wrap (ex);
     }
     finally
@@ -643,12 +642,12 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
     onChange ();
 
     LOGGER.info ("Removed certificate alias '" + sRealAlias + "' of certificate " + _debug (aCert));
-    debugLog ( () -> "removeCertificate -> done");
+    debugLog (() -> "removeCertificate -> done");
   }
 
   public void load (@NonNull @WillClose final InputStream aIS, @NonNull final char [] aPassword) throws AS2Exception
   {
-    debugLog ( () -> "load (" + aIS + ", ***)");
+    debugLog (() -> "load (" + aIS + ", ***)");
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -659,7 +658,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
       }
       catch (final IOException | GeneralSecurityException ex)
       {
-        debugLog ( () -> "load -> " + _debug (ex));
+        debugLog (() -> "load -> " + _debug (ex));
         throw WrappedAS2Exception.wrap (ex);
       }
       finally
@@ -674,12 +673,12 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Finished loading keystore from an InputStream");
-    debugLog ( () -> "load -> done");
+    debugLog (() -> "load -> done");
   }
 
   public void save (@NonNull @WillClose final OutputStream aOS, @NonNull final char [] aPassword) throws AS2Exception
   {
-    debugLog ( () -> "save (" + aOS + ", ***)");
+    debugLog (() -> "save (" + aOS + ", ***)");
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -690,7 +689,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
       }
       catch (final IOException | GeneralSecurityException ex)
       {
-        debugLog ( () -> "save -> " + _debug (ex));
+        debugLog (() -> "save -> " + _debug (ex));
         throw WrappedAS2Exception.wrap (ex);
       }
       finally
@@ -705,7 +704,7 @@ public abstract class AbstractCertificateFactory extends AbstractDynamicComponen
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Finished saving keystore to an OutputStream");
-    debugLog ( () -> "save -> done");
+    debugLog (() -> "save -> done");
   }
 
   @Override

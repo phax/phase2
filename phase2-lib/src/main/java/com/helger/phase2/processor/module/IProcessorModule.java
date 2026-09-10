@@ -78,6 +78,7 @@ public interface IProcessorModule extends IDynamicComponent
    * @throws AS2Exception
    *         in case something goes wrong
    */
-  void handle (@NonNull String sAction, @NonNull IMessage aMsg, @Nullable Map <String, Object> aOptions)
-                                                                                                         throws AS2Exception;
+  void handle (@NonNull String sAction,
+               @NonNull IMessage aMsg,
+               @Nullable Map <String, Object> aOptions) throws AS2Exception;
 }

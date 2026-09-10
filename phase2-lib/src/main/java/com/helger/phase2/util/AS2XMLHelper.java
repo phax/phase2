@@ -76,7 +76,7 @@ public final class AS2XMLHelper
     ValueEnforcer.notNull (aElement, "Element");
 
     final StringMap ret = new StringMap ();
-    aElement.forAllAttributes ( (ns, name, value) -> ret.putIn (name.toLowerCase (Locale.US), value));
+    aElement.forAllAttributes ((ns, name, value) -> ret.putIn (name.toLowerCase (Locale.US), value));
     return ret;
   }
 
@@ -135,8 +135,8 @@ public final class AS2XMLHelper
     return ret;
   }
 
-  private static void _updateDirectories (@NonNull final StringMap aAttributes, @Nullable final String sBaseDirectory)
-                                                                                                                       throws AS2Exception
+  private static void _updateDirectories (@NonNull final StringMap aAttributes,
+                                          @Nullable final String sBaseDirectory) throws AS2Exception
   {
     for (final Map.Entry <String, String> attrEntry : aAttributes.entrySet ())
     {

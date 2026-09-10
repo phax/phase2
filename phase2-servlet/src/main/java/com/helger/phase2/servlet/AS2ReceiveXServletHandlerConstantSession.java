@@ -26,8 +26,7 @@ import com.helger.phase2.session.AS2Session;
 import jakarta.servlet.ServletException;
 
 /**
- * A special {@link AbstractAS2ReceiveXServletHandler} with an external
- * {@link AS2Session}.
+ * A special {@link AbstractAS2ReceiveXServletHandler} with an external {@link AS2Session}.
  *
  * @author Philip Helger
  * @since 4.8.0

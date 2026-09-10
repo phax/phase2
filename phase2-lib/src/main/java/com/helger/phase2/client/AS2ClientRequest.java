@@ -344,8 +344,8 @@ public class AS2ClientRequest
     {
       // Ensure Content-Type is present - required for MIC calculation etc.
       aPart.setHeader (CHttpHeader.CONTENT_TYPE,
-                       m_sContentType != null ? m_sContentType : CMimeType.APPLICATION_OCTET_STREAM
-                                                                                                   .getAsStringWithoutParameters ());
+                       m_sContentType != null ? m_sContentType
+                                              : CMimeType.APPLICATION_OCTET_STREAM.getAsStringWithoutParameters ());
     }
 
     // Set Content-Transfer-Encoding of the uncompressed, unsigned, unencrypted

@@ -58,7 +58,7 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
 
   protected final void setPartners (@NonNull final PartnerMap aPartners) throws AS2Exception
   {
-    m_aRWLock.writeLockedThrowing ( () -> {
+    m_aRWLock.writeLockedThrowing (() -> {
       m_aPartners.setPartners (aPartners);
       markAsChanged ();
     });
@@ -66,7 +66,7 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
 
   public void addPartner (@NonNull final Partner aNewPartner) throws AS2Exception
   {
-    m_aRWLock.writeLockedThrowing ( () -> {
+    m_aRWLock.writeLockedThrowing (() -> {
       m_aPartners.addPartner (aNewPartner);
       markAsChanged ();
     });
@@ -75,7 +75,7 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
   @NonNull
   public EChange removePartner (@Nullable final String sPartnerName) throws AS2Exception
   {
-    return m_aRWLock.writeLockedGetThrowing ( () -> {
+    return m_aRWLock.writeLockedGetThrowing (() -> {
       if (m_aPartners.removePartner (sPartnerName).isUnchanged ())
         return EChange.UNCHANGED;
       markAsChanged ();
@@ -86,7 +86,7 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
   @Nullable
   public Partner getPartnerOfName (@Nullable final String sPartnerName)
   {
-    return m_aRWLock.readLockedGet ( () -> m_aPartners.getPartnerOfName (sPartnerName));
+    return m_aRWLock.readLockedGet (() -> m_aPartners.getPartnerOfName (sPartnerName));
   }
 
   @NonNull
@@ -106,7 +106,7 @@ public abstract class AbstractPartnershipFactoryWithPartners extends AbstractPar
   @NonNull
   public IPartnerMap getPartnerMap ()
   {
-    return m_aRWLock.readLockedGet ( () -> m_aPartners);
+    return m_aRWLock.readLockedGet (() -> m_aPartners);
   }
 
   @Override

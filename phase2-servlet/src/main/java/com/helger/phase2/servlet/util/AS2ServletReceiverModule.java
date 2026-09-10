@@ -20,8 +20,7 @@ import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.processor.receiver.AS2ReceiverModule;
 
 /**
- * A specialized {@link AS2ReceiverModule} implementation that disables the
- * active parts.
+ * A specialized {@link AS2ReceiverModule} implementation that disables the active parts.
  *
  * @author Philip Helger
  */

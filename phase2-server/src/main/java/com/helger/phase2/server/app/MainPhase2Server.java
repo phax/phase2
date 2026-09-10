@@ -50,8 +50,7 @@ import com.helger.phase2.server.cmd.ICommandRegistry;
 import com.helger.phase2.server.cmdprocessor.AbstractCommandProcessor;
 
 /**
- * original author unknown in this release added ability to have multiple
- * command processors
+ * original author unknown in this release added ability to have multiple command processors
  *
  * @author joseph mcverry
  */

@@ -85,7 +85,7 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
   {
     ValueEnforcer.notNull (aPartnership, "Partnership");
 
-    return m_aRWLock.readLockedGetThrowing ( () -> {
+    return m_aRWLock.readLockedGetThrowing (() -> {
       Partnership aRealPartnership = m_aPartnerships.getPartnershipByName (aPartnership.getName ());
       if (aRealPartnership == null)
       {
@@ -103,7 +103,7 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
   @Nullable
   public Partnership getPartnershipByName (@Nullable final String sName)
   {
-    return m_aRWLock.readLockedGet ( () -> m_aPartnerships.getPartnershipByName (sName));
+    return m_aRWLock.readLockedGet (() -> m_aPartnerships.getPartnershipByName (sName));
   }
 
   @NonNull
@@ -123,12 +123,12 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
   @NonNull
   public IPartnershipMap getPartnershipMap ()
   {
-    return m_aRWLock.readLockedGet ( () -> m_aPartnerships);
+    return m_aRWLock.readLockedGet (() -> m_aPartnerships);
   }
 
   protected final void setPartnerships (@NonNull final PartnershipMap aPartnerships) throws AS2Exception
   {
-    m_aRWLock.writeLockedThrowing ( () -> {
+    m_aRWLock.writeLockedThrowing (() -> {
       m_aPartnerships.setPartnerships (aPartnerships);
       markAsChanged ();
     });
@@ -137,7 +137,7 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
   @NonNull
   public final EChange addPartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
-    return m_aRWLock.writeLockedGetThrowing ( () -> {
+    return m_aRWLock.writeLockedGetThrowing (() -> {
       if (m_aPartnerships.addPartnership (aPartnership).isUnchanged ())
         return EChange.UNCHANGED;
       markAsChanged ();
@@ -148,7 +148,7 @@ public abstract class AbstractPartnershipFactory extends AbstractDynamicComponen
   @NonNull
   public final EChange removePartnership (@NonNull final Partnership aPartnership) throws AS2Exception
   {
-    return m_aRWLock.writeLockedGetThrowing ( () -> {
+    return m_aRWLock.writeLockedGetThrowing (() -> {
       if (m_aPartnerships.removePartnership (aPartnership).isUnchanged ())
         return EChange.UNCHANGED;
       markAsChanged ();

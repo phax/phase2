@@ -25,16 +25,15 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 
 /**
- * A very simple listener, that setups the framework for running the AS2
- * servlet. Use this as a &lt;listener&gt; in your <code>web.xml</code>.
+ * A very simple listener, that setups the framework for running the AS2 servlet. Use this as a
+ * &lt;listener&gt; in your <code>web.xml</code>.
  *
  * @author Philip Helger
  */
 public class AS2WebAppListener implements ServletContextListener
 {
   /**
-   * Do the global initialization when not using the
-   * {@link ServletContextListener}.
+   * Do the global initialization when not using the {@link ServletContextListener}.
    *
    * @param aSC
    *        The servlet context. May not be <code>null</code>.

@@ -93,8 +93,8 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
   private static final Logger LOGGER = LoggerFactory.getLogger (DirectoryResenderModule.class);
 
   @Override
-  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
-                                                                                                              throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                    @Nullable final IStringMap aOptions) throws AS2Exception
   {
     super.initDynamicComponent (aSession, aOptions);
     getAttributeAsStringRequired (ATTR_RESEND_DIRECTORY);
@@ -137,8 +137,8 @@ public class DirectoryResenderModule extends AbstractActiveResenderModule
       try (final FileOutputStream aFOS = new FileOutputStream (aResendFile);
            final ObjectOutputStream aOOS = new ObjectOutputStream (aFOS))
       {
-        String sResendAction = aOptions == null ? null : (String) aOptions.get (
-                                                                                IProcessorResenderModule.OPTION_RESEND_ACTION);
+        String sResendAction = aOptions == null ? null
+                                                : (String) aOptions.get (IProcessorResenderModule.OPTION_RESEND_ACTION);
         if (sResendAction == null)
         {
           LOGGER.warn ("The resending method is missing - default to message sending!");

@@ -117,8 +117,8 @@ public class TempSharedFileInputStream extends SharedFileInputStream
    */
   @NonNull
   @Deprecated (forRemoval = true, since = "6.2.0")
-  protected static File storeContentToTempFile (@NonNull @WillClose final InputStream aIS, @NonNull final String sName)
-                                                                                                                        throws IOException
+  protected static File storeContentToTempFile (@NonNull @WillClose final InputStream aIS,
+                                                @NonNull final String sName) throws IOException
   {
     return TempSharedFileBackedStream.storeContentToTempFile (aIS, sName);
   }

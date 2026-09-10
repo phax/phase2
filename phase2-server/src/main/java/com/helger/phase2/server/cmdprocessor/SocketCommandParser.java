@@ -44,8 +44,8 @@ import com.helger.xml.serialize.read.SAXReader;
 import com.helger.xml.serialize.read.SAXReaderSettings;
 
 /**
- * used to parse commands from the socket command processor message format
- * &lt;command userid="abc" pasword="xyz"&gt; the actual command&lt;/command&gt;
+ * used to parse commands from the socket command processor message format &lt;command userid="abc"
+ * pasword="xyz"&gt; the actual command&lt;/command&gt;
  *
  * @author joseph mcverry
  */

@@ -20,8 +20,8 @@ import com.helger.phase2.exception.AS2Exception;
 import com.helger.phase2.partner.xml.SelfFillingXMLPartnershipFactory;
 
 /**
- * A specialized {@link SelfFillingXMLPartnershipFactory} that automatically
- * stores partnerships to a file.
+ * A specialized {@link SelfFillingXMLPartnershipFactory} that automatically stores partnerships to
+ * a file.
  *
  * @author Philip Helger
  */

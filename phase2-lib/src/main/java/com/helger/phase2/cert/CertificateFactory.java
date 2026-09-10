@@ -60,37 +60,37 @@ public class CertificateFactory extends AbstractCertificateFactory implements IS
 
   public void setFilename (@Nullable final String sFilename)
   {
-    debugLog ( () -> "setFilename (" + sFilename + ")");
-    m_aRWLock.writeLocked ( () -> attrs ().putIn (ATTR_FILENAME, sFilename));
+    debugLog (() -> "setFilename (" + sFilename + ")");
+    m_aRWLock.writeLocked (() -> attrs ().putIn (ATTR_FILENAME, sFilename));
   }
 
   @Nullable
   public String getFilename ()
   {
-    debugLog ( () -> "getFilename ()");
-    final String ret = m_aRWLock.readLockedGet ( () -> attrs ().getAsString (ATTR_FILENAME));
-    debugLog ( () -> "getFilename -> " + ret);
+    debugLog (() -> "getFilename ()");
+    final String ret = m_aRWLock.readLockedGet (() -> attrs ().getAsString (ATTR_FILENAME));
+    debugLog (() -> "getFilename -> " + ret);
     return ret;
   }
 
   public void setSaveChangesToFile (final boolean bSaveChangesToFile)
   {
-    debugLog ( () -> "setSaveChangesToFile (" + bSaveChangesToFile + ")");
-    m_aRWLock.writeLocked ( () -> attrs ().putIn (ATTR_SAVE_CHANGES_TO_FILE, bSaveChangesToFile));
+    debugLog (() -> "setSaveChangesToFile (" + bSaveChangesToFile + ")");
+    m_aRWLock.writeLocked (() -> attrs ().putIn (ATTR_SAVE_CHANGES_TO_FILE, bSaveChangesToFile));
   }
 
   public boolean isSaveChangesToFile ()
   {
-    debugLog ( () -> "isSaveChangesToFile ()");
-    final boolean ret = m_aRWLock.readLockedBoolean ( () -> attrs ().getAsBoolean (ATTR_SAVE_CHANGES_TO_FILE,
-                                                                                   DEFAULT_SAVE_CHANGES_TO_FILE));
-    debugLog ( () -> "isSaveChangesToFile -> " + ret);
+    debugLog (() -> "isSaveChangesToFile ()");
+    final boolean ret = m_aRWLock.readLockedBoolean (() -> attrs ().getAsBoolean (ATTR_SAVE_CHANGES_TO_FILE,
+                                                                                  DEFAULT_SAVE_CHANGES_TO_FILE));
+    debugLog (() -> "isSaveChangesToFile -> " + ret);
     return ret;
   }
 
   public void reinitKeyStore () throws AS2Exception
   {
-    debugLog ( () -> "reinitKeyStore ()");
+    debugLog (() -> "reinitKeyStore ()");
 
     // Ensure it is empty
     initEmptyKeyStore ();
@@ -100,7 +100,7 @@ public class CertificateFactory extends AbstractCertificateFactory implements IS
     if (StringHelper.isNotEmpty (sFilename))
       load (sFilename, getPassword ());
 
-    debugLog ( () -> "reinitKeyStore -> done");
+    debugLog (() -> "reinitKeyStore -> done");
   }
 
   /**
@@ -116,7 +116,7 @@ public class CertificateFactory extends AbstractCertificateFactory implements IS
   @OverrideOnDemand
   protected void onChange () throws AS2Exception
   {
-    debugLog ( () -> "onChange ()");
+    debugLog (() -> "onChange ()");
     if (isSaveChangesToFile ())
     {
       final String sFilename = getFilename ();
@@ -133,6 +133,6 @@ public class CertificateFactory extends AbstractCertificateFactory implements IS
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Something changed in the keystore, saving of changes is disabled");
     }
-    debugLog ( () -> "onChange -> done");
+    debugLog (() -> "onChange -> done");
   }
 }

@@ -429,9 +429,8 @@ public class AS2SenderModule extends AbstractHttpSenderModule
     return aCompressedGenerator.generate (aData, eCompressionType.createOutputCompressor ());
   }
 
-  private static void _logMimeBodyPart (@NonNull final MimeBodyPart aMimePart, @NonNull final String sContext)
-                                                                                                               throws IOException,
-                                                                                                               MessagingException
+  private static void _logMimeBodyPart (@NonNull final MimeBodyPart aMimePart,
+                                        @NonNull final String sContext) throws IOException, MessagingException
   {
     // Should always be false in production
     if (false)
@@ -542,8 +541,8 @@ public class AS2SenderModule extends AbstractHttpSenderModule
   }
 
   @NonNull
-  protected MimeBodyPart secure (@NonNull final IMessage aMsg, @NonNull final EContentTransferEncoding eCTE)
-                                                                                                             throws Exception
+  protected MimeBodyPart secure (@NonNull final IMessage aMsg,
+                                 @NonNull final EContentTransferEncoding eCTE) throws Exception
   {
     final Partnership aPartnership = aMsg.partnership ();
     final ICertificateFactory aCertFactory = getSession ().getCertificateFactory ();
@@ -881,9 +880,7 @@ public class AS2SenderModule extends AbstractHttpSenderModule
                              @Nullable final EContentTransferEncoding eCTE,
                              @Nullable final IHTTPOutgoingDumper aOutgoingDumper,
                              @Nullable final IHTTPIncomingDumper aIncomingDumper,
-                             @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception,
-                                                                          IOException,
-                                                                          MessagingException
+                             @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception, IOException, MessagingException
   {
     final Partnership aPartnership = aMsg.partnership ();
 

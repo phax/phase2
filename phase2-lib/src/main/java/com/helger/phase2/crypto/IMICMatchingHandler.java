@@ -70,6 +70,7 @@ public interface IMICMatchingHandler
    * @throws AS2Exception
    *         In case of error
    */
-  void onMICMismatch (@NonNull IMessage aMsg, @Nullable String sOriginalMIC, @Nullable String sReceivedMIC)
-                                                                                                            throws AS2Exception;
+  void onMICMismatch (@NonNull IMessage aMsg,
+                      @Nullable String sOriginalMIC,
+                      @Nullable String sReceivedMIC) throws AS2Exception;
 }

@@ -278,8 +278,7 @@ public class AS2HttpClient
           // Use MIME encoding here
           try (final OutputStream aDebugOS = aOutgoingDumper != null ? aOutgoingDumper.getDumpOS (aOS) : aOS)
           {
-            try (final OutputStream aEncodedOS = eCTE != null ? AS2IOHelper
-                                                                           .getContentTransferEncodingAwareOutputStream (aDebugOS,
+            try (final OutputStream aEncodedOS = eCTE != null ? AS2IOHelper.getContentTransferEncodingAwareOutputStream (aDebugOS,
                                                                                                                          eCTE.getID ())
                                                               : aDebugOS)
             {

@@ -37,8 +37,8 @@ import jakarta.activation.DataSource;
 import jakarta.servlet.ServletException;
 
 /**
- * This is the main XServlet handler that takes async MDNs messages and
- * processes them. This class contains a lot of methods that may be overridden.
+ * This is the main XServlet handler that takes async MDNs messages and processes them. This class
+ * contains a lot of methods that may be overridden.
  *
  * @author Philip Helger
  * @since 4.6.4
@@ -46,8 +46,8 @@ import jakarta.servlet.ServletException;
 public abstract class AbstractAS2MDNReceiveXServletHandler extends AbstractAS2ReceiveBaseXServletHandler
 {
   /**
-   * The name of the Servlet's init-parameter from which the absolute path to
-   * the configuration file is read.
+   * The name of the Servlet's init-parameter from which the absolute path to the configuration file
+   * is read.
    */
   public static final String SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME = "as2-servlet-config-filename";
 
@@ -69,8 +69,7 @@ public abstract class AbstractAS2MDNReceiveXServletHandler extends AbstractAS2Re
   @Override
   @NonNull
   @OverrideOnDemand
-  protected abstract AS2Session createAS2Session (@NonNull ICommonsMap <String, String> aInitParams) throws AS2Exception,
-                                                                                                     ServletException;
+  protected abstract AS2Session createAS2Session (@NonNull ICommonsMap <String, String> aInitParams) throws AS2Exception, ServletException;
 
   @Override
   public void onServletInit (@NonNull final ICommonsMap <String, String> aInitParams) throws ServletException
@@ -94,8 +93,7 @@ public abstract class AbstractAS2MDNReceiveXServletHandler extends AbstractAS2Re
   }
 
   /**
-   * @return The AS2 receiver module that was created in initialization. Never
-   *         <code>null</code>.
+   * @return The AS2 receiver module that was created in initialization. Never <code>null</code>.
    * @throws IllegalStateException
    *         In case initialization failed
    */

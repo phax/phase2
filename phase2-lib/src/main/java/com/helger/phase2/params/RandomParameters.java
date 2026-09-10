@@ -44,8 +44,8 @@ public class RandomParameters extends AbstractParameterParser
    */
   @Override
   @Deprecated (forRemoval = false)
-  public void setParameter (@NonNull final String sKey, @Nullable final String sValue)
-                                                                                       throws AS2InvalidParameterException
+  public void setParameter (@NonNull final String sKey,
+                            @Nullable final String sValue) throws AS2InvalidParameterException
   {
     throw new AS2InvalidParameterException ("Set not supported", this, sKey, sValue);
   }

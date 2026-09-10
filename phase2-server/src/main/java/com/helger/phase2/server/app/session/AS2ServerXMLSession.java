@@ -139,8 +139,8 @@ public class AS2ServerXMLSession extends AS2Session implements ICommandRegistryF
       loadCommandProcessor (m_aCmdManager, processor);
   }
 
-  protected void loadCommandProcessor (@NonNull final CommandManager aCommandMgr, @NonNull final IMicroElement aElement)
-                                                                                                                         throws AS2Exception
+  protected void loadCommandProcessor (@NonNull final CommandManager aCommandMgr,
+                                       @NonNull final IMicroElement aElement) throws AS2Exception
   {
     final AbstractCommandProcessor aCmdProcesor = AS2XMLHelper.createComponent (aElement,
                                                                                 AbstractCommandProcessor.class,

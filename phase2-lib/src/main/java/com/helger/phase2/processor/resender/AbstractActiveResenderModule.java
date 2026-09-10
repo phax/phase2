@@ -83,8 +83,8 @@ public abstract class AbstractActiveResenderModule extends AbstractActiveModule 
 
   @Override
   @OverridingMethodsMustInvokeSuper
-  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParameters)
-                                                                                                                 throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                    @Nullable final IStringMap aParameters) throws AS2Exception
   {
     super.initDynamicComponent (aSession, aParameters);
 

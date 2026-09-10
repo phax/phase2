@@ -24,11 +24,11 @@ import com.helger.xservlet.AbstractXServlet;
 import jakarta.servlet.ServletException;
 
 /**
- * This is the main servlet that takes AS2 messages and processes them. This
- * servlet is configured to accept only POST requests. The logic for receiving
- * is contained in {@link AS2ReceiveXServletHandlerCodeConfig}.<br>
- * This is an alternative implementation to {@link AS2ReceiveServlet} which uses
- * a file to set the configuration.
+ * This is the main servlet that takes AS2 messages and processes them. This servlet is configured
+ * to accept only POST requests. The logic for receiving is contained in
+ * {@link AS2ReceiveXServletHandlerCodeConfig}.<br>
+ * This is an alternative implementation to {@link AS2ReceiveServlet} which uses a file to set the
+ * configuration.
  *
  * @author Philip Helger
  */

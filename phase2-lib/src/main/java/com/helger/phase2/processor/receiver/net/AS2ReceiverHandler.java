@@ -343,8 +343,8 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
     }
   }
 
-  protected void decompress (@NonNull final IMessage aMsg, @NonNull final AS2ResourceHelper aResHelper)
-                                                                                                        throws AS2DispositionException
+  protected void decompress (@NonNull final IMessage aMsg,
+                             @NonNull final AS2ResourceHelper aResHelper) throws AS2DispositionException
   {
     try
     {

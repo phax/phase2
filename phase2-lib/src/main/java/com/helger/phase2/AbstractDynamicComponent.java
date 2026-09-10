@@ -76,7 +76,7 @@ public abstract class AbstractDynamicComponent implements IDynamicComponent
   @NonNull
   public final String getAttributeAsStringRequired (@NonNull final String sKey) throws AS2InvalidParameterException
   {
-    final String sValue = m_aRWLock.readLockedGet ( () -> attrs ().getAsString (sKey));
+    final String sValue = m_aRWLock.readLockedGet (() -> attrs ().getAsString (sKey));
     if (sValue == null)
       throw new AS2InvalidParameterException ("Parameter not found", this, sKey, null);
     return sValue;
@@ -84,7 +84,7 @@ public abstract class AbstractDynamicComponent implements IDynamicComponent
 
   public final int getAttributeAsIntRequired (@NonNull final String sKey) throws AS2InvalidParameterException
   {
-    final int nValue = m_aRWLock.readLockedInt ( () -> attrs ().getAsInt (sKey, Integer.MIN_VALUE));
+    final int nValue = m_aRWLock.readLockedInt (() -> attrs ().getAsInt (sKey, Integer.MIN_VALUE));
     if (nValue == Integer.MIN_VALUE)
       throw new AS2InvalidParameterException ("Parameter not found", this, sKey, null);
     return nValue;
@@ -99,11 +99,11 @@ public abstract class AbstractDynamicComponent implements IDynamicComponent
   }
 
   @OverridingMethodsMustInvokeSuper
-  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParameters)
-                                                                                                                 throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                    @Nullable final IStringMap aParameters) throws AS2Exception
   {
     m_aSession = ValueEnforcer.notNull (aSession, "Session");
-    m_aRWLock.writeLockedGet ( () -> attrs ().putAllIn (aParameters));
+    m_aRWLock.writeLockedGet (() -> attrs ().putAllIn (aParameters));
   }
 
   @Override

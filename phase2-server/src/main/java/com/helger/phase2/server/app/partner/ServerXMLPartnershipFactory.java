@@ -49,8 +49,8 @@ import com.helger.phase2.server.util.FileMonitor;
 import com.helger.phase2.server.util.IFileMonitorListener;
 
 /**
- * original author unknown this release added logic to store partnerships and
- * provide methods for partner/partnership command line processor
+ * original author unknown this release added logic to store partnerships and provide methods for
+ * partner/partnership command line processor
  *
  * @author joseph mcverry
  * @author Philip Helger

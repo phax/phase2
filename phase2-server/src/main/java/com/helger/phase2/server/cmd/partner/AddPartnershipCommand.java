@@ -68,8 +68,8 @@ public class AddPartnershipCommand extends AbstractAliasedPartnershipsCommand
   }
 
   @Override
-  public CommandResult execute (final IPartnershipFactoryWithPartners partFx, final Object [] params)
-                                                                                                      throws AS2Exception
+  public CommandResult execute (final IPartnershipFactoryWithPartners partFx,
+                                final Object [] params) throws AS2Exception
   {
     if (params.length < 3)
       return new CommandResult (ECommandResultType.TYPE_INVALID_PARAM_COUNT, getUsage ());

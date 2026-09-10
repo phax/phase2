@@ -42,15 +42,15 @@ public class AS2OutputStreamCreatorHttpServletResponse implements IAS2HttpRespon
   private final HttpServletResponse m_aHttpResponse;
   private final boolean m_bQuoteHeaderValues;
 
-  public AS2OutputStreamCreatorHttpServletResponse (@NonNull final HttpServletResponse aHttpResponse, final boolean bQuoteHeaderValues)
+  public AS2OutputStreamCreatorHttpServletResponse (@NonNull final HttpServletResponse aHttpResponse,
+                                                    final boolean bQuoteHeaderValues)
   {
     m_aHttpResponse = ValueEnforcer.notNull (aHttpResponse, "HttpResponse");
     m_bQuoteHeaderValues = bQuoteHeaderValues;
   }
 
   /**
-   * @return <code>true</code> if HTTP header values should be quoted,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if HTTP header values should be quoted, <code>false</code> if not.
    * @since 4.4.4
    */
   public final boolean isQuoteHeaderHeaderValues ()
@@ -66,7 +66,7 @@ public class AS2OutputStreamCreatorHttpServletResponse implements IAS2HttpRespon
     m_aHttpResponse.setStatus (nHttpResponseCode);
 
     // Add headers (unify always)
-    aHeaders.forEachSingleHeader ( (k, v) -> m_aHttpResponse.addHeader (k, v), true, m_bQuoteHeaderValues);
+    aHeaders.forEachSingleHeader ((k, v) -> m_aHttpResponse.addHeader (k, v), true, m_bQuoteHeaderValues);
 
     // Write response body
     final OutputStream aOS = StreamHelper.getBuffered (m_aHttpResponse.getOutputStream ());

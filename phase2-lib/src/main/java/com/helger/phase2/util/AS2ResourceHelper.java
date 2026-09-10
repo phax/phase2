@@ -129,12 +129,10 @@ public class AS2ResourceHelper implements Closeable
     // Create
     final File ret = s_aTempDir != null ? Files.createTempFile (s_aTempDir.toPath (),
                                                                 TEMP_FILE_PREFIX,
-                                                                TEMP_FILE_SUFFIX).toFile () : Files.createTempFile (
-                                                                                                                    TEMP_FILE_PREFIX,
-                                                                                                                    TEMP_FILE_SUFFIX)
-                                                                                                   .toFile ();
+                                                                TEMP_FILE_SUFFIX).toFile ()
+                                        : Files.createTempFile (TEMP_FILE_PREFIX, TEMP_FILE_SUFFIX).toFile ();
     // And remember
-    m_aRWLock.writeLocked ( () -> m_aTempFiles.add (ret));
+    m_aRWLock.writeLocked (() -> m_aTempFiles.add (ret));
     return ret;
   }
 
@@ -184,7 +182,7 @@ public class AS2ResourceHelper implements Closeable
     {
       // Close all closeables before deleting files, because the closables might
       // be the files to be deleted :)
-      final ICommonsList <Closeable> aCloseables = m_aRWLock.writeLockedGet ( () -> {
+      final ICommonsList <Closeable> aCloseables = m_aRWLock.writeLockedGet (() -> {
         final ICommonsList <Closeable> ret = m_aCloseables.getClone ();
         m_aCloseables.clear ();
         return ret;
@@ -199,7 +197,7 @@ public class AS2ResourceHelper implements Closeable
       }
 
       // Get and delete all temp files
-      final ICommonsList <File> aFiles = m_aRWLock.writeLockedGet ( () -> {
+      final ICommonsList <File> aFiles = m_aRWLock.writeLockedGet (() -> {
         final ICommonsList <File> ret = m_aTempFiles.getClone ();
         m_aTempFiles.clear ();
         return ret;

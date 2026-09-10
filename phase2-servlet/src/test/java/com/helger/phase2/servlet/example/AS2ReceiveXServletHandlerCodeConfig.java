@@ -34,8 +34,8 @@ import com.helger.security.keystore.EKeyStoreType;
 import jakarta.servlet.ServletException;
 
 /**
- * A special {@link AbstractAS2ReceiveBaseXServletHandler} with a code based
- * configuration. This is contained as an example only.
+ * A special {@link AbstractAS2ReceiveBaseXServletHandler} with a code based configuration. This is
+ * contained as an example only.
  *
  * @author Philip Helger
  */
@@ -74,8 +74,7 @@ public class AS2ReceiveXServletHandlerCodeConfig extends AbstractAS2ReceiveXServ
       aSession.setMessageProcessor (aMessageProcessor);
 
       /**
-       * Required to receive messages port is required internally - simply
-       * ignore it for servlets
+       * Required to receive messages port is required internally - simply ignore it for servlets
        */
       {
         final AS2ServletReceiverModule aModule = new AS2ServletReceiverModule ();

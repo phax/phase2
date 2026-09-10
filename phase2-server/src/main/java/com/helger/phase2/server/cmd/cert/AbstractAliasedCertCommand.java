@@ -53,7 +53,8 @@ public abstract class AbstractAliasedCertCommand extends AbstractCommand
       if (certFx instanceof IAliasedCertificateFactory)
         return execute ((IAliasedCertificateFactory) certFx, params);
 
-      return new CommandResult (ECommandResultType.TYPE_COMMAND_NOT_SUPPORTED, "Not supported by current certificate store");
+      return new CommandResult (ECommandResultType.TYPE_COMMAND_NOT_SUPPORTED,
+                                "Not supported by current certificate store");
     }
     catch (final AS2Exception oae)
     {
@@ -63,5 +64,6 @@ public abstract class AbstractAliasedCertCommand extends AbstractCommand
     }
   }
 
-  protected abstract CommandResult execute (@NonNull IAliasedCertificateFactory certFx, Object [] params) throws AS2Exception;
+  protected abstract CommandResult execute (@NonNull IAliasedCertificateFactory certFx,
+                                            Object [] params) throws AS2Exception;
 }

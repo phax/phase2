@@ -37,8 +37,7 @@ import org.jspecify.annotations.Nullable;
 public interface ICommandRegistryFactory
 {
   /**
-   * @return The command registry. May be <code>null</code> if it was not yet
-   *         initialized.
+   * @return The command registry. May be <code>null</code> if it was not yet initialized.
    */
   @Nullable
   ICommandRegistry getCommandRegistry ();

@@ -83,8 +83,8 @@ public abstract class AbstractActivePollingModule extends AbstractActiveReceiver
 
   @Override
   @OverridingMethodsMustInvokeSuper
-  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
-                                                                                                              throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                    @Nullable final IStringMap aOptions) throws AS2Exception
   {
     super.initDynamicComponent (aSession, aOptions);
     getAttributeAsStringRequired (ATTR_POLLING_INTERVAL);

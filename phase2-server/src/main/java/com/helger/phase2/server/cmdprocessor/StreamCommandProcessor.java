@@ -82,8 +82,8 @@ public class StreamCommandProcessor extends AbstractCommandProcessor
     m_aWriter = new BufferedWriter (new OutputStreamWriter (System.out));
   }
 
-  public void initDynamicComponent (@NonNull final IAS2Session session, @Nullable final IStringMap parameters)
-                                                                                                               throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session session,
+                                    @Nullable final IStringMap parameters) throws AS2Exception
   {}
 
   @NonNull

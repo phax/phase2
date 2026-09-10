@@ -35,7 +35,9 @@ public class MyHandlerModule extends AbstractProcessorModule implements IProcess
     return sAction.equals (DO_STORE);
   }
 
-  public void handle (final String sAction, final IMessage aMsg, final Map <String, Object> aOptions) throws AS2Exception
+  public void handle (final String sAction,
+                      final IMessage aMsg,
+                      final Map <String, Object> aOptions) throws AS2Exception
   {
     // TODO e.g. save to DB
     LOGGER.info ("Received AS2 message");

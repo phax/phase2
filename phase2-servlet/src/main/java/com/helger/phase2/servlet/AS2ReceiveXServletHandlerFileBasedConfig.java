@@ -31,21 +31,18 @@ import com.helger.phase2.session.AS2Session;
 import jakarta.servlet.ServletException;
 
 /**
- * A special {@link AbstractAS2ReceiveXServletHandler} with a file based
- * configuration.
+ * A special {@link AbstractAS2ReceiveXServletHandler} with a file based configuration.
  *
  * @author Philip Helger
  */
 public class AS2ReceiveXServletHandlerFileBasedConfig extends AbstractAS2ReceiveXServletHandler
 {
   /**
-   * Get the AS2 configuration file to be used. By default this method reads it
-   * from the Servlet init-param called
-   * {@link #SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME}. You may override
+   * Get the AS2 configuration file to be used. By default this method reads it from the Servlet
+   * init-param called {@link #SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME}. You may override
    * this method to use another way of retrieving the configuration file. <br>
-   * Note: it must be a {@link File} because the configuration file allows for
-   * "%home%" parameter substitution which uses the directory of the
-   * configuration file as the base directory.
+   * Note: it must be a {@link File} because the configuration file allows for "%home%" parameter
+   * substitution which uses the directory of the configuration file as the base directory.
    *
    * @param aInitParams
    *        Servlet init parameters
@@ -59,7 +56,9 @@ public class AS2ReceiveXServletHandlerFileBasedConfig extends AbstractAS2Receive
   {
     final String sConfigurationFilename = aInitParams.get (SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME);
     if (StringHelper.isEmpty (sConfigurationFilename))
-      throw new ServletException ("Servlet Init-Parameter '" + SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME + "' is missing or empty!");
+      throw new ServletException ("Servlet Init-Parameter '" +
+                                  SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME +
+                                  "' is missing or empty!");
 
     try
     {

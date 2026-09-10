@@ -169,8 +169,8 @@ public final class TempSharedFileBackedStream implements Closeable
    *         in case of IO error.
    */
   @NonNull
-  static File storeContentToTempFile (@NonNull @WillClose final InputStream aIS, @NonNull final String sName)
-                                                                                                              throws IOException
+  static File storeContentToTempFile (@NonNull @WillClose final InputStream aIS,
+                                      @NonNull final String sName) throws IOException
   {
     // create temp file and write stream content to it
     // name may contain ":" on Windows and that would fail the tests!

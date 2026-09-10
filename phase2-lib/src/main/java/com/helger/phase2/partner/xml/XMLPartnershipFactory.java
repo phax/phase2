@@ -105,8 +105,8 @@ public class XMLPartnershipFactory extends AbstractPartnershipFactoryWithPartner
   }
 
   @Override
-  public void initDynamicComponent (@NonNull final IAS2Session session, @Nullable final IStringMap parameters)
-                                                                                                               throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session session,
+                                    @Nullable final IStringMap parameters) throws AS2Exception
   {
     super.initDynamicComponent (session, parameters);
 
@@ -169,8 +169,8 @@ public class XMLPartnershipFactory extends AbstractPartnershipFactoryWithPartner
     setPartnerships (aNewPartnerships);
   }
 
-  protected void loadPartnershipAttributes (@NonNull final IMicroElement aNode, @NonNull final Partnership aPartnership)
-                                                                                                                         throws AS2Exception
+  protected void loadPartnershipAttributes (@NonNull final IMicroElement aNode,
+                                            @NonNull final Partnership aPartnership) throws AS2Exception
   {
     final String sNodeName = "attribute";
     final String sNodeKeyName = "name";

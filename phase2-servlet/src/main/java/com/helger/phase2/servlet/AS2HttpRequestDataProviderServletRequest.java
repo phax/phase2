@@ -34,8 +34,8 @@ import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.ServletRequest;
 
 /**
- * Implementation of {@link IAS2HttpRequestDataProvider} based on a
- * {@link ServletRequest} {@link InputStream}.
+ * Implementation of {@link IAS2HttpRequestDataProvider} based on a {@link ServletRequest}
+ * {@link InputStream}.
  *
  * @author Philip Helger
  * @since 4.8.0
@@ -52,8 +52,8 @@ final class AS2HttpRequestDataProviderServletRequest implements IAS2HttpRequestD
    * @param aRequestScope
    *        HTTP Servlet Request. May not be <code>null</code>.
    * @param aRequestIS
-   *        Servlet request InputStream to read from. Will not be closed. May
-   *        not be <code>null</code>.
+   *        Servlet request InputStream to read from. Will not be closed. May not be
+   *        <code>null</code>.
    */
   public AS2HttpRequestDataProviderServletRequest (@NonNull final IRequestWebScope aRequestScope,
                                                    @NonNull @WillNotClose final ServletInputStream aRequestIS)
@@ -65,8 +65,8 @@ final class AS2HttpRequestDataProviderServletRequest implements IAS2HttpRequestD
   }
 
   /**
-   * Will return a buffered, {@link NonClosingInputStream} that when closed,
-   * will not close in source stream.
+   * Will return a buffered, {@link NonClosingInputStream} that when closed, will not close in
+   * source stream.
    *
    * @return {@link InputStream}
    */

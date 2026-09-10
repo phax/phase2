@@ -116,8 +116,8 @@ public class SocketCommandProcessor extends AbstractCommandProcessor
   }
 
   @Override
-  public void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aParams)
-                                                                                                             throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                    @Nullable final IStringMap aParams) throws AS2Exception
   {
     final StringMap aParameters = aParams == null ? new StringMap () : new StringMap (aParams);
     final String sPort = aParameters.getAsString (ATTR_PORTID);

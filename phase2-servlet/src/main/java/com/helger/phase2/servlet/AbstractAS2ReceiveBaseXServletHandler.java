@@ -76,8 +76,7 @@ public abstract class AbstractAS2ReceiveBaseXServletHandler implements IXServlet
    */
   @NonNull
   @OverrideOnDemand
-  protected abstract AS2Session createAS2Session (@NonNull ICommonsMap <String, String> aInitParams) throws AS2Exception,
-                                                                                                     ServletException;
+  protected abstract AS2Session createAS2Session (@NonNull ICommonsMap <String, String> aInitParams) throws AS2Exception, ServletException;
 
   @Override
   @OverridingMethodsMustInvokeSuper

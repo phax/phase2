@@ -88,9 +88,7 @@ public class AsynchMDNSenderModule extends AbstractHttpSenderModule
   private void _sendViaHTTP (@NonNull final AS2Message aMsg,
                              @NonNull final DispositionType aDisposition,
                              @Nullable final IHTTPOutgoingDumper aOutgoingDumper,
-                             @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception,
-                                                                          IOException,
-                                                                          MessagingException
+                             @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception, IOException, MessagingException
   {
     final IMessageMDN aMdn = aMsg.getMDN ();
 

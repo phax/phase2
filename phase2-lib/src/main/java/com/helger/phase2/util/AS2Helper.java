@@ -285,7 +285,10 @@ public final class AS2Helper
       LOGGER.info ("createMICOnReception: Using captured MIC source from signature verification");
     }
 
-    LOGGER.info ("createMICOnReception: signingAlgorithm=" + aPartnership.getSigningAlgorithm () + ", contentType=" + aPartToHash.getContentType ());
+    LOGGER.info ("createMICOnReception: signingAlgorithm=" +
+                 aPartnership.getSigningAlgorithm () +
+                 ", contentType=" +
+                 aPartToHash.getContentType ());
 
     return getCryptoHelper ().calculateMIC (aPartToHash, eSigningAlgorithm, bIncludeHeadersInMIC);
   }
@@ -493,8 +496,8 @@ public final class AS2Helper
         {
           final Object aPartContent = aReportPart.getContent ();
           if (LOGGER.isDebugEnabled ())
-            LOGGER.debug (aPartContent == null ? "Report part content is null" : "Report part content is a " +
-                                                                                 aPartContent.getClass ().getName ());
+            LOGGER.debug (aPartContent == null ? "Report part content is null"
+                                               : "Report part content is a " + aPartContent.getClass ().getName ());
           // XXX is this "toString" really a correct solution?
           aMDN.setText (aPartContent.toString ());
         }

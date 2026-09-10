@@ -82,7 +82,7 @@ public final class MainSendToLocalhost8080
     if (false)
       aOutgoingDumperFactory = x -> new HTTPOutgoingDumperStreamBased (System.out);
     if (false)
-      HTTPHelper.setHTTPIncomingDumperFactory ( () -> new HTTPIncomingDumperStreamBased (new NonClosingOutputStream (System.out)));
+      HTTPHelper.setHTTPIncomingDumperFactory (() -> new HTTPIncomingDumperStreamBased (new NonClosingOutputStream (System.out)));
 
     // Start client configuration
     final AS2ClientSettings aSettings = new AS2ClientSettings ();

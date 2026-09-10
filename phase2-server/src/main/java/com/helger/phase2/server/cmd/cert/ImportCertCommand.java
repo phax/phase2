@@ -98,7 +98,8 @@ public class ImportCertCommand extends AbstractAliasedCertCommand
       {
         if (password == null)
         {
-          return new CommandResult (ECommandResultType.TYPE_INVALID_PARAM_COUNT, getUsage () + " (Password is required for p12 files)");
+          return new CommandResult (ECommandResultType.TYPE_INVALID_PARAM_COUNT,
+                                    getUsage () + " (Password is required for p12 files)");
         }
 
         return importPrivateKey (EKeyStoreType.PKCS12, certFx, alias, filename, password);
@@ -128,7 +129,8 @@ public class ImportCertCommand extends AbstractAliasedCertCommand
         {
           certFx.addCertificate (sAlias, (X509Certificate) aCert, true);
 
-          final CommandResult cmdRes = new CommandResult (ECommandResultType.TYPE_OK, "Certificate(s) imported successfully");
+          final CommandResult cmdRes = new CommandResult (ECommandResultType.TYPE_OK,
+                                                          "Certificate(s) imported successfully");
           cmdRes.addResult ("Imported certificate: " + aCert.toString ());
           return cmdRes;
         }

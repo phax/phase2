@@ -68,8 +68,8 @@ public interface IAS2Session
    * @throws AS2ComponentDuplicateException
    *         In case a component with the same ID is already present
    */
-  void addComponent (@NonNull @Nonempty String sComponentID, @NonNull IDynamicComponent aComponent)
-                                                                                                    throws AS2ComponentDuplicateException;
+  void addComponent (@NonNull @Nonempty String sComponentID,
+                     @NonNull IDynamicComponent aComponent) throws AS2ComponentDuplicateException;
 
   /**
    * Gets the <code>Component</code> currently registered with an ID

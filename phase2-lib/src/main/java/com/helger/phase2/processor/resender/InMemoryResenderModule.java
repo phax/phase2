@@ -80,8 +80,8 @@ public class InMemoryResenderModule extends AbstractActiveResenderModule
                       @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     // Get the action to be used
-    String sResendAction = aOptions == null ? null : (String) aOptions.get (
-                                                                            IProcessorResenderModule.OPTION_RESEND_ACTION);
+    String sResendAction = aOptions == null ? null
+                                            : (String) aOptions.get (IProcessorResenderModule.OPTION_RESEND_ACTION);
     if (sResendAction == null)
     {
       LOGGER.warn ("The resending action is missing - default to message sending!");
@@ -101,7 +101,7 @@ public class InMemoryResenderModule extends AbstractActiveResenderModule
 
     // Build the item and add it to the vector
     final ResendItem aItem = new ResendItem (sResendAction, nRetries, aMsg, getResendDelayMS ());
-    m_aRWLock.writeLocked ( () -> m_aItems.add (aItem));
+    m_aRWLock.writeLocked (() -> m_aItems.add (aItem));
 
     LOGGER.info ("Message put in resend queue" + aMsg.getLoggingText ());
   }
@@ -126,7 +126,7 @@ public class InMemoryResenderModule extends AbstractActiveResenderModule
       getSession ().getMessageProcessor ().handle (sResendAction, aMsg, aOptions);
 
       // Finally remove from list
-      m_aRWLock.writeLocked ( () -> m_aItems.remove (aItem));
+      m_aRWLock.writeLocked (() -> m_aItems.remove (aItem));
     }
     catch (final AS2Exception ex)
     {
@@ -141,7 +141,7 @@ public class InMemoryResenderModule extends AbstractActiveResenderModule
     {
       // Determine all items to be re-send
       final ICommonsList <ResendItem> aResendItems = new CommonsArrayList <> ();
-      m_aRWLock.readLocked ( () -> m_aItems.findAll (ResendItem::isTimeToSend, aResendItems::add));
+      m_aRWLock.readLocked (() -> m_aItems.findAll (ResendItem::isTimeToSend, aResendItems::add));
 
       // Resend all selected items
       for (final ResendItem aResendItem : aResendItems)

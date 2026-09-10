@@ -49,7 +49,8 @@ public class MultiCommand extends AbstractCommand
   private ICommonsList <ICommand> m_aCmds;
 
   @Override
-  public void initDynamicComponent (@NonNull final IAS2Session session, @Nullable final IStringMap parameters) throws AS2Exception
+  public void initDynamicComponent (@NonNull final IAS2Session session,
+                                    @Nullable final IStringMap parameters) throws AS2Exception
   {
     super.initDynamicComponent (session, parameters);
     getAttributeAsStringRequired (ATTR_NAME);

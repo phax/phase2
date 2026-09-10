@@ -61,8 +61,8 @@ public class MessageParameters extends AbstractParameterParser
   }
 
   @Override
-  public void setParameter (@NonNull final String sKey, @Nullable final String sValue)
-                                                                                       throws AS2InvalidParameterException
+  public void setParameter (@NonNull final String sKey,
+                            @Nullable final String sValue) throws AS2InvalidParameterException
   {
     final String [] aKeyParts = StringHelper.getExplodedArray ('.', sKey, 2);
     if (aKeyParts.length != 2)

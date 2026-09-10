@@ -154,8 +154,8 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
   }
 
   @Override
-  public final void initDynamicComponent (@NonNull final IAS2Session aSession, @Nullable final IStringMap aOptions)
-                                                                                                                    throws AS2Exception
+  public final void initDynamicComponent (@NonNull final IAS2Session aSession,
+                                          @Nullable final IStringMap aOptions) throws AS2Exception
   {
     super.initDynamicComponent (aSession, aOptions);
     getAttributeAsStringRequired (ATTR_FILENAME);
@@ -179,8 +179,8 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
    */
   @NonNull
   @OverrideOnDemand
-  protected File getFile (@NonNull final IMessage aMsg, @Nullable final String sFileParam) throws IOException,
-                                                                                           AS2Exception
+  protected File getFile (@NonNull final IMessage aMsg,
+                          @Nullable final String sFileParam) throws IOException, AS2Exception
   {
     final String sFilename = getFilename (aMsg, sFileParam);
 
@@ -192,8 +192,8 @@ public abstract class AbstractStorageModule extends AbstractProcessorModule impl
                                       FilenameHelper.getAsSecureValidFilename (aFile.getName ()));
   }
 
-  private static void _writeStreamToFile (@NonNull @WillClose final InputStream aIS, @NonNull final File aDestination)
-                                                                                                                       throws IOException
+  private static void _writeStreamToFile (@NonNull @WillClose final InputStream aIS,
+                                          @NonNull final File aDestination) throws IOException
   {
     final FileOutputStream aOS = new FileOutputStream (aDestination);
     if (StreamHelper.copyInputStreamToOutputStreamAndCloseOS (aIS, aOS).isFailure ())

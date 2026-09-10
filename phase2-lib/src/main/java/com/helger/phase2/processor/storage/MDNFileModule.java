@@ -89,8 +89,8 @@ public class MDNFileModule extends AbstractStorageModule
   }
 
   @Override
-  protected String getFilename (@NonNull final IMessage aMsg, @Nullable final String sFileParam)
-                                                                                                 throws AS2InvalidParameterException
+  protected String getFilename (@NonNull final IMessage aMsg,
+                                @Nullable final String sFileParam) throws AS2InvalidParameterException
   {
     final IMessageMDN aMDN = aMsg.getMDN ();
     final CompositeParameters aCompParams = new CompositeParameters (false).add ("date", new DateParameters ())

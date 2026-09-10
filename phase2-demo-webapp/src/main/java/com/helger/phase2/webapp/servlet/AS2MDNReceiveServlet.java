@@ -24,9 +24,8 @@ import com.helger.xservlet.AbstractXServlet;
 import jakarta.servlet.ServletException;
 
 /**
- * This is the main servlet that takes async AS2 MDN messages and processes
- * them. This servlet is configured to accept only POST requests. The logic for
- * receiving is contained in
+ * This is the main servlet that takes async AS2 MDN messages and processes them. This servlet is
+ * configured to accept only POST requests. The logic for receiving is contained in
  * {@link AS2MDNReceiveXServletHandlerConstantSession}.
  *
  * @author Philip Helger

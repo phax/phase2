@@ -35,20 +35,20 @@ import jakarta.activation.DataSource;
 import jakarta.servlet.ServletException;
 
 /**
- * This is the main XServlet handler that takes AS2 messages and processes them.
- * This class contains a lot of methods that may be overridden. In v4.6.4 the
- * abstract base class {@link AbstractAS2ReceiveBaseXServletHandler} was
- * extracted to contain the common parts for async MDNs.<br>
- * It expects a module of class {@link AS2ServletReceiverModule} to be
- * registered in the messages processor of the created session.
+ * This is the main XServlet handler that takes AS2 messages and processes them. This class contains
+ * a lot of methods that may be overridden. In v4.6.4 the abstract base class
+ * {@link AbstractAS2ReceiveBaseXServletHandler} was extracted to contain the common parts for async
+ * MDNs.<br>
+ * It expects a module of class {@link AS2ServletReceiverModule} to be registered in the messages
+ * processor of the created session.
  *
  * @author Philip Helger
  */
 public abstract class AbstractAS2ReceiveXServletHandler extends AbstractAS2ReceiveBaseXServletHandler
 {
   /**
-   * The name of the Servlet's init-parameter from which the absolute path to
-   * the configuration file is read.
+   * The name of the Servlet's init-parameter from which the absolute path to the configuration file
+   * is read.
    */
   public static final String SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME = "as2-servlet-config-filename";
 
@@ -78,8 +78,7 @@ public abstract class AbstractAS2ReceiveXServletHandler extends AbstractAS2Recei
   }
 
   /**
-   * @return The AS2 receiver module that was created in initialization. Never
-   *         <code>null</code>.
+   * @return The AS2 receiver module that was created in initialization. Never <code>null</code>.
    * @throws IllegalStateException
    *         In case initialization failed
    */

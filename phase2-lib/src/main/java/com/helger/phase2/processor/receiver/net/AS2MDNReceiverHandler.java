@@ -272,8 +272,8 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
    * @since 4.10.2
    */
   @OverrideOnDemand
-  protected ESuccess deletePendingFile (@NonNull final AS2Message aMsg, @NonNull final String sPendingFilename)
-                                                                                                                throws AS2Exception
+  protected ESuccess deletePendingFile (@NonNull final AS2Message aMsg,
+                                        @NonNull final String sPendingFilename) throws AS2Exception
   {
     final File aPendingFile = new File (sPendingFilename);
     LOGGER.info ("Delete pending file '" + aPendingFile.getAbsolutePath () + "'" + aMsg.getLoggingText ());
