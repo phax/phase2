@@ -360,7 +360,7 @@ public class DispositionOptions
   public static DispositionOptions createFromString (@Nullable final String sOptions) throws AS2Exception
   {
     final DispositionOptions ret = new DispositionOptions ();
-    if (StringHelper.isNotEmptyAfterTrim (sOptions))
+    if (StringHelper.isBlank (sOptions))
     {
       try
       {
