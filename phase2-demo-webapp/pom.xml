@@ -36,6 +36,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <properties>
+    <!-- Don't publish this demo module to Maven Central -->
+    <skipPublishing>true</skipPublishing>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>com.helger.phase2</groupId>
