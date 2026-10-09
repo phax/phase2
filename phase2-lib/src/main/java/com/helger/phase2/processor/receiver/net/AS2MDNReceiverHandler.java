@@ -51,7 +51,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.io.stream.StreamHelper.CopyByteStreamBuilder;
 import com.helger.base.state.ESuccess;
 import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
@@ -485,16 +484,18 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
     {
       final InputStream aIS = aHttpClient.getInputStream ();
 
-      final CopyByteStreamBuilder aBuilder = StreamHelper.copyByteStream ()
-                                                         .from (aIS)
-                                                         .closeFrom (true)
-                                                         .to (aMDNStream)
-                                                         .closeTo (false);
-      // Retrieve the message content
+      // Retrieve the whole message content
+      // The Content-Length header is not used as a copy limit, because it may not match the
+      // bytes delivered by the HTTP client (e.g. Content-Encoding). Validate only.
+      StreamHelper.copyByteStream ().from (aIS).closeFrom (true).to (aMDNStream).closeTo (false).build ();
+
       final long nContentLength = StringParser.parseLong (aMDN.getHeader (CHttpHeader.CONTENT_LENGTH), -1);
-      if (nContentLength >= 0)
-        aBuilder.limit (nContentLength);
-      aBuilder.build ();
+      if (nContentLength >= 0 && nContentLength != aMDNStream.size ())
+        LOGGER.warn ("The Content-Length header of the MDN (" +
+                     nContentLength +
+                     ") does not match the number of bytes read (" +
+                     aMDNStream.size () +
+                     ")");
 
       aMDNBytes = aMDNStream.toByteArray ();
     }
