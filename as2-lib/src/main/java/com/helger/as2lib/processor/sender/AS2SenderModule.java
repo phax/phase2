@@ -756,8 +756,18 @@ public class AS2SenderModule extends AbstractHttpSenderModule
                   .closeFrom (true)
                   .to (aMDNStream)
                   .closeTo (true)
-                  .limit (StringParser.parseLong (aMDN.getHeader (CHttpHeader.CONTENT_LENGTH), -1))
                   .build ();
+
+      // The Content-Length header is not used as a copy limit, because it may not match the
+      // bytes delivered by the HTTP client (e.g. Content-Encoding). Validate only.
+      final long nContentLength = StringParser.parseLong (aMDN.getHeader (CHttpHeader.CONTENT_LENGTH), -1);
+      if (nContentLength >= 0 && nContentLength != aMDNStream.size ())
+        LOGGER.warn ("The Content-Length header of the synchronous MDN (" +
+                     nContentLength +
+                     ") does not match the number of bytes read (" +
+                     aMDNStream.size () +
+                     ")" +
+                     aMsg.getLoggingText ());
 
       // Dump collected message
       if (aIncomingDumper != null)
