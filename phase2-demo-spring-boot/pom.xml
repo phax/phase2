@@ -43,7 +43,7 @@
   <properties>
     <!-- Don't publish this demo module to Maven Central -->
     <skipPublishing>true</skipPublishing>
-    <spring-boot.version>4.1.1</spring-boot.version>
+    <spring-boot.version>4.1.2</spring-boot.version>
   </properties>
 
   <dependencies>
