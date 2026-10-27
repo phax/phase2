@@ -46,6 +46,7 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.lang.clazz.FactoryNewInstance;
+import com.helger.base.string.StringHelper;
 import com.helger.base.timing.StopWatch;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
@@ -415,6 +416,12 @@ public class AS2Client
       initCertificateFactory (aSettings, aSession);
       initPartnershipFactory (aSession);
       initMessageProcessor (aSession);
+
+      // Folders for asynchronous MDNs
+      if (StringHelper.isNotEmpty (aSettings.getPendingMDNFolder ()))
+        aSession.getMessageProcessor ().setPendingMDNFolder (aSettings.getPendingMDNFolder ());
+      if (StringHelper.isNotEmpty (aSettings.getPendingMDNInfoFolder ()))
+        aSession.getMessageProcessor ().setPendingMDNInfoFolder (aSettings.getPendingMDNInfoFolder ());
 
       if (bHasRetries)
       {

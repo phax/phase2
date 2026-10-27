@@ -122,6 +122,8 @@ public class AS2ClientSettings
   private boolean m_bMDNRequested = DEFAULT_IS_MDN_REQUESTED;
   private String m_sMDNOptions = DEFAULT_MDN_OPTIONS;
   private String m_sAsyncMDNUrl;
+  private String m_sPendingMDNFolder;
+  private String m_sPendingMDNInfoFolder;
   private String m_sMessageIDFormat = DEFAULT_MESSAGE_ID_FORMAT;
 
   private int m_nRetryCount = DEFAULT_RETRY_COUNT;
@@ -645,6 +647,65 @@ public class AS2ClientSettings
   public final AS2ClientSettings setAsyncMDNUrl (@Nullable final String sAsyncMDNUrl)
   {
     m_sAsyncMDNUrl = sAsyncMDNUrl;
+    return this;
+  }
+
+  /**
+   * @return The folder in which a copy of each message waiting for an asynchronous MDN is stored.
+   *         May be <code>null</code>.
+   * @since 6.3.0
+   * @see #setPendingMDNFolder(String)
+   */
+  @Nullable
+  public final String getPendingMDNFolder ()
+  {
+    return m_sPendingMDNFolder;
+  }
+
+  /**
+   * Set the folder in which a copy of each message waiting for an asynchronous MDN is stored. This
+   * is only relevant if an asynchronous MDN is requested.
+   *
+   * @param sPendingMDNFolder
+   *        The folder to use. May be <code>null</code>.
+   * @return this for chaining
+   * @since 6.3.0
+   * @see #setAsyncMDNUrl(String)
+   */
+  @NonNull
+  public final AS2ClientSettings setPendingMDNFolder (@Nullable final String sPendingMDNFolder)
+  {
+    m_sPendingMDNFolder = sPendingMDNFolder;
+    return this;
+  }
+
+  /**
+   * @return The folder in which the information (original MIC and the pending file name) of each
+   *         message waiting for an asynchronous MDN is stored. May be <code>null</code>.
+   * @since 6.3.0
+   * @see #setPendingMDNInfoFolder(String)
+   */
+  @Nullable
+  public final String getPendingMDNInfoFolder ()
+  {
+    return m_sPendingMDNInfoFolder;
+  }
+
+  /**
+   * Set the folder in which the information (original MIC and the pending file name) of each
+   * message waiting for an asynchronous MDN is stored. This is only relevant if an asynchronous MDN
+   * is requested. The receiver of the asynchronous MDN must use the same folder to verify the MIC.
+   *
+   * @param sPendingMDNInfoFolder
+   *        The folder to use. May be <code>null</code>.
+   * @return this for chaining
+   * @since 6.3.0
+   * @see #setAsyncMDNUrl(String)
+   */
+  @NonNull
+  public final AS2ClientSettings setPendingMDNInfoFolder (@Nullable final String sPendingMDNInfoFolder)
+  {
+    m_sPendingMDNInfoFolder = sPendingMDNInfoFolder;
     return this;
   }
 

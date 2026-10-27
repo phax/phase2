@@ -215,12 +215,12 @@ public abstract class AbstractDirectoryPollingModule extends AbstractActivePolli
        */
       if (CFileAttribute.MA_STATUS_PENDING.equals (aMsg.attrs ().getAsString (CFileAttribute.MA_STATUS)))
       {
-        // Copy the file to the pending folder
-        final String sFolderName = AS2IOHelper.getSafeFileAndFolderName (aMsg.partnership ()
-                                                                             .getAttribute (CFileAttribute.MA_STATUS_PENDING));
-        final String sFilename = FilenameHelper.getAsSecureValidASCIIFilename (aMsg.attrs ()
-                                                                                   .getAsString (CFileAttribute.MA_PENDING_FILENAME));
-        final File aPendingFile = new File (sFolderName, sFilename);
+        // Copy the file to the pending file name that was stored in the pending info file by the
+        // sender module (located in the "pending MDN" folder of the message processor)
+        final File aPendingFile = new File (aMsg.attrs ().getAsString (CFileAttribute.MA_PENDING_FILENAME));
+        final File aPendingFolder = aPendingFile.getParentFile ();
+        if (aPendingFolder != null)
+          AS2IOHelper.getFileOperationManager ().createDirRecursiveIfNotExisting (aPendingFolder);
         final FileIOError aIOErr = AS2IOHelper.getFileOperationManager ().copyFile (aFile, aPendingFile);
         if (aIOErr.isFailure ())
           throw new AS2Exception ("File was successfully sent but not copied to pending folder: " +

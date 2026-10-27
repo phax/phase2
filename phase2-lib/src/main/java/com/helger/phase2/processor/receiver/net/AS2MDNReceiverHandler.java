@@ -275,6 +275,14 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
                                         @NonNull final String sPendingFilename) throws AS2Exception
   {
     final File aPendingFile = new File (sPendingFilename);
+    if (!aPendingFile.exists ())
+    {
+      // The pending file is only created when sending from a directory (e.g. not when sending with
+      // the AS2Client)
+      LOGGER.info ("No pending file '" + aPendingFile.getAbsolutePath () + "' to delete" + aMsg.getLoggingText ());
+      return ESuccess.SUCCESS;
+    }
+
     LOGGER.info ("Delete pending file '" + aPendingFile.getAbsolutePath () + "'" + aMsg.getLoggingText ());
 
     if (!aPendingFile.delete ())
@@ -348,7 +356,8 @@ public class AS2MDNReceiverHandler extends AbstractReceiverHandler
       // delete the pending info & pending file if MIC is matched
       deletePendingInfoStream (aMsg);
 
-      deletePendingFile (aMsg, sPendingFilename);
+      if (StringHelper.isNotEmpty (sPendingFilename))
+        deletePendingFile (aMsg, sPendingFilename);
     }
     catch (final IOException | AS2ComponentNotFoundException ex)
     {
