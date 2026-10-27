@@ -33,6 +33,7 @@
 package com.helger.phase2.partner;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Map;
 
 import org.jspecify.annotations.NonNull;
@@ -43,7 +44,11 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.ETriState;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.mail.cte.EContentTransferEncoding;
 import com.helger.phase2.crypto.ECompressionType;
 import com.helger.phase2.crypto.ECryptoAlgorithmCrypt;
@@ -932,6 +937,44 @@ public class Partnership implements Serializable
   public EChange setRemoveCmsAlgorithmProtect (final boolean bValue)
   {
     return setAttribute (CPartnershipIDs.PA_REMOVE_CMS_ALOGIRTHM_PROTECT, Boolean.toString (bValue));
+  }
+
+  /**
+   * @return The additional key aliases that are tried in order to decrypt a received message, if
+   *         decryption with the receiver X509 alias fails. Never <code>null</code> but maybe empty.
+   * @since 6.3.0
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <String> getAllAdditionalDecryptX509Aliases ()
+  {
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final String sAliases = getAttribute (CPartnershipIDs.PA_ADDITIONAL_DECRYPT_X509_ALIASES);
+    if (StringHelper.isNotEmpty (sAliases))
+      for (final String sAlias : StringHelper.getExploded (',', sAliases))
+      {
+        final String sRealAlias = sAlias.trim ();
+        if (!sRealAlias.isEmpty ())
+          ret.add (sRealAlias);
+      }
+    return ret;
+  }
+
+  /**
+   * Set the additional key aliases that are tried in order to decrypt a received message, if
+   * decryption with the receiver X509 alias fails. This allows e.g. a certificate rollover, during
+   * which partners may still encrypt with the old certificate.
+   *
+   * @param aAliases
+   *        The aliases to try, in order. May be <code>null</code> to remove them.
+   * @return {@link EChange}.
+   * @since 6.3.0
+   */
+  @NonNull
+  public EChange setAdditionalDecryptX509Aliases (@Nullable final Collection <String> aAliases)
+  {
+    return setAttribute (CPartnershipIDs.PA_ADDITIONAL_DECRYPT_X509_ALIASES,
+                         aAliases == null ? null : StringImplode.getImploded (',', aAliases));
   }
 
   /**

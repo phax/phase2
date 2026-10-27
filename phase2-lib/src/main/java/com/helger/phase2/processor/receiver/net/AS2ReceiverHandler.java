@@ -59,11 +59,13 @@ import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
 import com.helger.base.timing.StopWatch;
 import com.helger.base.wrapper.Wrapper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.http.CHttp;
 import com.helger.http.CHttpHeader;
 import com.helger.http.header.HttpHeaderMap;
 import com.helger.mail.datasource.ByteArrayDataSource;
 import com.helger.phase2.cert.ECertificatePartnershipType;
+import com.helger.phase2.cert.IAliasedCertificateFactory;
 import com.helger.phase2.cert.ICertificateFactory;
 import com.helger.phase2.crypto.ICryptoHelper;
 import com.helger.phase2.crypto.MIC;
@@ -206,6 +208,56 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
     return aMsg;
   }
 
+  /**
+   * Try to decrypt the message with the additional decryption key aliases of the partnership, after
+   * decryption with the receiver X509 alias failed.
+   *
+   * @return The decrypted data. Never <code>null</code>.
+   * @throws Exception
+   *         The original exception, if no additional alias can decrypt the message. The failures of
+   *         the additional aliases are added as suppressed exceptions.
+   */
+  @NonNull
+  private static MimeBodyPart _decryptWithAdditionalAliases (@NonNull final IMessage aMsg,
+                                                             @NonNull final ICertificateFactory aCertFactory,
+                                                             final boolean bForceDecrypt,
+                                                             @NonNull final AS2ResourceHelper aResHelper,
+                                                             @NonNull final Exception aOriginalEx) throws Exception
+  {
+    final ICommonsList <String> aAliases = aMsg.partnership ().getAllAdditionalDecryptX509Aliases ();
+    if (aAliases.isEmpty ())
+      throw aOriginalEx;
+
+    if (!(aCertFactory instanceof IAliasedCertificateFactory))
+    {
+      LOGGER.warn ("Ignoring the additional decryption key aliases, because the certificate factory does not support aliases" +
+                   aMsg.getLoggingText ());
+      throw aOriginalEx;
+    }
+
+    final IAliasedCertificateFactory aAliasedCertFactory = (IAliasedCertificateFactory) aCertFactory;
+    final ICryptoHelper aCryptoHelper = AS2Helper.getCryptoHelper ();
+    for (final String sAlias : aAliases)
+    {
+      try
+      {
+        final X509Certificate aCert = aAliasedCertFactory.getCertificate (sAlias);
+        final PrivateKey aKey = aCertFactory.getPrivateKey (aCert);
+        final MimeBodyPart ret = aCryptoHelper.decrypt (aMsg.getData (), aCert, aKey, bForceDecrypt, aResHelper);
+        LOGGER.info ("Decrypted incoming AS2 message using additional key alias '" +
+                     sAlias +
+                     "'" +
+                     aMsg.getLoggingText ());
+        return ret;
+      }
+      catch (final Exception ex)
+      {
+        aOriginalEx.addSuppressed (ex);
+      }
+    }
+    throw aOriginalEx;
+  }
+
   protected void decrypt (@NonNull final IMessage aMsg, @NonNull final AS2ResourceHelper aResHelper) throws AS2Exception
   {
     final ICertificateFactory aCertFactory = m_aReceiverModule.getSession ().getCertificateFactory ();
@@ -235,11 +287,19 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
           final X509Certificate aReceiverCert = aCertFactory.getCertificate (aMsg,
                                                                              ECertificatePartnershipType.RECEIVER);
           final PrivateKey aReceiverKey = aCertFactory.getPrivateKey (aReceiverCert);
-          final MimeBodyPart aDecryptedData = aCryptoHelper.decrypt (aMsg.getData (),
-                                                                     aReceiverCert,
-                                                                     aReceiverKey,
-                                                                     bForceDecrypt,
-                                                                     aResHelper);
+          MimeBodyPart aDecryptedData;
+          try
+          {
+            aDecryptedData = aCryptoHelper.decrypt (aMsg.getData (),
+                                                    aReceiverCert,
+                                                    aReceiverKey,
+                                                    bForceDecrypt,
+                                                    aResHelper);
+          }
+          catch (final Exception ex)
+          {
+            aDecryptedData = _decryptWithAdditionalAliases (aMsg, aCertFactory, bForceDecrypt, aResHelper, ex);
+          }
           aMsg.setData (aDecryptedData);
           // Remember that message was encrypted
           aMsg.attrs ().putIn (AS2Message.ATTRIBUTE_RECEIVED_ENCRYPTED, true);
