@@ -220,6 +220,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
   @NonNull
   private static MimeBodyPart _decryptWithAdditionalAliases (@NonNull final IMessage aMsg,
                                                              @NonNull final ICertificateFactory aCertFactory,
+                                                             @NonNull final ICryptoHelper aCryptoHelper,
                                                              final boolean bForceDecrypt,
                                                              @NonNull final AS2ResourceHelper aResHelper,
                                                              @NonNull final Exception aOriginalEx) throws Exception
@@ -228,15 +229,13 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
     if (aAliases.isEmpty ())
       throw aOriginalEx;
 
-    if (!(aCertFactory instanceof IAliasedCertificateFactory))
+    if (!(aCertFactory instanceof final IAliasedCertificateFactory aAliasedCertFactory))
     {
       LOGGER.warn ("Ignoring the additional decryption key aliases, because the certificate factory does not support aliases" +
                    aMsg.getLoggingText ());
       throw aOriginalEx;
     }
 
-    final IAliasedCertificateFactory aAliasedCertFactory = (IAliasedCertificateFactory) aCertFactory;
-    final ICryptoHelper aCryptoHelper = AS2Helper.getCryptoHelper ();
     for (final String sAlias : aAliases)
     {
       try
@@ -244,10 +243,7 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
         final X509Certificate aCert = aAliasedCertFactory.getCertificate (sAlias);
         final PrivateKey aKey = aCertFactory.getPrivateKey (aCert);
         final MimeBodyPart ret = aCryptoHelper.decrypt (aMsg.getData (), aCert, aKey, bForceDecrypt, aResHelper);
-        LOGGER.info ("Decrypted incoming AS2 message using additional key alias '" +
-                     sAlias +
-                     "'" +
-                     aMsg.getLoggingText ());
+        LOGGER.info ("Decrypted incoming AS2 message using additional key alias '" + sAlias + "'" + aMsg.getLoggingText ());
         return ret;
       }
       catch (final Exception ex)
@@ -298,7 +294,12 @@ public class AS2ReceiverHandler extends AbstractReceiverHandler
           }
           catch (final Exception ex)
           {
-            aDecryptedData = _decryptWithAdditionalAliases (aMsg, aCertFactory, bForceDecrypt, aResHelper, ex);
+            aDecryptedData = _decryptWithAdditionalAliases (aMsg,
+                                                            aCertFactory,
+                                                            aCryptoHelper,
+                                                            bForceDecrypt,
+                                                            aResHelper,
+                                                            ex);
           }
           aMsg.setData (aDecryptedData);
           // Remember that message was encrypted
