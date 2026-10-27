@@ -200,6 +200,15 @@ public final class CPartnershipIDs
    */
   public static final String PA_REMOVE_CMS_ALOGIRTHM_PROTECT = "remove_cms_algorithm_protect_attr";
 
+  /**
+   * Optional comma separated list of additional key aliases that are tried in order to decrypt a
+   * received message, if decryption with the receiver X509 alias fails. This allows e.g. a
+   * certificate rollover, during which partners may still encrypt with the old certificate.
+   *
+   * @since 6.3.0
+   */
+  public static final String PA_ADDITIONAL_DECRYPT_X509_ALIASES = "additional_decrypt_x509_aliases";
+
   private CPartnershipIDs ()
   {}
 }
