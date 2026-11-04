@@ -202,7 +202,35 @@ public enum ECryptoAlgorithmSign implements ICryptoAlgorithm
   RSASSA_PSS_WITH_SHA3_512 ("rsassa-pss-sha3-512",
                             "sha3-512",
                             NISTObjectIdentifiers.id_sha3_512,
-                            "SHA3-512WITHRSAANDMGF1");
+                            "SHA3-512WITHRSAANDMGF1"),
+
+  /**
+   * ECDSA with digest algorithm SHA224. Requires an EC key.
+   *
+   * @since 5.1.10
+   */
+  ECDSA_SHA_224 ("ecdsa-sha-224", "sha-224", NISTObjectIdentifiers.id_sha224, "SHA224WITHECDSA"),
+
+  /**
+   * ECDSA with digest algorithm SHA256. Requires an EC key.
+   *
+   * @since 5.1.10
+   */
+  ECDSA_SHA_256 ("ecdsa-sha-256", "sha-256", NISTObjectIdentifiers.id_sha256, "SHA256WITHECDSA"),
+
+  /**
+   * ECDSA with digest algorithm SHA384. Requires an EC key.
+   *
+   * @since 5.1.10
+   */
+  ECDSA_SHA_384 ("ecdsa-sha-384", "sha-384", NISTObjectIdentifiers.id_sha384, "SHA384WITHECDSA"),
+
+  /**
+   * ECDSA with digest algorithm SHA512. Requires an EC key.
+   *
+   * @since 5.1.10
+   */
+  ECDSA_SHA_512 ("ecdsa-sha-512", "sha-512", NISTObjectIdentifiers.id_sha512, "SHA512WITHECDSA");
 
   public static final ECryptoAlgorithmSign DEFAULT_RFC_3851 = DIGEST_SHA1;
   public static final ECryptoAlgorithmSign DEFAULT_RFC_5751 = DIGEST_SHA_256;

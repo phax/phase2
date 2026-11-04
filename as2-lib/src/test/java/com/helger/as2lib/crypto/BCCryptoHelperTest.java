@@ -37,12 +37,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.security.spec.ECGenParameterSpec;
+import java.util.Date;
+
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -113,6 +123,10 @@ public final class BCCryptoHelperTest
       for (int nIncludeCert = 0; nIncludeCert < 2; ++nIncludeCert)
         for (final ECryptoAlgorithmSign eAlgo : ECryptoAlgorithmSign.values ())
         {
+          // ECDSA requires an EC key - see testSignWithECDSA
+          if (eAlgo.name ().startsWith ("ECDSA_"))
+            continue;
+
           LOGGER.info ("Trying signing algo " + eAlgo);
 
           final boolean bIncludeCert = nIncludeCert == 1;
@@ -147,6 +161,50 @@ public final class BCCryptoHelperTest
           // Verify as well
           LOGGER.info ("  Now verifying result of signing algo " + eAlgo);
           aCryptoHelper.verify (aSigned, (X509Certificate) PKE.getCertificate (), bIncludeCert, true, null, aResHelper);
+        }
+    }
+  }
+
+  @Test
+  public void testSignWithECDSA () throws Exception
+  {
+    final MimeBodyPart aPart = new MimeBodyPart ();
+    aPart.setText ("Hello world");
+
+    final KeyPairGenerator aKPG = KeyPairGenerator.getInstance ("EC");
+    aKPG.initialize (new ECGenParameterSpec ("secp256r1"));
+    final KeyPair aKeyPair = aKPG.generateKeyPair ();
+
+    final X500Name aSubject = new X500Name ("CN=ecdsa-test");
+    final Date aNow = new Date ();
+    final X509Certificate aCert = new JcaX509CertificateConverter ().getCertificate (new JcaX509v3CertificateBuilder (aSubject,
+                                                                                                                       BigInteger.ONE,
+                                                                                                                       new Date (aNow.getTime () -
+                                                                                                                                 60000),
+                                                                                                                       new Date (aNow.getTime () +
+                                                                                                                                 3600000),
+                                                                                                                       aSubject,
+                                                                                                                       aKeyPair.getPublic ()).build (new JcaContentSignerBuilder ("SHA256WITHECDSA").build (aKeyPair.getPrivate ())));
+
+    try (AS2ResourceHelper aResHelper = new AS2ResourceHelper ())
+    {
+      final ICryptoHelper aCryptoHelper = AS2Helper.getCryptoHelper ();
+      for (final ECryptoAlgorithmSign eAlgo : ECryptoAlgorithmSign.values ())
+        if (eAlgo.name ().startsWith ("ECDSA_"))
+        {
+          LOGGER.info ("Trying signing algo " + eAlgo);
+          final MimeBodyPart aSigned = aCryptoHelper.sign (aPart,
+                                                           aCert,
+                                                           aKeyPair.getPrivate (),
+                                                           eAlgo,
+                                                           true,
+                                                           false,
+                                                           false,
+                                                           EContentTransferEncoding.BASE64);
+          assertNotNull (aSigned);
+          assertTrue (aSigned.getContentType ().contains ("micalg=" + eAlgo.getMICAlgorithmID ()));
+
+          aCryptoHelper.verify (aSigned, aCert, true, true, null, aResHelper);
         }
     }
   }
