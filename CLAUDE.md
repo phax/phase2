@@ -30,6 +30,7 @@ Java 17+ required. Uses Maven multi-module build with parent POM `com.helger:par
 ## Module Architecture
 
 ```
+phase2-bom          Bill of Materials (dependencyManagement for phase2-lib, -servlet, -partnership-mongodb)
 phase2-lib          Core library: crypto, message model, processors, partnerships, client
 phase2-servlet      Servlet integration (AS2ReceiveServlet, MDN servlet)
 phase2-server       Standalone socket-based AS2 server with command system
