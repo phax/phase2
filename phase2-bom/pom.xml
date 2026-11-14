@@ -27,7 +27,7 @@
   </parent>
   <groupId>com.helger.phase2</groupId>
   <artifactId>phase2-bom</artifactId>
-  <version>6.3.2-SNAPSHOT</version>
+  <version>6.3.2</version>
   <packaging>pom</packaging>
   <name>phase2-bom</name>
   <description>Bill of Materials for all phase2 artifacts</description>
@@ -49,7 +49,7 @@
     <connection>scm:git:https://github.com/phax/phase2.git</connection>
     <developerConnection>scm:git:https://github.com/phax/phase2.git</developerConnection>
     <url>https://github.com/phax/phase2</url>
-    <tag>HEAD</tag>
+    <tag>phase2-parent-pom-6.3.2</tag>
   </scm>
   <organization>
     <name>Philip Helger</name>
