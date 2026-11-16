@@ -45,12 +45,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <scm>
-    <connection>scm:git:https://github.com/phax/phase2.git</connection>
-    <developerConnection>scm:git:https://github.com/phax/phase2.git</developerConnection>
-    <url>https://github.com/phax/phase2</url>
-    <tag>HEAD</tag>
-  </scm>
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
